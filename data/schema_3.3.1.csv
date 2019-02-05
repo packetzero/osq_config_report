@@ -1,0 +1,2669 @@
+
+------------------------------
+TABLE,account_policy_data
+   ,INT64,uid,,"User ID"
+   ,DOUBLE,creation_time,,"When the account was first created"
+   ,INT64,failed_login_count,,"The number of times the user failed to login with the correct password. Resets after a correct password is entered"
+   ,DOUBLE,failed_login_timestamp,,"The time of the last failed login attempt. Resets after a correct password is entered"
+   ,DOUBLE,password_last_set_time,,"The time the password was last changed"
+TATTR,
+------------------------------
+TABLE,acpi_tables
+   ,STRING,name,,"ACPI table name"
+   ,INT,size,,"Size of compiled table data"
+   ,STRING,md5,,"MD5 hash of table content"
+TATTR,
+------------------------------
+TABLE,ad_config
+   ,STRING,name,,"The OS X-specific configuration name"
+   ,STRING,domain,,"Active Directory trust domain"
+   ,STRING,option,,"Canonical name of option"
+   ,STRING,value,,"Variable typed option value"
+TATTR,
+------------------------------
+TABLE,alf
+   ,INT,allow_signed_enabled,,"1 If allow signed mode is enabled else 0"
+   ,INT,firewall_unload,,"1 If firewall unloading enabled else 0"
+   ,INT,global_state,,"1 If the firewall is enabled with exceptions, 2 if the firewall is configured to block all incoming connections, else 0"
+   ,INT,logging_enabled,,"1 If logging mode is enabled else 0"
+   ,INT,logging_option,,"Firewall logging option"
+   ,INT,stealth_enabled,,"1 If stealth mode is enabled else 0"
+   ,STRING,version,,"Application Layer Firewall version"
+TATTR,
+------------------------------
+TABLE,alf_exceptions
+   ,STRING,path,,"Path to the executable that is excepted"
+   ,INT,state,,"Firewall exception state"
+TATTR,
+------------------------------
+TABLE,alf_explicit_auths
+   ,STRING,process,,"Process name explicitly allowed"
+TATTR,
+------------------------------
+TABLE,alf_services
+   ,STRING,service,,"Firewalled service name"
+   ,STRING,process,,"Process name"
+   ,INT,state,,"Firewall service state"
+TATTR,
+------------------------------
+TABLE,app_schemes
+   ,STRING,scheme,,"Name of the scheme/protocol"
+   ,STRING,handler,,"Application label for the handler"
+   ,INT,enabled,,"1 if this handler is the OS default, else 0"
+   ,INT,external,,"1 if this handler does NOT exist on OS X by default, else 0"
+   ,INT,protected,,"1 if this handler is protected (reserved) by OS X, else 0"
+TATTR,
+------------------------------
+TABLE,appcompat_shims
+   ,STRING,executable,,"Name of the executable that is being shimmed. This is pulled from the registry."
+   ,STRING,path,,"This is the path to the SDB database."
+   ,STRING,description,,"Description of the SDB."
+   ,INT,install_time,,"Install time of the SDB"
+   ,STRING,type,,"Type of the SDB database."
+   ,STRING,sdb_id,,"Unique GUID of the SDB."
+TATTR,
+------------------------------
+TABLE,apps
+   ,STRING,name,,"Name of the Name.app folder"
+   ,STRING,path,,"Absolute and full Name.app path"
+   ,STRING,bundle_executable,,"Info properties CFBundleExecutable label"
+   ,STRING,bundle_identifier,,"Info properties CFBundleIdentifier label"
+   ,STRING,bundle_name,,"Info properties CFBundleName label"
+   ,STRING,bundle_short_version,,"Info properties CFBundleShortVersionString label"
+   ,STRING,bundle_version,,"Info properties CFBundleVersion label"
+   ,STRING,bundle_package_type,,"Info properties CFBundlePackageType label"
+   ,STRING,environment,,"Application-set environment variables"
+   ,STRING,element,,"Does the app identify as a background agent"
+   ,STRING,compiler,,"Info properties DTCompiler label"
+   ,STRING,development_region,,"Info properties CFBundleDevelopmentRegion label"
+   ,STRING,display_name,,"Info properties CFBundleDisplayName label"
+   ,STRING,info_string,,"Info properties CFBundleGetInfoString label"
+   ,STRING,minimum_system_version,,"Minimum version of OS X required for the app to run"
+   ,STRING,category,,"The UTI that categorizes the app for the App Store"
+   ,STRING,applescript_enabled,,"Info properties NSAppleScriptEnabled label"
+   ,STRING,copyright,,"Info properties NSHumanReadableCopyright label"
+   ,DOUBLE,last_opened_time,,"The time that the app was last used"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,apt_sources
+   ,STRING,name,,"Repository name"
+   ,STRING,source,,"Source file"
+   ,STRING,base_uri,,"Repository base URI"
+   ,STRING,release,,"Release name"
+   ,STRING,version,,"Repository source version"
+   ,STRING,maintainer,,"Repository maintainer"
+   ,STRING,components,,"Repository components"
+   ,STRING,architectures,,"Repository architectures"
+TATTR,
+------------------------------
+TABLE,arp_cache
+   ,STRING,address,,"IPv4 address target"
+   ,STRING,mac,,"MAC address of broadcasted address"
+   ,STRING,interface,,"Interface of the network for the MAC"
+   ,STRING,permanent,,"1 for true, 0 for false"
+TATTR,
+------------------------------
+TABLE,asl
+   ,INT,time,,"Unix timestamp.  Set automatically"
+   ,INT,time_nano_sec,,"Nanosecond time."
+   ,STRING,host,,"Sender's address (set by the server)."
+   ,STRING,sender,,"Sender's identification string.  Default is process name."
+   ,STRING,facility,,"Sender's facility.  Default is 'user'."
+   ,INT,pid,,"Sending process ID encoded as a string.  Set automatically."
+   ,INT64,gid,,"GID that sent the log message (set by the server)."
+   ,INT64,uid,,"UID that sent the log message (set by the server)."
+   ,INT,level,,"Log level number.  See levels in asl.h."
+   ,STRING,message,,"Message text."
+   ,INT,ref_pid,,"Reference PID for messages proxied by launchd"
+   ,STRING,ref_proc,,"Reference process for messages proxied by launchd"
+   ,STRING,extra,,"Extra columns, in JSON format. Queries against this column are performed entirely in SQLite, so do not benefit from efficient querying via asl.h."
+TATTR,
+------------------------------
+TABLE,augeas
+TALIAS,configurations
+   ,STRING,node,INDEX,"The node path of the configuration item"
+   ,STRING,value,,"The value of the configuration item"
+   ,STRING,label,,"The label of the configuration item"
+   ,STRING,path,ADDITIONAL,"The path to the configuration file"
+TATTR,
+------------------------------
+TABLE,authenticode
+   ,STRING,path,REQUIRED,"Must provide a path or directory"
+   ,STRING,original_program_name,,"The original program name that the publisher has signed"
+   ,STRING,serial_number,,"The certificate serial number"
+   ,STRING,issuer_name,,"The certificate issuer name"
+   ,STRING,subject_name,,"The certificate subject name"
+   ,STRING,result,,"The signature check result"
+TATTR,
+------------------------------
+TABLE,authorization_mechanisms
+   ,STRING,label,INDEX,"Label of the authorization right"
+   ,STRING,plugin,,"Authorization plugin name"
+   ,STRING,mechanism,,"Name of the mechanism that will be called"
+   ,STRING,privileged,,"If privileged it will run as root, else as an anonymous user"
+   ,STRING,entry,,"The whole string entry"
+TATTR,
+------------------------------
+TABLE,authorizations
+   ,STRING,label,INDEX,"Item name, usually in reverse domain format"
+   ,STRING,modified,,"Label top-level key"
+   ,STRING,allow_root,,"Label top-level key"
+   ,STRING,timeout,,"Label top-level key"
+   ,STRING,version,,"Label top-level key"
+   ,STRING,tries,,"Label top-level key"
+   ,STRING,authenticate_user,,"Label top-level key"
+   ,STRING,shared,,"Label top-level key"
+   ,STRING,comment,,"Label top-level key"
+   ,STRING,created,,"Label top-level key"
+   ,STRING,class,,"Label top-level key"
+   ,STRING,session_owner,,"Label top-level key"
+TATTR,
+------------------------------
+TABLE,authorized_keys
+   ,INT64,uid,ADDITIONAL,"The local owner of authorized_keys file"
+   ,STRING,algorithm,,"algorithim of key"
+   ,STRING,key,INDEX,"parsed authorized keys line"
+   ,STRING,key_file,INDEX,"Path to the authorized_keys file"
+TATTR,USER_BASED,
+------------------------------
+TABLE,autoexec
+   ,STRING,path,INDEX,"Path to the executable"
+   ,STRING,name,,"Name of the program"
+   ,STRING,source,,"Source table of the autoexec item"
+TATTR,
+------------------------------
+TABLE,battery
+   ,STRING,manufacturer,,"The battery manufacturer's name"
+   ,INT,manufacture_date,,"The date the battery was manufactured UNIX Epoch"
+   ,STRING,model,,"The battery's model number"
+   ,STRING,serial_number,,"The battery's unique serial number"
+   ,INT,cycle_count,,"The number of charge/discharge cycles"
+   ,STRING,health,,"One of the following: "Good" describes a well-performing battery, "Fair" describes a functional battery with limited capacity, or "Poor" describes a battery that's not capable of providing power"
+   ,STRING,condition,,"One of the following: "Normal" indicates the condition of the battery is within normal tolerances, "Service Needed" indicates that the battery should be checked out by a licensed Mac repair service, "Permanent Failure" indicates the battery needs replacement"
+   ,STRING,state,,"One of the following: "AC Power" indicates the battery is connected to an external power source, "Battery Power" indicates that the battery is drawing internal power, "Off Line" indicates the battery is off-line or no longer connected"
+   ,INT,charging,,"1 if the battery is currently being charged by a power source. 0 otherwise"
+   ,INT,charged,,"1 if the battery is currently completely charged. 0 otherwise"
+   ,INT,designed_capacity,,"The battery's designed capacity in mAh"
+   ,INT,max_capacity,,"The battery's actual capacity when it is fully charged in mAh"
+   ,INT,current_capacity,,"The battery's current charged capacity in mAh"
+   ,INT,percent_remaining,,"The percentage of battery remaining before it is drained"
+   ,INT,amperage,,"The battery's current amperage in mA"
+   ,INT,voltage,,"The battery's current voltage in mV"
+   ,INT,minutes_until_empty,,"The number of minutes until the battery is fully depleted. This value is -1 if this time is still being calculated"
+   ,INT,minutes_to_full_charge,,"The number of minutes until the battery is fully charged. This value is -1 if this time is still being calculated"
+TATTR,
+------------------------------
+TABLE,bitlocker_info
+   ,STRING,device_id,,"ID of the encrypted drive."
+   ,STRING,drive_letter,,"Drive letter of the encrypted drive."
+   ,STRING,persistent_volume_id,,"Persistent ID of the drive."
+   ,INT,conversion_status,,"The bitlocker conversion status of the drive."
+   ,INT,protection_status,,"The bitlocker protection status of the drive."
+   ,STRING,encryption_method,,"The encryption type of the device."
+TATTR,
+------------------------------
+TABLE,block_devices
+   ,STRING,name,,"Block device name"
+   ,STRING,parent,,"Block device parent name"
+   ,STRING,vendor,,"Block device vendor string"
+   ,STRING,model,,"Block device model string identifier"
+   ,INT64,size,,"Block device size in blocks"
+   ,INT,block_size,,"Block size in bytes"
+   ,STRING,uuid,,"Block device Universally Unique Identifier"
+   ,STRING,type,,"Block device type string"
+   ,STRING,label,,"Block device label string"
+TATTR,
+------------------------------
+TABLE,browser_plugins
+   ,INT64,uid,ADDITIONAL,"The local user that owns the plugin"
+   ,STRING,name,,"Plugin display name"
+   ,STRING,identifier,INDEX,"Plugin identifier"
+   ,STRING,version,,"Plugin short version"
+   ,STRING,sdk,,"Build SDK used to compile plugin"
+   ,STRING,description,,"Plugin description text"
+   ,STRING,development_region,,"Plugin language-localization"
+   ,INT,native,,"Plugin requires native execution"
+   ,STRING,path,,"Path to plugin bundle"
+   ,INT,disabled,,"Is the plugin disabled. 1 = Disabled"
+TATTR,USER_BASED,
+------------------------------
+TABLE,carbon_black_info
+TALIAS,cb_info
+   ,INT,sensor_id,,"Sensor ID of the Carbon Black sensor"
+   ,STRING,config_name,,"Sensor group"
+   ,INT,collect_store_files,,"If the sensor is configured to send back binaries to the Carbon Black server"
+   ,INT,collect_module_loads,,"If the sensor is configured to capture module loads"
+   ,INT,collect_module_info,,"If the sensor is configured to collect metadata of binaries"
+   ,INT,collect_file_mods,,"If the sensor is configured to collect file modification events"
+   ,INT,collect_reg_mods,,"If the sensor is configured to collect registry modification events"
+   ,INT,collect_net_conns,,"If the sensor is configured to collect network connections"
+   ,INT,collect_processes,,"If the sensor is configured to process events"
+   ,INT,collect_cross_processes,,"If the sensor is configured to cross process events"
+   ,INT,collect_emet_events,,"If the sensor is configured to EMET events"
+   ,INT,collect_data_file_writes,,"If the sensor is configured to collect non binary file writes"
+   ,INT,collect_process_user_context,,"If the sensor is configured to collect the user running a process"
+   ,INT,collect_sensor_operations,,"Unknown"
+   ,INT,log_file_disk_quota_mb,,"Event file disk quota in MB"
+   ,INT,log_file_disk_quota_percentage,,"Event file disk quota in a percentage"
+   ,INT,protection_disabled,,"If the sensor is configured to report tamper events"
+   ,STRING,sensor_ip_addr,,"IP address of the sensor"
+   ,STRING,sensor_backend_server,,"Carbon Black server"
+   ,INT,event_queue,,"Size in bytes of Carbon Black event files on disk"
+   ,INT,binary_queue,,"Size in bytes of binaries waiting to be sent to Carbon Black server"
+TATTR,
+------------------------------
+TABLE,carves
+   ,INT64,time,,"Time at which the carve was kicked off"
+   ,STRING,sha256,,"A SHA256 sum of the carved archive"
+   ,INT,size,,"Size of the carved archive"
+   ,STRING,path,,"The path of the requested carve"
+   ,STRING,status,,"Status of the carve, can be STARTING, PENDING, SUCCESS, or FAILED"
+   ,STRING,carve_guid,,"Identifying value of the carve session"
+   ,INT,carve,,"Set this value to '1' to start a file carve"
+TATTR,USER_BASED,
+------------------------------
+TABLE,certificates
+   ,STRING,common_name,,"Certificate CommonName"
+   ,STRING,subject,,"Certificate distinguished name"
+   ,STRING,issuer,,"Certificate issuer distinguished name"
+   ,INT,ca,,"1 if CA: true (certificate is an authority) else 0"
+   ,INT,self_signed,,"1 if self-signed, else 0"
+   ,STRING,not_valid_before,,"Lower bound of valid date"
+   ,STRING,not_valid_after,,"Certificate expiration data"
+   ,STRING,signing_algorithm,,"Signing algorithm used"
+   ,STRING,key_algorithm,,"Key algorithm used"
+   ,STRING,key_strength,,"Key size used for RSA/DSA, or curve name"
+   ,STRING,key_usage,,"Certificate key usage and extended key usage"
+   ,STRING,subject_key_id,,"SKID an optionally included SHA1"
+   ,STRING,authority_key_id,,"AKID an optionally included SHA1"
+   ,STRING,sha1,,"SHA1 hash of the raw certificate contents"
+   ,STRING,path,,"Path to Keychain or PEM bundle"
+   ,STRING,serial,,"Certificate serial number"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,chocolatey_packages
+   ,STRING,name,,"Package display name"
+   ,STRING,version,,"Package-supplied version"
+   ,STRING,summary,,"Package-supplied summary"
+   ,STRING,author,,"Optional package author"
+   ,STRING,license,,"License under which package is launched"
+   ,STRING,path,,"Path at which this package resides"
+TATTR,
+------------------------------
+TABLE,chrome_extensions
+   ,INT64,uid,ADDITIONAL,"The local user that owns the extension"
+   ,STRING,name,,"Extension display name"
+   ,STRING,identifier,INDEX,"Extension identifier"
+   ,STRING,version,,"Extension-supplied version"
+   ,STRING,description,,"Extension-optional description"
+   ,STRING,locale,,"Default locale supported by extension"
+   ,STRING,update_url,,"Extension-supplied update URI"
+   ,STRING,author,,"Optional extension author"
+   ,INT,persistent,,"1 If extension is persistent across all tabs else 0"
+   ,STRING,path,,"Path to extension folder"
+   ,STRING,permissions,,"The permissions required by the extension"
+TATTR,USER_BASED,
+------------------------------
+TABLE,cpu_info
+   ,STRING,device_id,,"The DeviceID of the CPU."
+   ,STRING,model,,"The model of the CPU."
+   ,STRING,manufacturer,,"The manufacturer of the CPU."
+   ,STRING,processor_type,,"The processor type, such as Central, Math, or Video."
+   ,STRING,availability,,"The availability and status of the CPU."
+   ,INT,cpu_status,,"The current operating status of the CPU."
+   ,STRING,number_of_cores,,"The number of cores of the CPU."
+   ,INT,logical_processors,,"The number of logical processors of the CPU."
+   ,STRING,address_width,,"The width of the CPU address bus."
+   ,INT,current_clock_speed,,"The current frequency of the CPU."
+   ,INT,max_clock_speed,,"The maximum possible frequency of the CPU."
+   ,STRING,socket_designation,,"The assigned socket on the board for the given CPU."
+TATTR,
+------------------------------
+TABLE,cpu_time
+   ,INT,core,,"Name of the cpu (core)"
+   ,INT64,user,,"Time spent in user mode"
+   ,INT64,nice,,"Time spent in user mode with low priority (nice)"
+   ,INT64,system,,"Time spent in system mode"
+   ,INT64,idle,,"Time spent in the idle task"
+   ,INT64,iowait,,"Time spent waiting for I/O to complete"
+   ,INT64,irq,,"Time spent servicing interrupts"
+   ,INT64,softirq,,"Time spent servicing softirqs"
+   ,INT64,steal,,"Time spent in other operating systems when running in a virtualized environment"
+   ,INT64,guest,,"Time spent running a virtual CPU for a guest OS under the control of the Linux kernel"
+   ,INT64,guest_nice,,"Time spent running a niced guest "
+TATTR,
+------------------------------
+TABLE,cpuid
+   ,STRING,feature,,"Present feature flags"
+   ,STRING,value,,"Bit value or string"
+   ,STRING,output_register,,"Register used to for feature value"
+   ,INT,output_bit,,"Bit in register value for feature value"
+   ,STRING,input_eax,,"Value of EAX used"
+TATTR,
+------------------------------
+TABLE,crashes
+   ,STRING,type,,"Type of crash log"
+   ,INT64,pid,INDEX,"Process (or thread) ID of the crashed process"
+   ,STRING,path,INDEX,"Path to the crashed process"
+   ,STRING,crash_path,,"Location of log file"
+   ,STRING,identifier,,"Identifier of the crashed process"
+   ,STRING,version,,"Version info of the crashed process"
+   ,INT64,parent,INDEX,"Parent PID of the crashed process"
+   ,STRING,responsible,,"Process responsible for the crashed process"
+   ,INT,uid,ADDITIONAL,"User ID of the crashed process"
+   ,STRING,datetime,,"Date/Time at which the crash occurred"
+   ,INT64,crashed_thread,,"Thread ID which crashed"
+   ,STRING,stack_trace,,"Most recent frame from the stack trace"
+   ,STRING,exception_type,,"Exception type of the crash"
+   ,STRING,exception_codes,,"Exception codes from the crash"
+   ,STRING,exception_notes,,"Exception notes from the crash"
+   ,STRING,registers,,"The value of the system registers"
+TATTR,USER_BASED,
+------------------------------
+TABLE,crontab
+   ,STRING,event,,"The job @event name (rare)"
+   ,STRING,minute,,"The exact minute for the job"
+   ,STRING,hour,,"The hour of the day for the job"
+   ,STRING,day_of_month,,"The day of the month for the job"
+   ,STRING,month,,"The month of the year for the job"
+   ,STRING,day_of_week,,"The day of the week for the job"
+   ,STRING,command,,"Raw command string"
+   ,STRING,path,,"File parsed"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,cups_destinations
+   ,STRING,name,,"Name of the printer"
+   ,STRING,option_name,,"Option name"
+   ,STRING,option_value,,"Option value"
+TATTR,
+------------------------------
+TABLE,cups_jobs
+   ,STRING,title,,"Title of the printed job"
+   ,STRING,destination,,"The printer the job was sent to"
+   ,STRING,user,,"The user who printed the job"
+   ,STRING,format,,"The format of the print job"
+   ,INT,size,,"The size of the print job"
+   ,INT,completed_time,,"When the job completed printing"
+   ,INT,processing_time,,"How long the job took to process"
+   ,INT,creation_time,,"When the print request was initiated"
+TATTR,
+------------------------------
+TABLE,curl
+   ,STRING,url,INDEX | REQUIRED,"The url for the request"
+   ,STRING,method,,"The HTTP method for the request"
+   ,STRING,user_agent,,"The user-agent string to use for the request"
+   ,INT,response_code,,"The HTTP status code for the response"
+   ,INT64,round_trip_time,,"Time taken to complete the request"
+   ,INT64,bytes,,"Number of bytes in the response"
+   ,STRING,result,,"The HTTP response body"
+TATTR,
+------------------------------
+TABLE,curl_certificate
+   ,STRING,hostname,REQUIRED,"Hostname (domain[:port]) to CURL"
+   ,STRING,common_name,,"Common name of company issued to"
+   ,STRING,organization,,"Organization issued to"
+   ,STRING,organization_unit,,"Organization unit issued to"
+   ,STRING,serial_number,,"Certificate serial number"
+   ,STRING,issuer_common_name,,"Issuer common name"
+   ,STRING,issuer_organization,,"Issuer organization"
+   ,STRING,issuer_organization_unit,,"Issuer organization unit"
+   ,STRING,valid_from,,"Period of validity start date"
+   ,STRING,valid_to,,"Period of validity end date"
+   ,STRING,sha256_fingerprint,,"SHA-256 fingerprint"
+   ,STRING,sha1_fingerprint,,"SHA1 fingerprint"
+TATTR,
+------------------------------
+TABLE,deb_packages
+   ,STRING,name,,"Package name"
+   ,STRING,version,,"Package version"
+   ,STRING,source,,"Package source"
+   ,INT64,size,,"Package size in bytes"
+   ,STRING,arch,,"Package architecture"
+   ,STRING,revision,,"Package revision"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,device_file
+   ,STRING,device,INDEX | REQUIRED,"Absolute file path to device node"
+   ,STRING,partition,INDEX | REQUIRED,"A partition number"
+   ,STRING,path,ADDITIONAL,"A logical path within the device node"
+   ,STRING,filename,,"Name portion of file path"
+   ,INT64,inode,INDEX,"Filesystem inode number"
+   ,INT64,uid,,"Owning user ID"
+   ,INT64,gid,,"Owning group ID"
+   ,STRING,mode,,"Permission bits"
+   ,INT64,size,,"Size of file in bytes"
+   ,INT,block_size,,"Block size of filesystem"
+   ,INT64,atime,,"Last access time"
+   ,INT64,mtime,,"Last modification time"
+   ,INT64,ctime,,"Creation time"
+   ,INT,hard_links,,"Number of hard links"
+   ,STRING,type,,"File status"
+TATTR,
+------------------------------
+TABLE,device_firmware
+   ,STRING,type,,"Type of device"
+   ,STRING,device,INDEX,"The device name"
+   ,STRING,version,,"Firmware version"
+TATTR,
+------------------------------
+TABLE,device_hash
+   ,STRING,device,REQUIRED,"Absolute file path to device node"
+   ,STRING,partition,REQUIRED,"A partition number"
+   ,INT64,inode,REQUIRED,"Filesystem inode number"
+   ,STRING,md5,,"MD5 hash of provided inode data"
+   ,STRING,sha1,,"SHA1 hash of provided inode data"
+   ,STRING,sha256,,"SHA256 hash of provided inode data"
+TATTR,
+------------------------------
+TABLE,device_partitions
+   ,STRING,device,REQUIRED,"Absolute file path to device node"
+   ,INT,partition,,"A partition number or description"
+   ,STRING,label,,""
+   ,STRING,type,,""
+   ,INT64,offset,,""
+   ,INT64,blocks_size,,"Byte size of each block"
+   ,INT64,blocks,,"Number of blocks"
+   ,INT64,inodes,,"Number of meta nodes"
+   ,INT,flags,,""
+TATTR,
+------------------------------
+TABLE,disk_encryption
+   ,STRING,name,,"Disk name"
+   ,STRING,uuid,,"Disk Universally Unique Identifier"
+   ,INT,encrypted,,"1 If encrypted: true (disk is encrypted), else 0"
+   ,STRING,type,,"Description of cipher type and mode if available"
+   ,STRING,uid,,"Currently authenticated user if available (Apple)"
+   ,STRING,user_uuid,,"UUID of authenticated user if available (Apple)"
+   ,STRING,encryption_status,,"Disk encryption status with one of following values: encrypted | not encrypted | undefined"
+TATTR,
+------------------------------
+TABLE,disk_events
+   ,STRING,action,,"Appear or disappear"
+   ,STRING,path,,"Path of the DMG file accessed"
+   ,STRING,name,,"Disk event name"
+   ,STRING,device,,"Disk event BSD name"
+   ,STRING,uuid,,"UUID of the volume inside DMG if available"
+   ,INT64,size,,"Size of partition in bytes"
+   ,INT,ejectable,,"1 if ejectable, 0 if not"
+   ,INT,mountable,,"1 if mountable, 0 if not"
+   ,INT,writable,,"1 if writable, 0 if not"
+   ,STRING,content,,"Disk event content"
+   ,STRING,media_name,,"Disk event media name string"
+   ,STRING,vendor,,"Disk event vendor string"
+   ,STRING,filesystem,,"Filesystem if available"
+   ,STRING,checksum,,"UDIF Master checksum if available (CRC32)"
+   ,INT64,time,,"Time of appearance/disappearance in UNIX time"
+   ,STRING,eid,HIDDEN,"Event ID"
+CALIAS,device,bsd_name
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,disk_info
+   ,INT,partitions,,"Number of detected partitions on disk."
+   ,INT,disk_index,,"Physical drive number of the disk."
+   ,STRING,type,,"The interface type of the disk."
+   ,STRING,id,,"The unique identifier of the drive on the system."
+   ,STRING,pnp_device_id,,"The unique identifier of the drive on the system."
+   ,INT64,disk_size,,"Size of the disk."
+   ,STRING,manufacturer,,"The manufacturer of the disk."
+   ,STRING,hardware_model,,"Hard drive model."
+   ,STRING,name,,"The label of the disk object."
+   ,STRING,serial,,"The serial number of the disk."
+   ,STRING,description,,"The OS's description of the disk."
+TATTR,
+------------------------------
+TABLE,dns_resolvers
+   ,INT,id,,"Address type index or order"
+   ,STRING,type,,"Address type: sortlist, nameserver, search"
+   ,STRING,address,,"Resolver IP/IPv6 address"
+   ,STRING,netmask,,"Address (sortlist) netmask length"
+   ,INT64,options,,"Resolver options"
+TATTR,
+------------------------------
+TABLE,docker_container_labels
+   ,STRING,id,INDEX,"Container ID"
+   ,STRING,key,,"Label key"
+   ,STRING,value,,"Optional label value"
+TATTR,
+------------------------------
+TABLE,docker_container_mounts
+   ,STRING,id,INDEX,"Container ID"
+   ,STRING,type,,"Type of mount (bind, volume)"
+   ,STRING,name,,"Optional mount name"
+   ,STRING,source,,"Source path on host"
+   ,STRING,destination,,"Destination path inside container"
+   ,STRING,driver,,"Driver providing the mount"
+   ,STRING,mode,,"Mount options (rw, ro)"
+   ,INT,rw,,"1 if read/write. 0 otherwise"
+   ,STRING,propagation,,"Mount propagation"
+TATTR,
+------------------------------
+TABLE,docker_container_networks
+   ,STRING,id,INDEX,"Container ID"
+   ,STRING,name,,"Network name"
+   ,STRING,network_id,,"Network ID"
+   ,STRING,endpoint_id,,"Endpoint ID"
+   ,STRING,gateway,,"Gateway"
+   ,STRING,ip_address,,"IP address"
+   ,INT,ip_prefix_len,,"IP subnet prefix length"
+   ,STRING,ipv6_gateway,,"IPv6 gateway"
+   ,STRING,ipv6_address,,"IPv6 address"
+   ,INT,ipv6_prefix_len,,"IPv6 subnet prefix length"
+   ,STRING,mac_address,,"MAC address"
+TATTR,
+------------------------------
+TABLE,docker_container_ports
+   ,STRING,id,INDEX,"Container ID"
+   ,STRING,type,,"Protocol (tcp, udp)"
+   ,INT,port,,"Port inside the container"
+   ,STRING,host_ip,,"Host IP address on which public port is listening"
+   ,INT,host_port,,"Host port"
+TATTR,
+------------------------------
+TABLE,docker_container_processes
+   ,STRING,id,INDEX | REQUIRED,"Container ID"
+   ,INT64,pid,,"Process ID"
+   ,STRING,name,,"The process path or shorthand argv[0]"
+   ,STRING,cmdline,,"Complete argv"
+   ,STRING,state,,"Process state"
+   ,INT64,uid,,"User ID"
+   ,INT64,gid,,"Group ID"
+   ,INT64,euid,,"Effective user ID"
+   ,INT64,egid,,"Effective group ID"
+   ,INT64,suid,,"Saved user ID"
+   ,INT64,sgid,,"Saved group ID"
+   ,INT64,wired_size,,"Bytes of unpagable memory used by process"
+   ,INT64,resident_size,,"Bytes of private memory used by process"
+   ,INT64,total_size,,"Total virtual memory size"
+   ,INT64,start_time,,"Process start in seconds since boot (non-sleeping)"
+   ,INT64,parent,,"Process parent's PID"
+   ,INT64,pgroup,,"Process group"
+   ,INT,threads,,"Number of threads used by process"
+   ,INT,nice,,"Process nice level (-20 to 20, default 0)"
+   ,STRING,user,,"User name"
+   ,STRING,time,,"Cumulative CPU time. [DD-]HH:MM:SS format"
+   ,DOUBLE,cpu,,"CPU utilization as percentage"
+   ,DOUBLE,mem,,"Memory utilization as percentage"
+CALIAS,total_size,phys_footprint
+TATTR,
+------------------------------
+TABLE,docker_container_stats
+   ,STRING,id,INDEX | REQUIRED,"Container ID"
+   ,STRING,name,,"Container name"
+   ,INT,pids,,"Number of processes"
+   ,INT64,read,,"UNIX time when stats were read"
+   ,INT64,preread,,"UNIX time when stats were last read"
+   ,INT64,interval,,"Difference between read and preread in nano-seconds"
+   ,INT64,disk_read,,"Total disk read bytes"
+   ,INT64,disk_write,,"Total disk write bytes"
+   ,INT,num_procs,,"Number of processors"
+   ,INT64,cpu_total_usage,,"Total CPU usage"
+   ,INT64,cpu_kernelmode_usage,,"CPU kernel mode usage"
+   ,INT64,cpu_usermode_usage,,"CPU user mode usage"
+   ,INT64,system_cpu_usage,,"CPU system usage"
+   ,INT,online_cpus,,"Online CPUs"
+   ,INT64,pre_cpu_total_usage,,"Last read total CPU usage"
+   ,INT64,pre_cpu_kernelmode_usage,,"Last read CPU kernel mode usage"
+   ,INT64,pre_cpu_usermode_usage,,"Last read CPU user mode usage"
+   ,INT64,pre_system_cpu_usage,,"Last read CPU system usage"
+   ,INT,pre_online_cpus,,"Last read online CPUs"
+   ,INT64,memory_usage,,"Memory usage"
+   ,INT64,memory_max_usage,,"Memory maximum usage"
+   ,INT64,memory_limit,,"Memory limit"
+   ,INT64,network_rx_bytes,,"Total network bytes read"
+   ,INT64,network_tx_bytes,,"Total network bytes transmitted"
+TATTR,
+------------------------------
+TABLE,docker_containers
+   ,STRING,id,INDEX,"Container ID"
+   ,STRING,name,,"Container name"
+   ,STRING,image,,"Docker image (name) used to launch this container"
+   ,STRING,image_id,,"Docker image ID"
+   ,STRING,command,,"Command with arguments"
+   ,INT64,created,,"Time of creation as UNIX time"
+   ,STRING,state,,"Container state (created, restarting, running, removing, paused, exited, dead)"
+   ,STRING,status,,"Container status information"
+   ,INT64,pid,,"Identifier of the initial process"
+   ,STRING,path,,"Container path"
+   ,STRING,config_entrypoint,,"Container entrypoint(s)"
+   ,STRING,started_at,,"Container start time as string"
+   ,STRING,finished_at,,"Container finish time as string"
+   ,INT,privileged,,"Is the container privileged"
+   ,STRING,security_options,,"List of container security options"
+   ,STRING,env_variables,,"Container environmental variables"
+   ,INT,readonly_rootfs,,"Is the root filesystem mounted as read only"
+   ,STRING,cgroup_namespace,HIDDEN,"cgroup namespace"
+   ,STRING,ipc_namespace,HIDDEN,"IPC namespace"
+   ,STRING,mnt_namespace,HIDDEN,"Mount namespace"
+   ,STRING,net_namespace,HIDDEN,"Network namespace"
+   ,STRING,pid_namespace,HIDDEN,"PID namespace"
+   ,STRING,user_namespace,HIDDEN,"User namespace"
+   ,STRING,uts_namespace,HIDDEN,"UTS namespace"
+TATTR,
+------------------------------
+TABLE,docker_image_labels
+   ,STRING,id,INDEX,"Image ID"
+   ,STRING,key,,"Label key"
+   ,STRING,value,,"Optional label value"
+TATTR,
+------------------------------
+TABLE,docker_images
+   ,STRING,id,,"Image ID"
+   ,INT64,created,,"Time of creation as UNIX time"
+   ,INT64,size_bytes,,"Size of image in bytes"
+   ,STRING,tags,,"Comma-separated list of repository tags"
+TATTR,
+------------------------------
+TABLE,docker_info
+   ,STRING,id,,"Docker system ID"
+   ,INT,containers,,"Total number of containers"
+   ,INT,containers_running,,"Number of containers currently running"
+   ,INT,containers_paused,,"Number of containers in paused state"
+   ,INT,containers_stopped,,"Number of containers in stopped state"
+   ,INT,images,,"Number of images"
+   ,STRING,storage_driver,,"Storage driver"
+   ,INT,memory_limit,,"1 if memory limit support is enabled. 0 otherwise"
+   ,INT,swap_limit,,"1 if swap limit support is enabled. 0 otherwise"
+   ,INT,kernel_memory,,"1 if kernel memory limit support is enabled. 0 otherwise"
+   ,INT,cpu_cfs_period,,"1 if CPU Completely Fair Scheduler (CFS) period support is enabled. 0 otherwise"
+   ,INT,cpu_cfs_quota,,"1 if CPU Completely Fair Scheduler (CFS) quota support is enabled. 0 otherwise"
+   ,INT,cpu_shares,,"1 if CPU share weighting support is enabled. 0 otherwise"
+   ,INT,cpu_set,,"1 if CPU set selection support is enabled. 0 otherwise"
+   ,INT,ipv4_forwarding,,"1 if IPv4 forwarding is enabled. 0 otherwise"
+   ,INT,bridge_nf_iptables,,"1 if bridge netfilter iptables is enabled. 0 otherwise"
+   ,INT,bridge_nf_ip6tables,,"1 if bridge netfilter ip6tables is enabled. 0 otherwise"
+   ,INT,oom_kill_disable,,"1 if Out-of-memory kill is disabled. 0 otherwise"
+   ,STRING,logging_driver,,"Logging driver"
+   ,STRING,cgroup_driver,,"Control groups driver"
+   ,STRING,kernel_version,,"Kernel version"
+   ,STRING,os,,"Operating system"
+   ,STRING,os_type,,"Operating system type"
+   ,STRING,architecture,,"Hardware architecture"
+   ,INT,cpus,,"Number of CPUs"
+   ,INT64,memory,,"Total memory"
+   ,STRING,http_proxy,,"HTTP proxy"
+   ,STRING,https_proxy,,"HTTPS proxy"
+   ,STRING,no_proxy,,"Comma-separated list of domain extensions proxy should not be used for"
+   ,STRING,name,,"Name of the docker host"
+   ,STRING,server_version,,"Server version"
+   ,STRING,root_dir,,"Docker root directory"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,docker_network_labels
+   ,STRING,id,INDEX,"Network ID"
+   ,STRING,key,,"Label key"
+   ,STRING,value,,"Optional label value"
+TATTR,
+------------------------------
+TABLE,docker_networks
+   ,STRING,id,INDEX,"Network ID"
+   ,STRING,name,,"Network name"
+   ,STRING,driver,,"Network driver"
+   ,INT64,created,,"Time of creation as UNIX time"
+   ,INT,enable_ipv6,,"1 if IPv6 is enabled on this network. 0 otherwise"
+   ,STRING,subnet,,"Network subnet"
+   ,STRING,gateway,,"Network gateway"
+TATTR,
+------------------------------
+TABLE,docker_version
+   ,STRING,version,,"Docker version"
+   ,STRING,api_version,,"API version"
+   ,STRING,min_api_version,,"Minimum API version supported"
+   ,STRING,git_commit,,"Docker build git commit"
+   ,STRING,go_version,,"Go version"
+   ,STRING,os,,"Operating system"
+   ,STRING,arch,,"Hardware architecture"
+   ,STRING,kernel_version,,"Kernel version"
+   ,STRING,build_time,,"Build time"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,docker_volume_labels
+   ,STRING,name,INDEX,"Volume name"
+   ,STRING,key,,"Label key"
+   ,STRING,value,,"Optional label value"
+TATTR,
+------------------------------
+TABLE,docker_volumes
+   ,STRING,name,INDEX,"Volume name"
+   ,STRING,driver,,"Volume driver"
+   ,STRING,mount_point,,"Mount point"
+   ,STRING,type,,"Volume type"
+TATTR,
+------------------------------
+TABLE,drivers
+   ,STRING,device_id,INDEX,"Device ID"
+   ,STRING,device_name,,"Device name"
+   ,STRING,image,,"Path to driver image file"
+   ,STRING,description,,"Driver description"
+   ,STRING,service,,"Driver service name, if one exists"
+   ,STRING,service_key,,"Driver service registry key"
+   ,STRING,version,,"Driver version"
+   ,STRING,inf,,"Associated inf file"
+   ,STRING,class,,"Device/driver class name"
+   ,STRING,provider,,"Driver provider"
+   ,STRING,manufacturer,,"Device manufacturer"
+   ,STRING,driver_key,,"Driver key"
+   ,INT64,date,,"Driver date"
+   ,INT,signed,,"Whether the driver is signed or not"
+TATTR,
+------------------------------
+TABLE,ec2_instance_metadata
+   ,STRING,instance_id,INDEX,"EC2 instance ID"
+   ,STRING,instance_type,,"EC2 instance type"
+   ,STRING,architecture,,"Hardware architecture of this EC2 instance"
+   ,STRING,region,,"AWS region in which this instance launched"
+   ,STRING,availability_zone,,"Availability zone in which this instance launched"
+   ,STRING,local_hostname,,"Private IPv4 DNS hostname of the first interface of this instance"
+   ,STRING,local_ipv4,,"Private IPv4 address of the first interface of this instance"
+   ,STRING,mac,,"MAC address for the first network interface of this EC2 instance"
+   ,STRING,security_groups,,"Comma separated list of security group names"
+   ,STRING,iam_arn,,"If there is an IAM role associated with the instance, contains instance profile ARN"
+   ,STRING,ami_id,,"AMI ID used to launch this EC2 instance"
+   ,STRING,reservation_id,,"ID of the reservation"
+   ,STRING,account_id,,"AWS account ID which owns this EC2 instance"
+   ,STRING,ssh_public_key,,"SSH public key. Only available if supplied at instance launch time"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,ec2_instance_tags
+   ,STRING,instance_id,,"EC2 instance ID"
+   ,STRING,key,,"Tag key"
+   ,STRING,value,,"Tag value"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,elf_dynamic
+   ,INT,tag,,"Tag ID"
+   ,INT,value,,"Tag value"
+   ,INT,class,,"Class (32 or 64)"
+   ,STRING,path,INDEX | REQUIRED,"Path to ELF file"
+TATTR,
+------------------------------
+TABLE,elf_info
+   ,STRING,class,,"Class type, 32 or 64bit"
+   ,STRING,abi,,"Section type"
+   ,INT,abi_version,,"Section virtual address in memory"
+   ,STRING,type,,"Offset of section in file"
+   ,INT,machine,,"Machine type"
+   ,INT,version,,"Object file version"
+   ,INT64,entry,,"Entry point address"
+   ,INT,flags,,"ELF header flags"
+   ,STRING,path,INDEX | REQUIRED,"Path to ELF file"
+TATTR,
+------------------------------
+TABLE,elf_sections
+   ,STRING,name,,"Section name"
+   ,INT,type,,"Section type"
+   ,INT,vaddr,,"Section virtual address in memory"
+   ,INT,offset,,"Offset of section in file"
+   ,INT,size,,"Size of section"
+   ,STRING,flags,,"Section attributes"
+   ,STRING,link,,"Link to other section"
+   ,INT,align,,"Segment alignment"
+   ,STRING,path,INDEX | REQUIRED,"Path to ELF file"
+TATTR,
+------------------------------
+TABLE,elf_segments
+   ,STRING,name,,"Segment type/name"
+   ,INT,offset,,"Segment offset in file"
+   ,INT,vaddr,,"Segment virtual address in memory"
+   ,INT,psize,,"Size of segment in file"
+   ,INT,msize,,"Segment offset in memory"
+   ,STRING,flags,,"Segment attributes"
+   ,INT,align,,"Segment alignment"
+   ,STRING,path,INDEX | REQUIRED,"Path to ELF file"
+TATTR,
+------------------------------
+TABLE,elf_symbols
+   ,STRING,name,,"Symbol name"
+   ,INT,addr,,"Symbol address (value)"
+   ,INT,size,,"Size of object"
+   ,STRING,type,,"Symbol type"
+   ,STRING,binding,,"Binding type"
+   ,INT,offset,,"Section table index"
+   ,STRING,table,,"Table name containing symbol"
+   ,STRING,path,INDEX | REQUIRED,"Path to ELF file"
+TATTR,
+------------------------------
+TABLE,etc_hosts
+TALIAS,hosts
+   ,STRING,address,,"IP address mapping"
+   ,STRING,hostnames,,"Raw hosts mapping"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,etc_protocols
+   ,STRING,name,,"Protocol name"
+   ,INT,number,,"Protocol number"
+   ,STRING,alias,,"Protocol alias"
+   ,STRING,comment,,"Comment with protocol description"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,etc_services
+   ,STRING,name,,"Service name"
+   ,INT,port,,"Service port number"
+   ,STRING,protocol,,"Transport protocol (TCP/UDP)"
+   ,STRING,aliases,,"Optional space separated list of other names for a service"
+   ,STRING,comment,,"Optional comment for a service."
+TATTR,CACHEABLE,
+------------------------------
+TABLE,event_taps
+   ,INT,enabled,,"Is the Event Tap enabled"
+   ,INT,event_tap_id,INDEX,"Unique ID for the Tap"
+   ,STRING,event_tapped,,"The mask that identifies the set of events to be observed."
+   ,INT,process_being_tapped,,"The process ID of the target application"
+   ,INT,tapping_process,,"The process ID of the application that created the event tap."
+TATTR,
+------------------------------
+TABLE,example
+   ,STRING,name,,"Description for name column"
+   ,INT,points,,"This is a signed SQLite int column"
+   ,INT64,size,,"This is a signed SQLite bigint column"
+   ,STRING,action,REQUIRED,"Action performed in generation"
+   ,INT,id,INDEX,"An index of some sort"
+   ,STRING,path,ADDITIONAL,"Path of example"
+TATTR,EVENT_BASED,KERNEL_REQUIRED,UTILITY,
+------------------------------
+TABLE,extended_attributes
+   ,STRING,path,REQUIRED,"Absolute file path"
+   ,STRING,directory,REQUIRED,"Directory of file(s)"
+   ,STRING,key,,"Name of the value generated from the extended attribute"
+   ,STRING,value,,"The parsed information from the attribute"
+   ,INT,base64,,"1 if the value is base64 encoded else 0"
+TATTR,
+------------------------------
+TABLE,fan_speed_sensors
+   ,STRING,fan,,"Fan number"
+   ,STRING,name,,"Fan name"
+   ,INT,actual,,"Actual speed"
+   ,INT,min,,"Minimum speed"
+   ,INT,max,,"Maximum speed"
+   ,INT,target,,"Target speed"
+TATTR,
+------------------------------
+TABLE,fbsd_kmods
+   ,STRING,name,,"Module name"
+   ,INT,size,,"Size of module content"
+   ,INT,refs,,"Module reverse dependencies"
+   ,STRING,address,,"Kernel module address"
+TATTR,
+------------------------------
+TABLE,file
+   ,STRING,path,INDEX | REQUIRED,"Absolute file path"
+   ,STRING,directory,REQUIRED,"Directory of file(s)"
+   ,STRING,filename,,"Name portion of file path"
+   ,INT64,inode,,"Filesystem inode number"
+   ,INT64,uid,,"Owning user ID"
+   ,INT64,gid,,"Owning group ID"
+   ,STRING,mode,,"Permission bits"
+   ,INT64,device,,"Device ID (optional)"
+   ,INT64,size,,"Size of file in bytes"
+   ,INT,block_size,,"Block size of filesystem"
+   ,INT64,atime,,"Last access time"
+   ,INT64,mtime,,"Last modification time"
+   ,INT64,ctime,,"Last status change time"
+   ,INT64,btime,,"(B)irth or (cr)eate time"
+   ,INT,hard_links,,"Number of hard links"
+   ,INT,symlink,,"1 if the path is a symlink, otherwise 0"
+   ,STRING,type,,"File status"
+   ,STRING,attributes,HIDDEN,"File attrib string. See: https://ss64.com/nt/attrib.html"
+   ,STRING,volume_serial,HIDDEN,"Volume serial number"
+   ,STRING,file_id,HIDDEN,"file ID"
+TATTR,UTILITY,
+------------------------------
+TABLE,file_events
+   ,STRING,target_path,,"The path associated with the event"
+   ,STRING,category,,"The category of the file defined in the config"
+   ,STRING,action,,"Change action (UPDATE, REMOVE, etc)"
+   ,INT64,transaction_id,,"ID used during bulk update"
+   ,INT64,inode,,"Filesystem inode number"
+   ,INT64,uid,,"Owning user ID"
+   ,INT64,gid,,"Owning group ID"
+   ,STRING,mode,,"Permission bits"
+   ,INT64,size,,"Size of file in bytes"
+   ,INT64,atime,,"Last access time"
+   ,INT64,mtime,,"Last modification time"
+   ,INT64,ctime,,"Last status change time"
+   ,STRING,md5,,"The MD5 of the file after change"
+   ,STRING,sha1,,"The SHA1 of the file after change"
+   ,STRING,sha256,,"The SHA256 of the file after change"
+   ,INT,hashed,,"1 if the file was hashed, 0 if not, -1 if hashing failed"
+   ,INT64,time,,"Time of file event"
+   ,STRING,eid,HIDDEN,"Event ID"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,firefox_addons
+   ,INT64,uid,ADDITIONAL,"The local user that owns the addon"
+   ,STRING,name,,"Addon display name"
+   ,STRING,identifier,INDEX,"Addon identifier"
+   ,STRING,creator,,"Addon-supported creator string"
+   ,STRING,type,,"Extension, addon, webapp"
+   ,STRING,version,,"Addon-supplied version string"
+   ,STRING,description,,"Addon-supplied description string"
+   ,STRING,source_url,,"URL that installed the addon"
+   ,INT,visible,,"1 If the addon is shown in browser else 0"
+   ,INT,active,,"1 If the addon is active else 0"
+   ,INT,disabled,,"1 If the addon is application-disabled else 0"
+   ,INT,autoupdate,,"1 If the addon applies background updates else 0"
+   ,INT,native,,"1 If the addon includes binary components else 0"
+   ,STRING,location,,"Global, profile location"
+   ,STRING,path,,"Path to plugin bundle"
+TATTR,USER_BASED,
+------------------------------
+TABLE,gatekeeper
+   ,INT,assessments_enabled,,"1 If a Gatekeeper is enabled else 0"
+   ,INT,dev_id_enabled,,"1 If a Gatekeeper allows execution from identified developers else 0"
+   ,STRING,version,,"Version of Gatekeeper's gke.bundle"
+   ,STRING,opaque_version,,"Version of Gatekeeper's gkopaque.bundle"
+TATTR,
+------------------------------
+TABLE,gatekeeper_approved_apps
+   ,STRING,path,,"Path of executable allowed to run"
+   ,STRING,requirement,,"Code signing requirement language"
+   ,DOUBLE,ctime,,"Last change time"
+   ,DOUBLE,mtime,,"Last modification time"
+TATTR,
+------------------------------
+TABLE,groups
+   ,INT64,gid,INDEX,"Unsigned int64 group ID"
+   ,INT64,gid_signed,,"A signed int64 version of gid"
+   ,STRING,groupname,,"Canonical local group name"
+   ,STRING,group_sid,INDEX | HIDDEN,"Unique group ID"
+   ,STRING,comment,HIDDEN,"Remarks or comments associated with the group"
+TATTR,
+------------------------------
+TABLE,hardware_events
+   ,STRING,action,,"Remove, insert, change properties, etc"
+   ,STRING,path,,"Local device path assigned (optional)"
+   ,STRING,type,,"Type of hardware and hardware event"
+   ,STRING,driver,,"Driver claiming the device"
+   ,STRING,vendor,,"Hardware device vendor"
+   ,STRING,vendor_id,,"Hex encoded Hardware vendor identifier"
+   ,STRING,model,,"Hardware device model"
+   ,STRING,model_id,,"Hex encoded Hardware model identifier"
+   ,STRING,serial,,"Device serial (optional)"
+   ,STRING,revision,,"Device revision (optional)"
+   ,INT64,time,,"Time of hardware event"
+   ,STRING,eid,HIDDEN,"Event ID"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,hash
+   ,STRING,path,INDEX | REQUIRED,"Must provide a path or directory"
+   ,STRING,directory,REQUIRED,"Must provide a path or directory"
+   ,STRING,md5,,"MD5 hash of provided filesystem data"
+   ,STRING,sha1,,"SHA1 hash of provided filesystem data"
+   ,STRING,sha256,,"SHA256 hash of provided filesystem data"
+   ,STRING,ssdeep,,"ssdeep hash of provided filesystem data"
+TATTR,
+------------------------------
+TABLE,homebrew_packages
+   ,STRING,name,,"Package name"
+   ,STRING,path,,"Package install path"
+   ,STRING,version,,"Current 'linked' version"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,ie_extensions
+   ,STRING,name,,"Extension display name"
+   ,STRING,registry_path,INDEX,"Extension identifier"
+   ,STRING,version,,"Version of the executable"
+   ,STRING,path,INDEX,"Path to executable"
+TATTR,
+------------------------------
+TABLE,intel_me_info
+   ,STRING,version,,"Intel ME version"
+TATTR,
+------------------------------
+TABLE,interface_addresses
+   ,STRING,interface,,"Interface name"
+   ,STRING,address,,"Specific address for interface"
+   ,STRING,mask,,"Interface netmask"
+   ,STRING,broadcast,,"Broadcast address for the interface"
+   ,STRING,point_to_point,,"PtP address for the interface"
+   ,STRING,type,,"Type of address. One of dhcp, manual, auto, other, unknown"
+   ,STRING,friendly_name,HIDDEN,"The friendly display name of the interface."
+TATTR,CACHEABLE,
+------------------------------
+TABLE,interface_details
+   ,STRING,interface,,"Interface name"
+   ,STRING,mac,,"MAC of interface (optional)"
+   ,INT,type,,"Interface type (includes virtual)"
+   ,INT,mtu,,"Network MTU"
+   ,INT,metric,,"Metric based on the speed of the interface"
+   ,INT,flags,,"Flags (netdevice) for the device"
+   ,INT64,ipackets,,"Input packets"
+   ,INT64,opackets,,"Output packets"
+   ,INT64,ibytes,,"Input bytes"
+   ,INT64,obytes,,"Output bytes"
+   ,INT64,ierrors,,"Input errors"
+   ,INT64,oerrors,,"Output errors"
+   ,INT64,idrops,,"Input drops"
+   ,INT64,odrops,,"Output drops"
+   ,INT64,collisions,,"Packet Collisions detected"
+   ,INT64,last_change,,"Time of last device modification (optional)"
+   ,INT64,link_speed,,"Interface speed in Mb/s"
+   ,STRING,pci_slot,HIDDEN,"PCI slot number"
+   ,STRING,friendly_name,HIDDEN,"The friendly display name of the interface."
+   ,STRING,description,HIDDEN,"Short one-line description of the object."
+   ,STRING,manufacturer,HIDDEN,"Name of the network adapter's manufacturer."
+   ,STRING,connection_id,HIDDEN,"Name of the network connection as it appears in the Network Connections Control Panel program."
+   ,STRING,connection_status,HIDDEN,"State of the network adapter connection to the network."
+   ,INT,enabled,HIDDEN,"Indicates whether the adapter is enabled or not."
+   ,INT,physical_adapter,HIDDEN,"Indicates whether the adapter is a physical or a logical adapter."
+   ,INT,speed,HIDDEN,"Estimate of the current bandwidth in bits per second."
+   ,STRING,service,HIDDEN,"The name of the service the network adapter uses."
+   ,INT,dhcp_enabled,HIDDEN,"If TRUE, the dynamic host configuration protocol (DHCP) server automatically assigns an IP address to the computer system when establishing a network connection."
+   ,STRING,dhcp_lease_expires,HIDDEN,"Expiration date and time for a leased IP address that was assigned to the computer by the dynamic host configuration protocol (DHCP) server."
+   ,STRING,dhcp_lease_obtained,HIDDEN,"Date and time the lease was obtained for the IP address assigned to the computer by the dynamic host configuration protocol (DHCP) server."
+   ,STRING,dhcp_server,HIDDEN,"IP address of the dynamic host configuration protocol (DHCP) server."
+   ,STRING,dns_domain,HIDDEN,"Organization name followed by a period and an extension that indicates the type of organization, such as 'microsoft.com'."
+   ,STRING,dns_domain_suffix_search_order,HIDDEN,"Array of DNS domain suffixes to be appended to the end of host names during name resolution."
+   ,STRING,dns_host_name,HIDDEN,"Host name used to identify the local computer for authentication by some utilities."
+   ,STRING,dns_server_search_order,HIDDEN,"Array of server IP addresses to be used in querying for DNS servers."
+TATTR,CACHEABLE,
+------------------------------
+TABLE,interface_ipv6
+   ,STRING,interface,,"Interface name"
+   ,INT,hop_limit,,"Current Hop Limit"
+   ,INT,forwarding_enabled,,"Enable IP forwarding"
+   ,INT,redirect_accept,,"Accept ICMP redirect messages"
+   ,INT,rtadv_accept,,"Accept ICMP Router Advertisement"
+TATTR,
+------------------------------
+TABLE,iokit_devicetree
+   ,STRING,name,,"Device node name"
+   ,STRING,class,,"Best matching device class (most-specific category)"
+   ,INT64,id,,"IOKit internal registry ID"
+   ,INT64,parent,,"Parent device registry ID"
+   ,STRING,device_path,,"Device tree path"
+   ,INT,service,,"1 if the device conforms to IOService else 0"
+   ,INT,busy_state,,"1 if the device is in a busy state else 0"
+   ,INT,retain_count,,"The device reference count"
+   ,INT,depth,,"Device nested depth"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,iokit_registry
+   ,STRING,name,,"Default name of the node"
+   ,STRING,class,,"Best matching device class (most-specific category)"
+   ,INT64,id,,"IOKit internal registry ID"
+   ,INT64,parent,,"Parent registry ID"
+   ,INT,busy_state,,"1 if the node is in a busy state else 0"
+   ,INT,retain_count,,"The node reference count"
+   ,INT,depth,,"Node nested depth"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,iptables
+   ,STRING,filter_name,,"Packet matching filter table name."
+   ,STRING,chain,,"Size of module content."
+   ,STRING,policy,,"Policy that applies for this rule."
+   ,STRING,target,,"Target that applies for this rule."
+   ,INT,protocol,,"Protocol number identification."
+   ,STRING,src_port,,"Protocol source port(s)."
+   ,STRING,dst_port,,"Protocol destination port(s)."
+   ,STRING,src_ip,,"Source IP address."
+   ,STRING,src_mask,,"Source IP address mask."
+   ,STRING,iniface,,"Input interface for the rule."
+   ,STRING,iniface_mask,,"Input interface mask for the rule."
+   ,STRING,dst_ip,,"Destination IP address."
+   ,STRING,dst_mask,,"Destination IP address mask."
+   ,STRING,outiface,,"Output interface for the rule."
+   ,STRING,outiface_mask,,"Output interface mask for the rule."
+   ,STRING,match,,"Matching rule that applies."
+   ,INT,packets,,"Number of matching packets for this rule."
+   ,INT,bytes,,"Number of matching bytes for this rule."
+TATTR,
+------------------------------
+TABLE,kernel_extensions
+   ,INT,idx,INDEX,"Extension load tag or index"
+   ,INT,refs,,"Reference count"
+   ,INT64,size,,"Bytes of wired memory used by extension"
+   ,STRING,name,,"Extension label"
+   ,STRING,version,,"Extension version"
+   ,STRING,linked_against,,"Indexes of extensions this extension is linked against"
+   ,STRING,path,,"Optional path to extension bundle"
+TATTR,
+------------------------------
+TABLE,kernel_info
+   ,STRING,version,,"Kernel version"
+   ,STRING,arguments,,"Kernel arguments"
+   ,STRING,path,,"Kernel path"
+   ,STRING,device,,"Kernel device identifier"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,kernel_integrity
+   ,INT,sycall_addr_modified,,"0 or 1, for whether a syscall table pointer is modified"
+   ,STRING,text_segment_hash,,"Hash value for the kernel's .text memory segment"
+TATTR,KERNEL_REQUIRED,
+------------------------------
+TABLE,kernel_modules
+   ,STRING,name,,"Module name"
+   ,STRING,size,,"Size of module content"
+   ,STRING,used_by,,"Module reverse dependencies"
+   ,STRING,status,,"Kernel module status"
+   ,STRING,address,,"Kernel module address"
+TATTR,
+------------------------------
+TABLE,kernel_panics
+   ,STRING,path,,"Location of log file"
+   ,STRING,time,,"Formatted time of the event"
+   ,STRING,registers,,"A space delimited line of register:value pairs"
+   ,STRING,frame_backtrace,,"Backtrace of the crashed module"
+   ,STRING,module_backtrace,,"Modules appearing in the crashed module's backtrace"
+   ,STRING,dependencies,,"Module dependencies existing in crashed module's backtrace"
+   ,STRING,name,,"Process name corresponding to crashed thread"
+   ,STRING,os_version,,"Version of the operating system"
+   ,STRING,kernel_version,,"Version of the system kernel"
+   ,STRING,system_model,,"Physical system model, for example 'MacBookPro12,1 (Mac-E43C1C25D4880AD6)'"
+   ,INT64,uptime,,"System uptime at kernel panic in nanoseconds"
+   ,STRING,last_loaded,,"Last loaded module before panic"
+   ,STRING,last_unloaded,,"Last unloaded module before panic"
+TATTR,
+------------------------------
+TABLE,keychain_acls
+   ,STRING,keychain_path,,"The path of the keychain"
+   ,STRING,authorizations,,"A space delimited set of authorization attributes"
+   ,STRING,path,,"The path of the authorized application"
+   ,STRING,description,,"The description included with the ACL entry"
+   ,STRING,label,,"An optional label tag that may be included with the keychain entry"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,keychain_items
+   ,STRING,label,,"Generic item name"
+   ,STRING,description,,"Optional item description"
+   ,STRING,comment,,"Optional keychain comment"
+   ,STRING,created,,"Data item was created"
+   ,STRING,modified,,"Date of last modification"
+   ,STRING,type,,"Keychain item type (class)"
+   ,STRING,path,,"Path to keychain containing item"
+TATTR,
+------------------------------
+TABLE,known_hosts
+   ,INT64,uid,ADDITIONAL,"The local user that owns the known_hosts file"
+   ,STRING,key,INDEX,"parsed authorized keys line"
+   ,STRING,key_file,INDEX,"Path to known_hosts file"
+TATTR,USER_BASED,
+------------------------------
+TABLE,kva_speculative_info
+   ,INT,kva_shadow_enabled,,"Kernel Virtual Address shadowing is enabled."
+   ,INT,kva_shadow_user_global,,"User pages are marked as global."
+   ,INT,kva_shadow_pcid,,"Kernel VA PCID flushing optimization is enabled."
+   ,INT,kva_shadow_inv_pcid,,"Kernel VA INVPCID is enabled."
+   ,INT,bp_mitigations,,"Branch Prediction mitigations are enabled."
+   ,INT,bp_system_pol_disabled,,"Branch Predictions are disabled via system policy."
+   ,INT,bp_microcode_disabled,,"Branch Predictions are disabled due to lack of microcode update."
+   ,INT,cpu_spec_ctrl_supported,,"SPEC_CTRL MSR supported by CPU Microcode."
+   ,INT,ibrs_support_enabled,,"Windows uses IBRS."
+   ,INT,stibp_support_enabled,,"Windows uses STIBP."
+   ,INT,cpu_pred_cmd_supported,,"PRED_CMD MSR supported by CPU Microcode."
+TATTR,
+------------------------------
+TABLE,last
+   ,STRING,username,,"Entry username"
+   ,STRING,tty,,"Entry terminal"
+   ,INT,pid,,"Process (or thread) ID"
+   ,INT,type,,"Entry type, according to ut_type types (utmp.h)"
+   ,INT,time,,"Entry timestamp"
+   ,STRING,host,,"Entry hostname"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,launchd
+   ,STRING,path,INDEX,"Path to daemon or agent plist"
+   ,STRING,name,,"File name of plist (used by launchd)"
+   ,STRING,label,,"Daemon or agent service name"
+   ,STRING,program,,"Path to target program"
+   ,STRING,run_at_load,,"Should the program run on launch load"
+   ,STRING,keep_alive,,"Should the process be restarted if killed"
+   ,STRING,on_demand,,"Deprecated key, replaced by keep_alive"
+   ,STRING,disabled,,"Skip loading this daemon or agent on boot"
+   ,STRING,username,,"Run this daemon or agent as this username"
+   ,STRING,groupname,,"Run this daemon or agent as this group"
+   ,STRING,stdout_path,,"Pipe stdout to a target path"
+   ,STRING,stderr_path,,"Pipe stderr to a target path"
+   ,STRING,start_interval,,"Frecuency of running in seconds"
+   ,STRING,program_arguments,,"Command line arguments passed to program"
+   ,STRING,watch_paths,,"Key that launches daemon or agent if path is modified"
+   ,STRING,queue_directories,,"Similar to watch_paths but only with non-empty directories"
+   ,STRING,inetd_compatibility,,"Run this daemon or agent as it was launched from inetd"
+   ,STRING,start_on_mount,,"Run daemon or agent every time a filesystem is mounted"
+   ,STRING,root_directory,,"Key used to specify a directory to chroot to before launch"
+   ,STRING,working_directory,,"Key used to specify a directory to chdir to before launch"
+   ,STRING,process_type,,"Key describes the intended purpose of the job"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,launchd_overrides
+   ,STRING,label,,"Daemon or agent service name"
+   ,STRING,key,,"Name of the override key"
+   ,STRING,value,,"Overriden value"
+   ,INT64,uid,,"User ID applied to the override, 0 applies to all"
+   ,STRING,path,,"Path to daemon or agent plist"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,listening_ports
+   ,INT,pid,,"Process (or thread) ID"
+   ,INT,port,,"Transport layer port"
+   ,INT,protocol,,"Transport protocol (TCP/UDP)"
+   ,INT,family,,"Network protocol (IPv4, IPv6)"
+   ,STRING,address,,"Specific address for bind"
+   ,INT64,fd,,"Socket file descriptor number"
+   ,INT64,socket,,"Socket handle or inode number"
+   ,STRING,path,,"Path for UNIX domain sockets"
+   ,STRING,net_namespace,HIDDEN,"The inode number of the network namespace"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,lldp_neighbors
+   ,STRING,interface,,"Interface name"
+   ,INT,rid,,"Neighbor chassis index"
+   ,STRING,chassis_id_type,,"Neighbor chassis ID type"
+   ,STRING,chassis_id,,"Neighbor chassis ID value"
+   ,STRING,chassis_sysname,,"CPU brand string, contains vendor and model"
+   ,INT,chassis_sys_description,,"Max number of CPU physical cores"
+   ,INT,chassis_bridge_capability_available,,"Chassis bridge capability availability"
+   ,INT,chassis_bridge_capability_enabled,,"Is chassis bridge capability enabled."
+   ,INT,chassis_router_capability_available,,"Chassis router capability availability"
+   ,INT,chassis_router_capability_enabled,,"Chassis router capability enabled"
+   ,INT,chassis_repeater_capability_available,,"Chassis repeater capability availability"
+   ,INT,chassis_repeater_capability_enabled,,"Chassis repeater capability enabled"
+   ,INT,chassis_wlan_capability_available,,"Chassis wlan capability availability"
+   ,INT,chassis_wlan_capability_enabled,,"Chassis wlan capability enabled"
+   ,INT,chassis_tel_capability_available,,"Chassis telephone capability availability"
+   ,INT,chassis_tel_capability_enabled,,"Chassis telephone capability enabled"
+   ,INT,chassis_docsis_capability_available,,"Chassis DOCSIS capability availability"
+   ,INT,chassis_docsis_capability_enabled,,"Chassis DOCSIS capability enabled"
+   ,INT,chassis_station_capability_available,,"Chassis station capability availability"
+   ,INT,chassis_station_capability_enabled,,"Chassis station capability enabled"
+   ,INT,chassis_other_capability_available,,"Chassis other capability availability"
+   ,INT,chassis_other_capability_enabled,,"Chassis other capability enabled"
+   ,STRING,chassis_mgmt_ips,,"Comma delimited list of chassis management IPS"
+   ,STRING,port_id_type,,"Port ID type"
+   ,STRING,port_id,,"Port ID value"
+   ,STRING,port_description,,"Port description"
+   ,INT64,port_ttl,,"Age of neighbor port"
+   ,INT64,port_mfs,,"Port max frame size"
+   ,STRING,port_aggregation_id,,"Port aggregation ID"
+   ,INT,port_autoneg_supported,,"Auto negotiation supported"
+   ,INT,port_autoneg_enabled,,"Is auto negotiation enabled"
+   ,STRING,port_mau_type,,"MAU type"
+   ,INT,port_autoneg_10baset_hd_enabled,,"10Base-T HD auto negotiation enabled"
+   ,INT,port_autoneg_10baset_fd_enabled,,"10Base-T FD auto negotiation enabled"
+   ,INT,port_autoneg_100basetx_hd_enabled,,"100Base-TX HD auto negotiation enabled"
+   ,INT,port_autoneg_100basetx_fd_enabled,,"100Base-TX FD auto negotiation enabled"
+   ,INT,port_autoneg_100baset2_hd_enabled,,"100Base-T2 HD auto negotiation enabled"
+   ,INT,port_autoneg_100baset2_fd_enabled,,"100Base-T2 FD auto negotiation enabled"
+   ,INT,port_autoneg_100baset4_hd_enabled,,"100Base-T4 HD auto negotiation enabled"
+   ,INT,port_autoneg_100baset4_fd_enabled,,"100Base-T4 FD auto negotiation enabled"
+   ,INT,port_autoneg_1000basex_hd_enabled,,"1000Base-X HD auto negotiation enabled"
+   ,INT,port_autoneg_1000basex_fd_enabled,,"1000Base-X FD auto negotiation enabled"
+   ,INT,port_autoneg_1000baset_hd_enabled,,"1000Base-T HD auto negotiation enabled"
+   ,INT,port_autoneg_1000baset_fd_enabled,,"1000Base-T FD auto negotiation enabled"
+   ,STRING,power_device_type,,"Dot3 power device type"
+   ,INT,power_mdi_supported,,"MDI power supported"
+   ,INT,power_mdi_enabled,,"Is MDI power enabled"
+   ,INT,power_paircontrol_enabled,,"Is power pair control enabled"
+   ,STRING,power_pairs,,"Dot3 power pairs"
+   ,STRING,power_class,,"Power class"
+   ,INT,power_8023at_enabled,,"Is 802.3at enabled"
+   ,STRING,power_8023at_power_type,,"802.3at power type"
+   ,STRING,power_8023at_power_source,,"802.3at power source"
+   ,STRING,power_8023at_power_priority,,"802.3at power priority"
+   ,STRING,power_8023at_power_allocated,,"802.3at power allocated"
+   ,STRING,power_8023at_power_requested,,"802.3at power requested"
+   ,STRING,med_device_type,,"Chassis MED type"
+   ,INT,med_capability_capabilities,,"Is MED capabilities enabled"
+   ,INT,med_capability_policy,,"Is MED policy capability enabled"
+   ,INT,med_capability_location,,"Is MED location capability enabled"
+   ,INT,med_capability_mdi_pse,,"Is MED MDI PSE capability enabled"
+   ,INT,med_capability_mdi_pd,,"Is MED MDI PD capability enabled"
+   ,INT,med_capability_inventory,,"Is MED inventory capability enabled"
+   ,STRING,med_policies,,"Comma delimited list of MED policies"
+   ,STRING,vlans,,"Comma delimited list of vlan ids"
+   ,STRING,pvid,,"Primary VLAN id"
+   ,STRING,ppvids_supported,,"Comma delimited list of supported PPVIDs"
+   ,STRING,ppvids_enabled,,"Comma delimited list of enabled PPVIDs"
+   ,STRING,pids,,"Comma delimited list of PIDs"
+TATTR,
+------------------------------
+TABLE,load_average
+   ,STRING,period,,"Period over which the average is calculated."
+   ,STRING,average,,"Load average over the specified period."
+TATTR,
+------------------------------
+TABLE,logged_in_users
+   ,STRING,type,,"Login type"
+   ,STRING,user,,"User login name"
+   ,STRING,tty,,"Device name"
+   ,STRING,host,,"Remote hostname"
+   ,INT,time,,"Time entry was made"
+   ,INT,pid,,"Process (or thread) ID"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,logical_drives
+   ,STRING,device_id,,"The drive id, usually the drive name, e.g., 'C:'."
+   ,STRING,type,,"The type of disk drive this logical drive represents."
+   ,INT64,free_space,,"The amount of free space, in bytes, of the drive."
+   ,INT64,size,,"The total amount of space, in bytes, of the drive."
+   ,STRING,file_system,,"The file system of the drive."
+   ,INT,boot_partition,,"True if Windows booted from this drive."
+TATTR,
+------------------------------
+TABLE,logon_sessions
+   ,INT,logon_id,INDEX,"A locally unique identifier (LUID) that identifies a logon session."
+   ,STRING,user,,"The account name of the security principal that owns the logon session."
+   ,STRING,logon_domain,,"The name of the domain used to authenticate the owner of the logon session."
+   ,STRING,authentication_package,,"The authentication package used to authenticate the owner of the logon session."
+   ,STRING,logon_type,,"The logon method."
+   ,INT,session_id,,"The Terminal Services session identifier."
+   ,STRING,logon_sid,,"The user's security identifier (SID)."
+   ,INT64,logon_time,,"The time the session owner logged on."
+   ,STRING,logon_server,,"The name of the server used to authenticate the owner of the logon session."
+   ,STRING,dns_domain_name,,"The DNS name for the owner of the logon session."
+   ,STRING,upn,,"The user principal name (UPN) for the owner of the logon session."
+   ,STRING,logon_script,,"The script used for logging on."
+   ,STRING,profile_path,,"The home directory for the logon session."
+   ,STRING,home_directory,,"The home directory for the logon session."
+   ,STRING,home_directory_drive,,"The drive location of the home directory of the logon session."
+TATTR,
+------------------------------
+TABLE,magic
+   ,STRING,path,REQUIRED,"Absolute path to target file"
+   ,STRING,data,,"Magic number data from libmagic"
+   ,STRING,mime_type,,"MIME type data from libmagic"
+   ,STRING,mime_encoding,,"MIME encoding data from libmagic"
+TATTR,
+------------------------------
+TABLE,managed_policies
+   ,STRING,domain,,"System or manager-chosen domain key"
+   ,STRING,uuid,,"Optional UUID assigned to policy set"
+   ,STRING,name,,"Policy key name"
+   ,STRING,value,,"Policy value"
+   ,STRING,username,,"Policy applies only this user"
+   ,INT,manual,,"1 if policy was loaded manually, otherwise 0"
+TATTR,
+------------------------------
+TABLE,md_devices
+   ,STRING,device_name,,"md device name"
+   ,STRING,status,,"Current state of the array"
+   ,INT,raid_level,,"Current raid level of the array"
+   ,INT64,size,,"size of the array in blocks"
+   ,INT64,chunk_size,,"chunk size in bytes"
+   ,INT,raid_disks,,"Number of configured RAID disks in array"
+   ,INT,nr_raid_disks,,"Number of partitions or disk devices to comprise the array"
+   ,INT,working_disks,,"Number of working disks in array"
+   ,INT,active_disks,,"Number of active disks in array"
+   ,INT,failed_disks,,"Number of active disks in array"
+   ,INT,spare_disks,,"Number of active disks in array"
+   ,STRING,superblock_state,,"State of the superblock"
+   ,STRING,superblock_version,,"Version of the superblock"
+   ,INT64,superblock_update_time,,"Unix timestamp of last update"
+   ,STRING,bitmap_on_mem,,"Pages allocated in in-memory bitmap, if enabled"
+   ,STRING,bitmap_chunk_size,,"Bitmap chunk size"
+   ,STRING,bitmap_external_file,,"External referenced bitmap file"
+   ,STRING,recovery_progress,,"Progress of the recovery activity"
+   ,STRING,recovery_finish,,"Estimated duration of recovery activity"
+   ,STRING,recovery_speed,,"Speed of recovery activity"
+   ,STRING,resync_progress,,"Progress of the resync activity"
+   ,STRING,resync_finish,,"Estimated duration of resync activity"
+   ,STRING,resync_speed,,"Speed of resync activity"
+   ,STRING,reshape_progress,,"Progress of the reshape activity"
+   ,STRING,reshape_finish,,"Estimated duration of reshape activity"
+   ,STRING,reshape_speed,,"Speed of reshape activity"
+   ,STRING,check_array_progress,,"Progress of the resync activity"
+   ,STRING,check_array_finish,,"Estimated duration of resync activity"
+   ,STRING,check_array_speed,,"Speed of resync activity"
+   ,STRING,unused_devices,,"Unused devices"
+   ,STRING,other,,"Other information associated with array from /proc/mdstat"
+TATTR,
+------------------------------
+TABLE,md_drives
+   ,STRING,md_device_name,,"md device name"
+   ,STRING,drive_name,,"Drive device name"
+   ,INT,slot,,"Slot position of disk"
+   ,STRING,state,,"State of the drive"
+TATTR,
+------------------------------
+TABLE,md_personalities
+   ,STRING,name,,"Name of personality supported by kernel"
+TATTR,
+------------------------------
+TABLE,mdfind
+   ,STRING,path,,"Path of the file returned from spotlight"
+   ,STRING,query,,"The query that was run to find the file"
+TATTR,
+------------------------------
+TABLE,memory_array_mapped_addresses
+   ,STRING,handle,,"Handle, or instance number, associated with the structure"
+   ,STRING,memory_array_handle,,"Handle of the memory array associated with this structure"
+   ,STRING,starting_address,,"Physical stating address, in kilobytes, of a range of memory mapped to physical memory array"
+   ,STRING,ending_address,,"Physical ending address of last kilobyte of a range of memory mapped to physical memory array"
+   ,INT,partition_width,,"Number of memory devices that form a single row of memory for the address partition of this structure"
+TATTR,
+------------------------------
+TABLE,memory_arrays
+   ,STRING,handle,,"Handle, or instance number, associated with the array"
+   ,STRING,location,,"Physical location of the memory array"
+   ,STRING,use,,"Function for which the array is used"
+   ,STRING,memory_error_correction,,"Primary hardware error correction or detection method supported"
+   ,INT,max_capacity,,"Maximum capacity of array in gigabytes"
+   ,STRING,memory_error_info_handle,,"Handle, or instance number, associated with any error that was detected for the array"
+   ,INT,number_memory_devices,,"Number of memory devices on array"
+TATTR,
+------------------------------
+TABLE,memory_device_mapped_addresses
+   ,STRING,handle,,"Handle, or instance number, associated with the structure"
+   ,STRING,memory_device_handle,,"Handle of the memory device structure associated with this structure"
+   ,STRING,memory_array_mapped_address_handle,,"Handle of the memory array mapped address to which this device range is mapped to"
+   ,STRING,starting_address,,"Physical stating address, in kilobytes, of a range of memory mapped to physical memory array"
+   ,STRING,ending_address,,"Physical ending address of last kilobyte of a range of memory mapped to physical memory array"
+   ,INT,partition_row_position,,"Identifies the position of the referenced memory device in a row of the address partition"
+   ,INT,interleave_position,,"The position of the device in a interleave, i.e. 0 indicates non-interleave, 1 indicates 1st interleave, 2 indicates 2nd interleave, etc."
+   ,INT,interleave_data_depth,,"The max number of consecutive rows from memory device that are accessed in a single interleave transfer; 0 indicates device is non-interleave"
+TATTR,
+------------------------------
+TABLE,memory_devices
+   ,STRING,handle,,"Handle, or instance number, associated with the structure in SMBIOS"
+   ,STRING,array_handle,,"The memory array that the device is attached to"
+   ,STRING,form_factor,,"Implementation form factor for this memory device"
+   ,INT,total_width,,"Total width, in bits, of this memory device, including any check or error-correction bits"
+   ,INT,data_width,,"Data width, in bits, of this memory device"
+   ,INT,size,,"Size of memory device in Megabyte"
+   ,INT,set,,"Identifies if memory device is one of a set of devices.  A value of 0 indicates no set affiliation."
+   ,STRING,device_locator,,"String number of the string that identifies the physically-labeled socket or board position where the memory device is located"
+   ,STRING,bank_locator,,"String number of the string that identifies the physically-labeled bank where the memory device is located"
+   ,STRING,memory_type,,"Type of memory used"
+   ,STRING,memory_type_details,,"Additional details for memory device"
+   ,INT,max_speed,,"Max speed of memory device in megatransfers per second (MT/s)"
+   ,INT,configured_clock_speed,,"Configured speed of memory device in megatransfers per second (MT/s)"
+   ,STRING,manufacturer,,"Manufacturer ID string"
+   ,STRING,serial_number,,"Serial number of memory device"
+   ,STRING,asset_tag,,"Manufacturer specific asset tag of memory device"
+   ,STRING,part_number,,"Manufacturer specific serial number of memory device"
+   ,INT,min_voltage,,"Minimum operating voltage of device in millivolts"
+   ,INT,max_voltage,,"Maximum operating voltage of device in millivolts"
+   ,INT,configured_voltage,,"Configured operating voltage of device in millivolts"
+TATTR,
+------------------------------
+TABLE,memory_error_info
+   ,STRING,handle,,"Handle, or instance number, associated with the structure"
+   ,STRING,error_type,,"type of error associated with current error status for array or device"
+   ,STRING,error_granularity,,"Granularity to which the error can be resolved"
+   ,STRING,error_operation,,"Memory access operation that caused the error"
+   ,STRING,vendor_syndrome,,"Vendor specific ECC syndrome or CRC data associated with the erroneous access"
+   ,STRING,memory_array_error_address,,"32 bit physical address of the error based on the addressing of the bus to which the memory array is connected"
+   ,STRING,device_error_address,,"32 bit physical address of the error relative to the start of the failing memory address, in bytes"
+   ,STRING,error_resolution,,"Range, in bytes, within which this error can be determined, when an error address is given"
+TATTR,
+------------------------------
+TABLE,memory_info
+   ,INT64,memory_total,,"Total amount of physical RAM, in bytes"
+   ,INT64,memory_free,,"The amount of physical RAM, in bytes, left unused by the system"
+   ,INT64,buffers,,"The amount of physical RAM, in bytes, used for file buffers"
+   ,INT64,cached,,"The amount of physical RAM, in bytes, used as cache memory"
+   ,INT64,swap_cached,,"The amount of swap, in bytes, used as cache memory"
+   ,INT64,active,,"The total amount of buffer or page cache memory, in bytes, that is in active use"
+   ,INT64,inactive,,"The total amount of buffer or page cache memory, in bytes, that are free and available"
+   ,INT64,swap_total,,"The total amount of swap available, in bytes"
+   ,INT64,swap_free,,"The total amount of swap free, in bytes"
+TATTR,
+------------------------------
+TABLE,memory_map
+   ,STRING,name,,"Region name"
+   ,STRING,start,,"Start address of memory region"
+   ,STRING,end,,"End address of memory region"
+TATTR,
+------------------------------
+TABLE,mounts
+   ,STRING,device,,"Mounted device"
+   ,STRING,device_alias,,"Mounted device alias"
+   ,STRING,path,,"Mounted device path"
+   ,STRING,type,,"Mounted device type"
+   ,INT64,blocks_size,,"Block size in bytes"
+   ,INT64,blocks,,"Mounted device used blocks"
+   ,INT64,blocks_free,,"Mounted device free blocks"
+   ,INT64,blocks_available,,"Mounted device available blocks"
+   ,INT64,inodes,,"Mounted device used inodes"
+   ,INT64,inodes_free,,"Mounted device free inodes"
+   ,STRING,flags,,"Mounted device flags"
+TATTR,
+------------------------------
+TABLE,msr
+   ,INT64,processor_number,,"The processor number as reported in /proc/cpuinfo"
+   ,INT64,turbo_disabled,,"Whether the turbo feature is disabled."
+   ,INT64,turbo_ratio_limit,,"The turbo feature ratio limit."
+   ,INT64,platform_info,,"Platform information."
+   ,INT64,perf_ctl,,"Performance setting for the processor."
+   ,INT64,perf_status,,"Performance status for the processor."
+   ,INT64,feature_control,,"Bitfield controling enabled features."
+   ,INT64,rapl_power_limit,,"Run Time Average Power Limiting power limit."
+   ,INT64,rapl_energy_status,,"Run Time Average Power Limiting energy status."
+   ,INT64,rapl_power_units,,"Run Time Average Power Limiting power units."
+TATTR,
+------------------------------
+TABLE,nfs_shares
+   ,STRING,share,,"Filesystem path to the share"
+   ,STRING,options,,"Options string set on the export share"
+   ,INT,readonly,,"1 if the share is exported readonly else 0"
+TATTR,
+------------------------------
+TABLE,npm_packages
+   ,STRING,name,,"Package display name"
+   ,STRING,version,,"Package supplied version"
+   ,STRING,description,,"Package supplied description"
+   ,STRING,author,,"Package author name"
+   ,STRING,license,,"License for package"
+   ,STRING,path,,"Module's package.json path"
+   ,STRING,directory,,"Node module's directory where this package is located"
+TATTR,
+------------------------------
+TABLE,ntdomains
+   ,STRING,name,,"The label by which the object is known."
+   ,STRING,client_site_name,,"The name of the site where the domain controller is configured."
+   ,STRING,dc_site_name,,"The name of the site where the domain controller is located."
+   ,STRING,dns_forest_name,,"The name of the root of the DNS tree."
+   ,STRING,domain_controller_address,,"The IP Address of the discovered domain controller.."
+   ,STRING,domain_controller_name,,"The name of the discovered domain controller."
+   ,STRING,domain_name,,"The name of the domain."
+   ,STRING,status,,"The current status of the domain object."
+TATTR,
+------------------------------
+TABLE,ntfs_acl_permissions
+   ,STRING,path,,"Path to the file or directory."
+   ,STRING,type,,"Type of access mode for the access control entry."
+   ,STRING,principal,,"User or group to which the ACE applies."
+   ,STRING,access,,"Specific permissions that indicate the rights described by the ACE."
+   ,STRING,inherited_from,,"The inheritance policy of the ACE."
+TATTR,
+------------------------------
+TABLE,nvram
+   ,STRING,name,,"Variable name"
+   ,STRING,type,,"Data type (CFData, CFString, etc)"
+   ,STRING,value,,"Raw variable data"
+TATTR,
+------------------------------
+TABLE,oem_strings
+   ,STRING,handle,,"Handle, or instance number, associated with the Type 11 structure"
+   ,INT,number,,"The string index of the structure"
+   ,STRING,value,,"The value of the OEM string"
+TATTR,
+------------------------------
+TABLE,opera_extensions
+   ,INT64,uid,ADDITIONAL,"The local user that owns the extension"
+   ,STRING,name,,"Extension display name"
+   ,STRING,identifier,INDEX,"Extension identifier"
+   ,STRING,version,,"Extension-supplied version"
+   ,STRING,description,,"Extension-optional description"
+   ,STRING,locale,,"Default locale supported by extension"
+   ,STRING,update_url,,"Extension-supplied update URI"
+   ,STRING,author,,"Optional extension author"
+   ,INT,persistent,,"1 If extension is persistent across all tabs else 0"
+   ,STRING,path,,"Path to extension folder"
+TATTR,USER_BASED,
+------------------------------
+TABLE,os_version
+   ,STRING,name,,"Distribution or product name"
+   ,STRING,version,,"Pretty, suitable for presentation, OS version"
+   ,INT,major,,"Major release version"
+   ,INT,minor,,"Minor release version"
+   ,INT,patch,,"Optional patch release"
+   ,STRING,build,,"Optional build-specific or variant string"
+   ,STRING,platform,,"OS Platform or ID"
+   ,STRING,platform_like,,"Closely related platforms"
+   ,STRING,codename,,"OS version codename"
+   ,STRING,install_date,HIDDEN,"The install date of the OS."
+TATTR,
+------------------------------
+TABLE,osquery_events
+   ,STRING,name,,"Event publisher or subscriber name"
+   ,STRING,publisher,,"Name of the associated publisher"
+   ,STRING,type,,"Either publisher or subscriber"
+   ,INT,subscriptions,,"Number of subscriptions the publisher received or subscriber used"
+   ,INT,events,,"Number of events emitted or received since osquery started"
+   ,INT,refreshes,,"Publisher only: number of runloop restarts"
+   ,INT,active,,"1 if the publisher or subscriber is active else 0"
+TATTR,UTILITY,
+------------------------------
+TABLE,osquery_extensions
+   ,INT64,uuid,,"The transient ID assigned for communication"
+   ,STRING,name,,"Extension's name"
+   ,STRING,version,,"Extenion's version"
+   ,STRING,sdk_version,,"osquery SDK version used to build the extension"
+   ,STRING,path,,"Path of the extenion's domain socket or library path"
+   ,STRING,type,,"SDK extension type: extension or module"
+TATTR,UTILITY,
+------------------------------
+TABLE,osquery_flags
+   ,STRING,name,,"Flag name"
+   ,STRING,type,,"Flag type"
+   ,STRING,description,,"Flag description"
+   ,STRING,default_value,,"Flag default value"
+   ,STRING,value,,"Flag value"
+   ,INT,shell_only,,"Is the flag shell only?"
+TATTR,UTILITY,
+------------------------------
+TABLE,osquery_info
+   ,INT,pid,,"Process (or thread/handle) ID"
+   ,STRING,uuid,,"Unique ID provided by the system"
+   ,STRING,instance_id,,"Unique, long-lived ID per instance of osquery"
+   ,STRING,version,,"osquery toolkit version"
+   ,STRING,config_hash,,"Hash of the working configuration state"
+   ,INT,config_valid,,"1 if the config was loaded and considered valid, else 0"
+   ,STRING,extensions,,"osquery extensions status"
+   ,STRING,build_platform,,"osquery toolkit build platform"
+   ,STRING,build_distro,,"osquery toolkit platform distribution name (os version)"
+   ,INT,start_time,,"UNIX time in seconds when the process started"
+   ,INT,watcher,,"Process (or thread/handle) ID of optional watcher process"
+TATTR,UTILITY,
+------------------------------
+TABLE,osquery_packs
+   ,STRING,name,,"The given name for this query pack"
+   ,STRING,platform,,"Platforms this query is supported on"
+   ,STRING,version,,"Minimum osquery version that this query will run on"
+   ,INT,shard,,"Shard restriction limit, 1-100, 0 meaning no restriction"
+   ,INT,discovery_cache_hits,,"The number of times that the discovery query used cached values since the last time the config was reloaded"
+   ,INT,discovery_executions,,"The number of times that the discovery queries have been executed since the last time the config was reloaded"
+   ,INT,active,,"Whether this pack is active (the version, platform and discovery queries match) yes=1, no=0."
+TATTR,UTILITY,
+------------------------------
+TABLE,osquery_registry
+   ,STRING,registry,,"Name of the osquery registry"
+   ,STRING,name,,"Name of the plugin item"
+   ,INT,owner_uuid,,"Extension route UUID (0 for core)"
+   ,INT,internal,,"1 If the plugin is internal else 0"
+   ,INT,active,,"1 If this plugin is active else 0"
+TATTR,UTILITY,
+------------------------------
+TABLE,osquery_schedule
+   ,STRING,name,,"The given name for this query"
+   ,STRING,query,,"The exact query to run"
+   ,INT,interval,,"The interval in seconds to run this query, not an exact interval"
+   ,INT64,executions,,"Number of times the query was executed"
+   ,INT64,last_executed,,"UNIX time stamp in seconds of the last completed execution"
+   ,INT,blacklisted,,"1 if the query is blacklisted else 0"
+   ,INT64,output_size,,"Total number of bytes generated by the query"
+   ,INT64,wall_time,,"Total wall time spent executing"
+   ,INT64,user_time,,"Total user time spent executing"
+   ,INT64,system_time,,"Total system time spent executing"
+   ,INT64,average_memory,,"Average private memory left after executing"
+TATTR,UTILITY,
+------------------------------
+TABLE,package_bom
+   ,STRING,filepath,,"Package file or directory"
+   ,INT,uid,,"Expected user of file or directory"
+   ,INT,gid,,"Expected group of file or directory"
+   ,INT,mode,,"Expected permissions"
+   ,INT64,size,,"Expected file size"
+   ,INT,modified_time,,"Timestamp the file was installed"
+   ,STRING,path,REQUIRED,"Path of package bom"
+TATTR,
+------------------------------
+TABLE,package_install_history
+   ,STRING,package_id,,"Label packageIdentifiers"
+   ,INT,time,,"Label date as UNIX timestamp"
+   ,STRING,name,,"Package display name"
+   ,STRING,version,,"Package display version"
+   ,STRING,source,,"Install source: usually the installer process name"
+   ,STRING,content_type,,"Package content_type (optional)"
+TATTR,
+------------------------------
+TABLE,package_receipts
+TALIAS,packages
+   ,STRING,package_id,INDEX,"Package domain identifier"
+   ,STRING,package_filename,INDEX | HIDDEN,"Filename of original .pkg file"
+   ,STRING,version,INDEX,"Installed package version"
+   ,STRING,location,,"Optional relative install path on volume"
+   ,DOUBLE,install_time,,"Timestamp of install time"
+   ,STRING,installer_name,,"Name of installer process"
+   ,STRING,path,ADDITIONAL,"Path of receipt plist"
+TATTR,
+------------------------------
+TABLE,patches
+   ,STRING,csname,,"The name of the host the patch is installed on."
+   ,STRING,hotfix_id,,"The KB ID of the patch."
+   ,STRING,caption,,"Short description of the patch."
+   ,STRING,description,,"Fuller description of the patch."
+   ,STRING,fix_comments,,"Additional comments about the patch."
+   ,STRING,installed_by,,"The system context in which the patch as installed."
+   ,STRING,install_date,,"Indicates when the patch was installed. Lack of a value does not indicate that the patch was not installed."
+   ,STRING,installed_on,,"The date when the patch was installed."
+TATTR,
+------------------------------
+TABLE,pci_devices
+   ,STRING,pci_slot,,"PCI Device used slot"
+   ,STRING,pci_class,,"PCI Device class"
+   ,STRING,driver,,"PCI Device used driver"
+   ,STRING,vendor,,"PCI Device vendor"
+   ,STRING,vendor_id,,"Hex encoded PCI Device vendor identifier"
+   ,STRING,model,,"PCI Device model"
+   ,STRING,model_id,,"Hex encoded PCI Device model identifier"
+   ,STRING,pci_class_id,HIDDEN,"PCI Device class ID in hex format"
+   ,STRING,pci_subclass_id,HIDDEN,"PCI Device  subclass in hex format"
+   ,STRING,pci_subclass,HIDDEN,"PCI Device subclass"
+   ,STRING,subsystem_vendor_id,HIDDEN,"Vendor ID of PCI device subsystem"
+   ,STRING,subsystem_vendor,HIDDEN,"Vendor of PCI device subsystem"
+   ,STRING,subsystem_model_id,HIDDEN,"Model ID of PCI device subsystem"
+   ,STRING,subsystem_model,HIDDEN,"Device description of PCI device subsystem"
+TATTR,
+------------------------------
+TABLE,physical_disk_performance
+   ,STRING,name,,"Name of the physical disk"
+   ,INT64,avg_disk_bytes_per_read,,"Average number of bytes transferred from the disk during read operations"
+   ,INT64,avg_disk_bytes_per_write,,"Average number of bytes transferred to the disk during write operations"
+   ,INT64,avg_disk_read_queue_length,,"Average number of read requests that were queued for the selected disk during the sample interval"
+   ,INT64,avg_disk_write_queue_length,,"Average number of write requests that were queued for the selected disk during the sample interval"
+   ,INT,avg_disk_sec_per_read,,"Average time, in seconds, of a read operation of data from the disk"
+   ,INT,avg_disk_sec_per_write,,"Average time, in seconds, of a write operation of data to the disk"
+   ,INT,current_disk_queue_length,,"Number of requests outstanding on the disk at the time the performance data is collected"
+   ,INT64,percent_disk_read_time,,"Percentage of elapsed time that the selected disk drive is busy servicing read requests"
+   ,INT64,percent_disk_write_time,,"Percentage of elapsed time that the selected disk drive is busy servicing write requests"
+   ,INT64,percent_disk_time,,"Percentage of elapsed time that the selected disk drive is busy servicing read or write requests"
+   ,INT64,percent_idle_time,,"Percentage of time during the sample interval that the disk was idle"
+TATTR,
+------------------------------
+TABLE,pipes
+   ,INT64,pid,INDEX,"Process ID of the process to which the pipe belongs"
+   ,STRING,name,,"Name of the pipe"
+   ,INT,instances,,"Number of instances of the named pipe"
+   ,INT,max_instances,,"The maximum number of instances creatable for this pipe"
+   ,STRING,flags,,"The flags indicating whether this pipe connection is a server or client end, and if the pipe for sending messages or bytes"
+TATTR,
+------------------------------
+TABLE,pkg_packages
+   ,STRING,name,,"Package name"
+   ,STRING,version,,"Package version"
+   ,INT64,flatsize,,"Package size in bytes"
+   ,STRING,arch,,"Architecture(s) supported"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,platform_info
+   ,STRING,vendor,,"Platform code vendor"
+   ,STRING,version,,"Platform code version"
+   ,STRING,date,,"Self-reported platform code update date"
+   ,STRING,revision,,"BIOS major and minor revision"
+   ,STRING,address,,"Relative address of firmware mapping"
+   ,STRING,size,,"Size in bytes of firmware"
+   ,INT,volume_size,,"(Optional) size of firmware volume"
+   ,STRING,extra,,"Platform-specific additional information"
+TATTR,
+------------------------------
+TABLE,plist
+   ,STRING,key,,"Preference top-level key"
+   ,STRING,subkey,,"Intemediate key path, includes lists/dicts"
+   ,STRING,value,,"String value of most CF types"
+   ,STRING,path,REQUIRED,"(optional) read preferences from a plist"
+TATTR,
+------------------------------
+TABLE,portage_keywords
+   ,STRING,package,,"Package name"
+   ,STRING,version,,"The version which are affected by the use flags, empty means all"
+   ,STRING,keyword,,"The keyword applied to the package"
+   ,INT,mask,,"If the package is masked"
+   ,INT,unmask,,"If the package is unmasked"
+TATTR,
+------------------------------
+TABLE,portage_packages
+   ,STRING,package,,"Package name"
+   ,STRING,version,,"The version which are affected by the use flags, empty means all"
+   ,STRING,slot,,"The slot used by package"
+   ,INT64,build_time,,"Unix time when package was built"
+   ,STRING,repository,,"From which repository the ebuild was used"
+   ,INT64,eapi,,"The eapi for the ebuild"
+   ,INT64,size,,"The size of the package"
+   ,INT,world,,"If package is in the world file"
+TATTR,
+------------------------------
+TABLE,portage_use
+   ,STRING,package,,"Package name"
+   ,STRING,version,,"The version of the installed package"
+   ,STRING,use,,"USE flag which has been enabled for package"
+TATTR,
+------------------------------
+TABLE,power_sensors
+   ,STRING,key,INDEX,"The SMC key on OS X"
+   ,STRING,category,,"The sensor category: currents, voltage, wattage"
+   ,STRING,name,,"Name of power source"
+   ,STRING,value,,"Power in Watts"
+TATTR,
+------------------------------
+TABLE,powershell_events
+   ,INT64,time,,"Timestamp the event was received by the osquery event publisher"
+   ,STRING,datetime,,"System time at which the Powershell script event occurred"
+   ,STRING,script_block_id,,"The unique GUID of the powershell script to which this block belongs"
+   ,INT,script_block_count,,"The total number of script blocks for this script"
+   ,STRING,script_text,,"The text content of the Powershell script"
+   ,STRING,script_name,,"The name of the Powershell script"
+   ,STRING,script_path,,"The path for the Powershell script"
+   ,DOUBLE,cosine_similarity,,"How similar the Powershell script is to a provided 'normal' character frequency"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,preferences
+   ,STRING,domain,INDEX,"Application ID usually in com.name.product format"
+   ,STRING,key,INDEX,"Preference top-level key"
+   ,STRING,subkey,INDEX,"Intemediate key path, includes lists/dicts"
+   ,STRING,value,,"String value of most CF types"
+   ,INT,forced,,"1 if the value is forced/managed, else 0"
+   ,STRING,username,ADDITIONAL,"(optional) read preferences for a specific user"
+   ,STRING,host,,"'current' or 'any' host, where 'current' takes precedence"
+TATTR,USER_BASED,
+------------------------------
+TABLE,process_envs
+   ,INT,pid,INDEX,"Process (or thread) ID"
+   ,STRING,key,,"Environment variable name"
+   ,STRING,value,,"Environment variable value"
+TATTR,
+------------------------------
+TABLE,process_events
+   ,INT64,pid,,"Process (or thread) ID"
+   ,STRING,path,,"Path of executed file"
+   ,STRING,mode,,"File mode permissions"
+   ,STRING,cmdline,,"Command line arguments (argv)"
+   ,INT64,cmdline_size,HIDDEN,"Actual size (bytes) of command line arguments"
+   ,STRING,env,HIDDEN,"Environment variables delimited by spaces"
+   ,INT64,env_count,HIDDEN,"Number of environment variables"
+   ,INT64,env_size,HIDDEN,"Actual size (bytes) of environment list"
+   ,STRING,cwd,,"The process current working directory"
+   ,INT64,auid,,"Audit User ID at process start"
+   ,INT64,uid,,"User ID at process start"
+   ,INT64,euid,,"Effective user ID at process start"
+   ,INT64,gid,,"Group ID at process start"
+   ,INT64,egid,,"Effective group ID at process start"
+   ,INT64,owner_uid,,"File owner user ID"
+   ,INT64,owner_gid,,"File owner group ID"
+   ,INT64,atime,,"File last access in UNIX time"
+   ,INT64,mtime,,"File modification in UNIX time"
+   ,INT64,ctime,,"File last metadata change in UNIX time"
+   ,INT64,btime,,"File creation in UNIX time"
+   ,STRING,overflows,HIDDEN,"List of structures that overflowed"
+   ,INT64,parent,,"Process parent's PID, or -1 if cannot be determined."
+   ,INT64,time,,"Time of execution in UNIX time"
+   ,INT64,uptime,,"Time of execution in system uptime"
+   ,STRING,eid,HIDDEN,"Event ID"
+   ,INT64,status,,"OpenBSM Attribute: Status of the process"
+CALIAS,env,environment
+CALIAS,env_count,environment_count
+CALIAS,env_size,environment_size
+CALIAS,atime,access_time
+CALIAS,mtime,modify_time
+CALIAS,ctime,change_time
+CALIAS,btime,create_time
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,process_file_events
+   ,STRING,operation,,"Operation type"
+   ,INT64,pid,,"Process ID"
+   ,INT64,ppid,,"Parent process ID"
+   ,INT64,time,,"Time of execution in UNIX time"
+   ,STRING,executable,,"The executable path"
+   ,STRING,partial,,"True if this is a partial event (i.e.: this process existed before we started osquery)"
+   ,STRING,cwd,,"The current working directory of the process"
+   ,STRING,path,,"The path associated with the event"
+   ,STRING,dest_path,,"The canonical path associated with the event"
+   ,STRING,uid,,"The uid of the process performing the action"
+   ,STRING,gid,,"The gid of the process performing the action"
+   ,STRING,euid,,"Effective user ID of the process using the file"
+   ,STRING,egid,,"Effective group ID of the process using the file"
+   ,INT64,uptime,,"Time of execution in system uptime"
+   ,STRING,eid,HIDDEN,"Event ID"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,process_memory_map
+   ,INT,pid,INDEX,"Process (or thread) ID"
+   ,STRING,start,,"Virtual start address (hex)"
+   ,STRING,end,,"Virtual end address (hex)"
+   ,STRING,permissions,,"r=read, w=write, x=execute, p=private (cow)"
+   ,INT64,offset,,"Offset into mapped path"
+   ,STRING,device,,"MA:MI Major/minor device ID"
+   ,INT,inode,,"Mapped path inode, 0 means uninitialized (BSS)"
+   ,STRING,path,,"Path to mapped file or mapped type"
+   ,INT,pseudo,,"1 If path is a pseudo path, else 0"
+TATTR,
+------------------------------
+TABLE,process_namespaces
+   ,INT,pid,INDEX,"Process (or thread) ID"
+   ,STRING,cgroup_namespace,,"cgroup namespace inode"
+   ,STRING,ipc_namespace,,"ipc namespace inode"
+   ,STRING,mnt_namespace,,"mnt namespace inode"
+   ,STRING,net_namespace,,"net namespace inode"
+   ,STRING,pid_namespace,,"pid namespace inode"
+   ,STRING,user_namespace,,"user namespace inode"
+   ,STRING,uts_namespace,,"uts namespace inode"
+TATTR,
+------------------------------
+TABLE,process_open_files
+   ,INT64,pid,INDEX,"Process (or thread) ID"
+   ,INT64,fd,,"Process-specific file descriptor number"
+   ,STRING,path,,"Filesystem path of descriptor"
+TATTR,
+------------------------------
+TABLE,process_open_sockets
+   ,INT,pid,INDEX,"Process (or thread) ID"
+   ,INT64,fd,,"Socket file descriptor number"
+   ,INT64,socket,,"Socket handle or inode number"
+   ,INT,family,,"Network protocol (IPv4, IPv6)"
+   ,INT,protocol,,"Transport protocol (TCP/UDP)"
+   ,STRING,local_address,,"Socket local address"
+   ,STRING,remote_address,,"Socket remote address"
+   ,INT,local_port,,"Socket local port"
+   ,INT,remote_port,,"Socket remote port"
+   ,STRING,path,,"For UNIX sockets (family=AF_UNIX), the domain path"
+   ,STRING,state,,"TCP socket state"
+   ,STRING,net_namespace,HIDDEN,"The inode number of the network namespace"
+TATTR,
+------------------------------
+TABLE,processes
+   ,INT64,pid,INDEX,"Process (or thread) ID"
+   ,STRING,name,,"The process path or shorthand argv[0]"
+   ,STRING,path,,"Path to executed binary"
+   ,STRING,cmdline,,"Complete argv"
+   ,STRING,state,,"Process state"
+   ,STRING,cwd,,"Process current working directory"
+   ,STRING,root,,"Process virtual root directory"
+   ,INT64,uid,,"Unsigned user ID"
+   ,INT64,gid,,"Unsigned group ID"
+   ,INT64,euid,,"Unsigned effective user ID"
+   ,INT64,egid,,"Unsigned effective group ID"
+   ,INT64,suid,,"Unsigned saved user ID"
+   ,INT64,sgid,,"Unsigned saved group ID"
+   ,INT,on_disk,,"The process path exists yes=1, no=0, unknown=-1"
+   ,INT64,wired_size,,"Bytes of unpagable memory used by process"
+   ,INT64,resident_size,,"Bytes of private memory used by process"
+   ,INT64,total_size,,"Total virtual memory size"
+   ,INT64,user_time,,"CPU time in milliseconds spent in user space"
+   ,INT64,system_time,,"CPU time in milliseconds spent in kernel space"
+   ,INT64,disk_bytes_read,,"Bytes read from disk"
+   ,INT64,disk_bytes_written,,"Bytes written to disk"
+   ,INT64,start_time,,"Process start in seconds since boot (non-sleeping)"
+   ,INT64,parent,,"Process parent's PID"
+   ,INT64,pgroup,,"Process group"
+   ,INT,threads,,"Number of threads used by process"
+   ,INT,nice,,"Process nice level (-20 to 20, default 0)"
+   ,INT,is_elevated_token,HIDDEN,"Process uses elevated token yes=1, no=0"
+   ,INT64,elapsed_time,HIDDEN,"Elapsed time in seconds this process has been running."
+   ,INT64,handle_count,HIDDEN,"Total number of handles that the process has open. This number is the sum of the handles currently opened by each thread in the process."
+   ,INT64,percent_processor_time,HIDDEN,"Returns elapsed time that all of the threads of this process used the processor to execute instructions in 100 nanoseconds ticks."
+   ,INT64,upid,,"A 64bit pid that is never reused. Returns -1 if we couldn't gather them from the system."
+   ,INT64,uppid,,"The 64bit parent pid that is never reused. Returns -1 if we couldn't gather them from the system."
+   ,INT,cpu_type,,"A 64bit pid that is never reused. Returns -1 if we couldn't gather them from the system."
+   ,INT,cpu_subtype,,"The 64bit parent pid that is never reused. Returns -1 if we couldn't gather them from the system."
+CALIAS,total_size,phys_footprint
+TATTR,CACHEABLE,
+------------------------------
+TABLE,programs
+TALIAS,programs_and_features
+   ,STRING,name,,"Commonly used product name."
+   ,STRING,version,,"Product version information."
+   ,STRING,install_location,,"The installation location directory of the product."
+   ,STRING,install_source,,"The installation source of the product."
+   ,STRING,language,,"The language of the product."
+   ,STRING,publisher,,"Name of the product supplier."
+   ,STRING,uninstall_string,,"Path and filename of the uninstaller."
+   ,STRING,install_date,,"Date that this product was installed on the system. "
+   ,STRING,identifying_number,,"Product identification such as a serial number on software, or a die number on a hardware chip."
+TATTR,
+------------------------------
+TABLE,prometheus_metrics
+   ,STRING,target_name,,"Address of prometheus target"
+   ,STRING,metric_name,,"Name of collected Prometheus metric"
+   ,DOUBLE,metric_value,,"Value of collected Prometheus metric"
+   ,INT64,timestamp_ms,,"Unix timestamp of collected data in MS"
+TATTR,
+------------------------------
+TABLE,python_packages
+   ,STRING,name,,"Package display name"
+   ,STRING,version,,"Package-supplied version"
+   ,STRING,summary,,"Package-supplied summary"
+   ,STRING,author,,"Optional package author"
+   ,STRING,license,,"License under which package is launched"
+   ,STRING,path,,"Path at which this module resides"
+   ,STRING,directory,,"Directory where Python modules are located"
+TATTR,
+------------------------------
+TABLE,quicklook_cache
+   ,STRING,path,,"Path of file"
+   ,INT,rowid,,"Quicklook file rowid key"
+   ,STRING,fs_id,,"Quicklook file fs_id key"
+   ,INT,volume_id,,"Parsed volume ID from fs_id"
+   ,INT,inode,,"Parsed file ID (inode) from fs_id"
+   ,INT,mtime,,"Parsed version date field"
+   ,INT64,size,,"Parsed version size field"
+   ,STRING,label,,"Parsed version 'gen' field"
+   ,INT,last_hit_date,,"Apple date format for last thumbnail cache hit"
+   ,STRING,hit_count,,"Number of cache hits on thumbnail"
+   ,INT64,icon_mode,,"Thumbnail icon mode"
+   ,STRING,cache_path,,"Path to cache data"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,registry
+   ,STRING,key,ADDITIONAL,"Name of the key to search for"
+   ,STRING,path,INDEX,"Full path to the value"
+   ,STRING,name,,"Name of the registry value entry"
+   ,STRING,type,,"Type of the registry value, or 'subkey' if item is a subkey"
+   ,STRING,data,,"Data content of registry value"
+   ,INT64,mtime,,"timestamp of the most recent registry write"
+TATTR,
+------------------------------
+TABLE,routes
+   ,STRING,destination,,"Destination IP address"
+   ,INT,netmask,,"Netmask length"
+   ,STRING,gateway,,"Route gateway"
+   ,STRING,source,,"Route source"
+   ,INT,flags,,"Flags to describe route"
+   ,STRING,interface,,"Route local interface"
+   ,INT,mtu,,"Maximum Transmission Unit for the route"
+   ,INT,metric,,"Cost of route. Lowest is preferred"
+   ,STRING,type,,"Type of route"
+   ,INT,hopcount,,"Max hops expected"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,rpm_package_files
+   ,STRING,package,INDEX,"RPM package name"
+   ,STRING,path,,"Path name"
+   ,STRING,username,,"File default username from info DB"
+   ,STRING,groupname,,"File default groupname from info DB"
+   ,STRING,mode,,"File permissions mode from info DB"
+   ,INT64,size,,"Expected file size in bytes from RPM info DB"
+   ,STRING,sha256,,"SHA256 file digest from RPM info DB"
+TATTR,
+------------------------------
+TABLE,rpm_packages
+   ,STRING,name,,"RPM package name"
+   ,STRING,version,,"Package version"
+   ,STRING,release,,"Package release"
+   ,STRING,source,,"Source RPM package name (optional)"
+   ,INT64,size,,"Package size in bytes"
+   ,STRING,sha1,,"SHA1 hash of the package contents"
+   ,STRING,arch,,"Architecture(s) supported"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,safari_extensions
+   ,INT64,uid,ADDITIONAL,"The local user that owns the extension"
+   ,STRING,name,,"Extension display name"
+   ,STRING,identifier,INDEX,"Extension identifier"
+   ,STRING,version,,"Extension long version"
+   ,STRING,sdk,,"Bundle SDK used to compile extension"
+   ,STRING,update_url,,"Extension-supplied update URI"
+   ,STRING,author,,"Optional extension author"
+   ,STRING,developer_id,,"Optional developer identifier"
+   ,STRING,description,,"Optional extension description text"
+   ,STRING,path,,"Path to extension XAR bundle"
+TATTR,USER_BASED,
+------------------------------
+TABLE,sandboxes
+   ,STRING,label,,"UTI-format bundle or label ID"
+   ,STRING,user,,"Sandbox owner"
+   ,INT,enabled,,"Application sandboxings enabled on container"
+   ,STRING,build_id,,"Sandbox-specific identifier"
+   ,STRING,bundle_path,,"Application bundle used by the sandbox"
+   ,STRING,path,,"Path to sandbox container directory"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,scheduled_tasks
+   ,STRING,name,,"Name of the scheduled task"
+   ,STRING,action,,"Actions executed by the scheduled task"
+   ,STRING,path,,"Path to the executable to be run"
+   ,INT,enabled,,"Whether or not the scheduled task is enabled"
+   ,STRING,state,,"State of the scheduled task"
+   ,INT,hidden,,"Whether or not the task is visible in the UI"
+   ,INT,last_run_time,,"Timestamp the task last ran"
+   ,INT,next_run_time,,"Timestamp the task is scheduled to run next"
+   ,STRING,last_run_message,,"Exit status message of the last task run"
+   ,STRING,last_run_code,,"Exit status code of the last task run"
+TATTR,
+------------------------------
+TABLE,selinux_events
+   ,STRING,type,,"Event type"
+   ,STRING,message,,"Message"
+   ,INT64,time,,"Time of execution in UNIX time"
+   ,INT64,uptime,,"Time of execution in system uptime"
+   ,STRING,eid,HIDDEN,"Event ID"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,services
+   ,STRING,name,,"Service name"
+   ,STRING,service_type,,"Service Type: OWN_PROCESS, SHARE_PROCESS and maybe Interactive (can interact with the desktop)"
+   ,STRING,display_name,,"Service Display name"
+   ,STRING,status,,"Service Current status: STOPPED, START_PENDING, STOP_PENDING, RUNNING, CONTINUE_PENDING, PAUSE_PENDING, PAUSED"
+   ,INT,pid,,"the Process ID of the service"
+   ,STRING,start_type,,"Service start type: BOOT_START, SYSTEM_START, AUTO_START, DEMAND_START, DISABLED"
+   ,INT,win32_exit_code,,"The error code that the service uses to report an error that occurs when it is starting or stopping"
+   ,INT,service_exit_code,,"The service-specific error code that the service returns when an error occurs while the service is starting or stopping"
+   ,STRING,path,,"Path to Service Executable"
+   ,STRING,module_path,,"Path to ServiceDll"
+   ,STRING,description,,"Service Description"
+   ,STRING,user_account,,"The name of the account that the service process will be logged on as when it runs. This name can be of the form Domain\UserName. If the account belongs to the built-in domain, the name can be of the form .\UserName."
+TATTR,
+------------------------------
+TABLE,shadow
+   ,STRING,password_status,,"Password status"
+   ,STRING,hash_alg,,"Password hashing algorithm"
+   ,INT64,last_change,,"Date of last password change (starting from UNIX epoch date)"
+   ,INT64,min,,"Minimal number of days between password changes"
+   ,INT64,max,,"Maximum number of days between password changes"
+   ,INT64,warning,,"Number of days before password expires to warn user about it"
+   ,INT64,inactive,,"Number of days after password expires until account is blocked"
+   ,INT64,expire,,"Number of days since UNIX epoch date until account is disabled"
+   ,INT64,flag,,"Reserved"
+   ,STRING,username,INDEX,"Username"
+TATTR,
+------------------------------
+TABLE,shared_folders
+   ,STRING,name,,"The shared name of the folder as it appears to other users"
+   ,STRING,path,,"Absolute path of shared folder on the local system"
+TATTR,
+------------------------------
+TABLE,shared_memory
+   ,INT,shmid,,"Shared memory segment ID"
+   ,INT64,owner_uid,,"User ID of owning process"
+   ,INT64,creator_uid,,"User ID of creator process"
+   ,INT64,pid,,"Process ID to last use the segment"
+   ,INT64,creator_pid,,"Process ID that created the segment"
+   ,INT64,atime,,"Attached time"
+   ,INT64,dtime,,"Detached time"
+   ,INT64,ctime,,"Changed time"
+   ,STRING,permissions,,"Memory segment permissions"
+   ,INT64,size,,"Size in bytes"
+   ,INT,attached,,"Number of attached processes"
+   ,STRING,status,,"Destination/attach status"
+   ,INT,locked,,"1 if segment is locked else 0"
+TATTR,
+------------------------------
+TABLE,shared_resources
+   ,STRING,description,,"A textual description of the object"
+   ,STRING,install_date,,"Indicates when the object was installed. Lack of a value does not indicate that the object is not installed."
+   ,STRING,status,,"String that indicates the current status of the object."
+   ,INT,allow_maximum,,"Number of concurrent users for this resource has been limited. If True, the value in the MaximumAllowed property is ignored."
+   ,INT,maximum_allowed,,"Limit on the maximum number of users allowed to use this resource concurrently. The value is only valid if the AllowMaximum property is set to FALSE."
+   ,STRING,name,,"Alias given to a path set up as a share on a computer system running Windows."
+   ,STRING,path,,"Local path of the Windows share."
+   ,INT,type,,"Type of resource being shared. Types include: disk drives, print queues, interprocess communications (IPC), and general devices."
+TATTR,
+------------------------------
+TABLE,sharing_preferences
+   ,INT,screen_sharing,,"1 If screen sharing is enabled else 0"
+   ,INT,file_sharing,,"1 If file sharing is enabled else 0"
+   ,INT,printer_sharing,,"1 If printer sharing is enabled else 0"
+   ,INT,remote_login,,"1 If remote login is enabled else 0"
+   ,INT,remote_management,,"1 If remote management is enabled else 0"
+   ,INT,remote_apple_events,,"1 If remote apple events are enabled else 0"
+   ,INT,internet_sharing,,"1 If internet sharing is enabled else 0"
+   ,INT,bluetooth_sharing,,"1 If bluetooth sharing is enabled for any user else 0"
+   ,INT,disc_sharing,,"1 If CD or DVD sharing is enabled else 0"
+   ,INT,content_caching,,"1 If content caching is enabled else 0"
+TATTR,
+------------------------------
+TABLE,shell_history
+   ,INT64,uid,ADDITIONAL,"Shell history owner"
+   ,INT,time,,"Entry timestamp. It could be absent, default value is 0."
+   ,STRING,command,,"Unparsed date/line/command history line"
+   ,STRING,history_file,,"Path to the .*_history for this user"
+TATTR,USER_BASED,
+------------------------------
+TABLE,signature
+   ,STRING,path,REQUIRED,"Must provide a path or directory"
+   ,INT,hash_resources,,"Set to 1 to also hash resources, or 0 otherwise. Default is 1"
+   ,STRING,arch,,"If applicable, the arch of the signed code"
+   ,INT,signed,,"1 If the file is signed else 0"
+   ,STRING,identifier,,"The signing identifier sealed into the signature"
+   ,STRING,cdhash,,"Hash of the application Code Directory"
+   ,STRING,team_identifier,,"The team signing identifier sealed into the signature"
+   ,STRING,authority,,"Certificate Common Name"
+TATTR,
+------------------------------
+TABLE,sip_config
+   ,STRING,config_flag,,"The System Integrity Protection config flag"
+   ,INT,enabled,,"1 if this configuration is enabled, otherwise 0"
+   ,INT,enabled_nvram,,"1 if this configuration is enabled, otherwise 0"
+TATTR,
+------------------------------
+TABLE,smart_drive_info
+   ,STRING,device_name,INDEX,"Name of block device"
+   ,INT,disk_id,,"Physical slot number of device, only exists when hardware storage controller exists"
+   ,STRING,driver_type,,"The explicit device type used to retrieve the SMART information"
+   ,STRING,model_family,,"Drive model family"
+   ,STRING,device_model,,"Device Model"
+   ,STRING,serial_number,,"Device serial number"
+   ,STRING,lu_wwn_device_id,,"Device Identifier"
+   ,STRING,additional_product_id,,"An additional drive identifier if any"
+   ,STRING,firmware_version,,"Drive firmware version"
+   ,STRING,user_capacity,,"Bytes of drive capacity"
+   ,STRING,sector_sizes,,"Bytes of drive sector sizes"
+   ,STRING,rotation_rate,,"Drive RPM"
+   ,STRING,form_factor,,"Form factor if reported"
+   ,INT,in_smartctl_db,,"Boolean value for if drive is recognized"
+   ,STRING,ata_version,,"ATA version of drive"
+   ,STRING,transport_type,,"Drive transport type"
+   ,STRING,sata_version,,"SATA version, if any"
+   ,STRING,read_device_identity_failure,,"Error string for device id read, if any"
+   ,STRING,smart_supported,,"SMART support status"
+   ,STRING,smart_enabled,,"SMART enabled status"
+   ,STRING,packet_device_type,,"Packet device type"
+   ,STRING,power_mode,,"Device power mode"
+   ,STRING,warnings,,"Warning messages from SMART controller"
+TATTR,
+------------------------------
+TABLE,smbios_tables
+   ,INT,number,,"Table entry number"
+   ,INT,type,,"Table entry type"
+   ,STRING,description,,"Table entry description"
+   ,INT,handle,,"Table entry handle"
+   ,INT,header_size,,"Header size in bytes"
+   ,INT,size,,"Table entry size in bytes"
+   ,STRING,md5,,"MD5 hash of table entry"
+TATTR,
+------------------------------
+TABLE,smc_keys
+   ,STRING,key,INDEX | ADDITIONAL,"4-character key"
+   ,STRING,type,,"SMC-reported type literal type"
+   ,INT,size,,"Reported size of data in bytes"
+   ,STRING,value,,"A type-encoded representation of the key value"
+   ,INT,hidden,,"1 if this key is normally hidden, otherwise 0"
+TATTR,
+------------------------------
+TABLE,socket_events
+   ,STRING,action,,"The socket action (bind, listen, close)"
+   ,INT64,pid,,"Process (or thread) ID"
+   ,STRING,path,,"Path of executed file"
+   ,STRING,fd,,"The file description for the process socket"
+   ,INT64,auid,,"Audit User ID"
+   ,INT,success,,"The socket open attempt status"
+   ,INT,family,,"The Internet protocol family ID"
+   ,INT,protocol,HIDDEN,"The network protocol ID"
+   ,STRING,local_address,,"Local address associated with socket"
+   ,STRING,remote_address,,"Remote address associated with socket"
+   ,INT,local_port,,"Local network protocol port number"
+   ,INT,remote_port,,"Remote network protocol port number"
+   ,STRING,socket,HIDDEN,"The local path (UNIX domain socket only)"
+   ,INT64,time,,"Time of execution in UNIX time"
+   ,INT64,uptime,,"Time of execution in system uptime"
+   ,STRING,eid,HIDDEN,"Event ID"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,ssh_configs
+   ,INT64,uid,ADDITIONAL,"The local owner of the ssh_config file"
+   ,STRING,block,,"The host or match block"
+   ,STRING,option,INDEX,"The option and value"
+   ,STRING,ssh_config_file,INDEX,"Path to the ssh_config file"
+TATTR,USER_BASED,
+------------------------------
+TABLE,startup_items
+   ,STRING,name,,"Name of startup item"
+   ,STRING,path,,"Path of startup item"
+   ,STRING,args,,"Arguments provided to startup executable"
+   ,STRING,type,,"Startup Item or Login Item"
+   ,STRING,source,,"Directory or plist containing startup item"
+   ,STRING,status,,"Startup status; either enabled or disabled"
+   ,STRING,username,,"The user associated with the startup item"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,sudoers
+   ,STRING,header,,"Symbol for given rule"
+   ,STRING,rule_details,,"Rule definition"
+TATTR,
+------------------------------
+TABLE,suid_bin
+   ,STRING,path,,"Binary path"
+   ,STRING,username,,"Binary owner username"
+   ,STRING,groupname,,"Binary owner group"
+   ,STRING,permissions,,"Binary permissions"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,syslog_events
+TALIAS,syslog
+   ,INT64,time,,"Current unix epoch time"
+   ,STRING,datetime,,"Time known to syslog"
+   ,STRING,host,,"Hostname configured for syslog"
+   ,INT,severity,,"Syslog severity"
+   ,STRING,facility,,"Syslog facility"
+   ,STRING,tag,,"The syslog tag"
+   ,STRING,message,,"The syslog message"
+   ,STRING,eid,HIDDEN,"Event ID"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,system_controls
+   ,STRING,name,INDEX,"Full sysctl MIB name"
+   ,STRING,oid,ADDITIONAL,"Control MIB"
+   ,STRING,subsystem,,"Subsystem ID, control type"
+   ,STRING,current_value,,"Value of setting"
+   ,STRING,config_value,,"The MIB value set in /etc/sysctl.conf"
+   ,STRING,type,,"Data type"
+   ,STRING,field_name,,"Specific attribute of opaque type"
+TATTR,
+------------------------------
+TABLE,system_info
+   ,STRING,hostname,,"Network hostname including domain"
+   ,STRING,uuid,,"Unique ID provided by the system"
+   ,STRING,cpu_type,,"CPU type"
+   ,STRING,cpu_subtype,,"CPU subtype"
+   ,STRING,cpu_brand,,"CPU brand string, contains vendor and model"
+   ,INT,cpu_physical_cores,,"Number of physical CPU cores in to the system"
+   ,INT,cpu_logical_cores,,"Number of logical CPU cores available to the system"
+   ,STRING,cpu_microcode,,"Microcode version"
+   ,INT64,physical_memory,,"Total physical memory in bytes"
+   ,STRING,hardware_vendor,,"Hardware or board vendor"
+   ,STRING,hardware_model,,"Hardware or board model"
+   ,STRING,hardware_version,,"Hardware or board version"
+   ,STRING,hardware_serial,,"Device or board serial number"
+   ,STRING,computer_name,,"Friendly computer name (optional)"
+   ,STRING,local_hostname,,"Local hostname (optional)"
+TATTR,
+------------------------------
+TABLE,temperature_sensors
+   ,STRING,key,INDEX,"The SMC key on OS X"
+   ,STRING,name,,"Name of temperature source"
+   ,DOUBLE,celsius,,"Temperature in Celsius"
+   ,DOUBLE,fahrenheit,,"Temperature in Fahrenheit"
+TATTR,
+------------------------------
+TABLE,time
+   ,STRING,weekday,,"Current weekday in the system"
+   ,INT,year,,"Current year in the system"
+   ,INT,month,,"Current month in the system"
+   ,INT,day,,"Current day in the system"
+   ,INT,hour,,"Current hour in the system"
+   ,INT,minutes,,"Current minutes in the system"
+   ,INT,seconds,,"Current seconds in the system"
+   ,STRING,timezone,,"Current timezone in the system"
+   ,INT,local_time,,"Current local UNIX time in the system"
+   ,STRING,local_timezone,,"Current local timezone in the system"
+   ,INT,unix_time,,"Current UNIX time in the system, converted to UTC if --utc enabled"
+   ,STRING,timestamp,,"Current timestamp (log format) in the system"
+   ,STRING,datetime,,"Current date and time (ISO format) in the system"
+   ,STRING,iso_8601,,"Current time (ISO format) in the system"
+   ,INT64,win_timestamp,HIDDEN,"Timestamp value in 100 nanosecond units."
+CALIAS,local_time,localtime
+CALIAS,datetime,date_time
+TATTR,UTILITY,
+------------------------------
+TABLE,time_machine_backups
+   ,STRING,destination_id,,"Time Machine destination ID"
+   ,INT,backup_date,,"Backup Date"
+TATTR,
+------------------------------
+TABLE,time_machine_destinations
+   ,STRING,alias,,"Human readable name of drive"
+   ,STRING,destination_id,,"Time Machine destination ID"
+   ,INT,consistency_scan_date,,"Consistency scan date"
+   ,STRING,root_volume_uuid,,"Root UUID of backup volume"
+   ,INT,bytes_available,,"Bytes available on volume"
+   ,INT,bytes_used,,"Bytes used on volume"
+   ,STRING,encryption,,"Last known encrypted state"
+TATTR,
+------------------------------
+TABLE,ulimit_info
+   ,STRING,type,,"System resource to be limited"
+   ,STRING,soft_limit,,"Current limit value"
+   ,STRING,hard_limit,,"Maximum limit value"
+TATTR,
+------------------------------
+TABLE,uptime
+   ,INT,days,,"Days of uptime"
+   ,INT,hours,,"Hours of uptime"
+   ,INT,minutes,,"Minutes of uptime"
+   ,INT,seconds,,"Seconds of uptime"
+   ,INT64,total_seconds,,"Total uptime seconds"
+TATTR,
+------------------------------
+TABLE,usb_devices
+   ,INT,usb_address,,"USB Device used address"
+   ,INT,usb_port,,"USB Device used port"
+   ,STRING,vendor,,"USB Device vendor string"
+   ,STRING,vendor_id,,"Hex encoded USB Device vendor identifier"
+   ,STRING,version,,"USB Device version number"
+   ,STRING,model,,"USB Device model string"
+   ,STRING,model_id,,"Hex encoded USB Device model identifier"
+   ,STRING,serial,,"USB Device serial connection"
+   ,STRING,class,,"USB Device class"
+   ,STRING,subclass,,"USB Device subclass"
+   ,STRING,protocol,,"USB Device protocol"
+   ,INT,removable,,"1 If USB device is removable else 0"
+TATTR,
+------------------------------
+TABLE,user_events
+   ,INT64,uid,,"User ID"
+   ,INT64,auid,,"Audit User ID"
+   ,INT64,pid,,"Process (or thread) ID"
+   ,STRING,message,,"Message from the event"
+   ,INT,type,,"The file description for the process socket"
+   ,STRING,path,,"Supplied path from event"
+   ,STRING,address,,"The Internet protocol address or family ID"
+   ,STRING,terminal,,"The network protocol ID"
+   ,INT64,time,,"Time of execution in UNIX time"
+   ,INT64,uptime,,"Time of execution in system uptime"
+   ,STRING,eid,HIDDEN,"Event ID"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,user_groups
+   ,INT64,uid,INDEX,"User ID"
+   ,INT64,gid,INDEX,"Group ID"
+TATTR,
+------------------------------
+TABLE,user_interaction_events
+   ,INT64,time,,"Time"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,user_ssh_keys
+   ,INT64,uid,ADDITIONAL,"The local user that owns the key file"
+   ,STRING,path,INDEX,"Path to key file"
+   ,INT,encrypted,,"1 if key is encrypted, 0 otherwise"
+TATTR,USER_BASED,
+------------------------------
+TABLE,users
+   ,INT64,uid,INDEX,"User ID"
+   ,INT64,gid,,"Group ID (unsigned)"
+   ,INT64,uid_signed,,"User ID as int64 signed (Apple)"
+   ,INT64,gid_signed,,"Default group ID as int64 signed (Apple)"
+   ,STRING,username,ADDITIONAL,"Username"
+   ,STRING,description,,"Optional user description"
+   ,STRING,directory,,"User's home directory"
+   ,STRING,shell,,"User's configured default shell"
+   ,STRING,uuid,,"User's UUID (Apple) or SID (Windows)"
+   ,STRING,type,HIDDEN,"Whether the account is roaming (domain), local, or a system profile"
+TATTR,
+------------------------------
+TABLE,video_info
+   ,INT,color_depth,,"The amount of bits per pixel to represent color."
+   ,STRING,driver,,"The driver of the device."
+   ,STRING,driver_date,,"The date listed on the installed driver."
+   ,STRING,driver_version,,"The version of the installed driver."
+   ,STRING,manufacturer,,"The manufaturer of the gpu."
+   ,STRING,model,,"The model of the gpu."
+   ,STRING,series,,"The series of the gpu."
+   ,STRING,video_mode,,"The current resolution of the display."
+TATTR,
+------------------------------
+TABLE,virtual_memory_info
+   ,INT64,free,,"Total number of free pages."
+   ,INT64,active,,"Total number of active pages."
+   ,INT64,inactive,,"Total number of inactive pages."
+   ,INT64,speculative,,"Total number of speculative pages."
+   ,INT64,throttled,,"Total number of throttled pages."
+   ,INT64,wired,,"Total number of wired down pages."
+   ,INT64,purgeable,,"Total number of purgeable pages."
+   ,INT64,faults,,"Total number of calls to vm_faults."
+   ,INT64,copy,,"Total number of copy-on-write pages."
+   ,INT64,zero_fill,,"Total number of zero filled pages."
+   ,INT64,reactivated,,"Total number of reactivated pages."
+   ,INT64,purged,,"Total number of purged pages."
+   ,INT64,file_backed,,"Total number of file backed pages."
+   ,INT64,anonymous,,"Total number of anonymous pages."
+   ,INT64,uncompressed,,"Total number of uncompressed pages."
+   ,INT64,compressor,,"The number of pages used to store compressed VM pages."
+   ,INT64,decompressed,,"The total number of pages that have been decompressed by the VM compressor."
+   ,INT64,compressed,,"The total number of pages that have been compressed by the VM compressor."
+   ,INT64,page_ins,,"The total number of requests for pages from a pager."
+   ,INT64,page_outs,,"Total number of pages paged out."
+   ,INT64,swap_ins,,"The total number of compressed pages that have been swapped out to disk."
+   ,INT64,swap_outs,,"The total number of compressed pages that have been swapped back in from disk."
+TATTR,
+------------------------------
+TABLE,wifi_networks
+   ,STRING,ssid,,"SSID octets of the network"
+   ,STRING,network_name,,"Name of the network"
+   ,STRING,security_type,,"Type of security on this network"
+   ,INT,last_connected,,"Last time this netword was connected to as a unix_time"
+   ,INT,passpoint,,"1 if Passpoint is supported, 0 otherwise"
+   ,INT,possibly_hidden,,"1 if network is possibly a hidden network, 0 otherwise"
+   ,INT,roaming,,"1 if roaming is supported, 0 otherwise"
+   ,STRING,roaming_profile,,"Describe the roaming profile, usually one of Single, Dual  or Multi"
+   ,INT,captive_portal,,"1 if this network has a captive portal, 0 otherwise"
+   ,INT,auto_login,,"1 if auto login is enabled, 0 otherwise"
+   ,INT,temporarily_disabled,,"1 if this network is temporarily disabled, 0 otherwise"
+   ,INT,disabled,,"1 if this network is disabled, 0 otherwise"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,wifi_survey
+   ,STRING,interface,,"Name of the interface"
+   ,STRING,ssid,,"SSID octets of the network"
+   ,STRING,bssid,,"The current basic service set identifier"
+   ,STRING,network_name,,"Name of the network"
+   ,STRING,country_code,,"The country code (ISO/IEC 3166-1:1997) for the network"
+   ,INT,rssi,,"The current received signal strength indication (dbm)"
+   ,INT,noise,,"The current noise measurement (dBm)"
+   ,INT,channel,,"Channel number"
+   ,INT,channel_width,,"Channel width"
+   ,INT,channel_band,,"Channel band"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,wifi_status
+   ,STRING,interface,,"Name of the interface"
+   ,STRING,ssid,,"SSID octets of the network"
+   ,STRING,bssid,,"The current basic service set identifier"
+   ,STRING,network_name,,"Name of the network"
+   ,STRING,country_code,,"The country code (ISO/IEC 3166-1:1997) for the network"
+   ,STRING,security_type,,"Type of security on this network"
+   ,INT,rssi,,"The current received signal strength indication (dbm)"
+   ,INT,noise,,"The current noise measurement (dBm)"
+   ,INT,channel,,"Channel number"
+   ,INT,channel_width,,"Channel width"
+   ,INT,channel_band,,"Channel band"
+   ,STRING,transmit_rate,,"The current transmit rate"
+   ,STRING,mode,,"The current operating mode for the Wi-Fi interface"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,winbaseobj
+   ,INT,session_id,INDEX,"Terminal Services Session Id"
+   ,STRING,object_name,INDEX,"Object Name"
+   ,STRING,object_type,,"Object Type"
+TATTR,
+------------------------------
+TABLE,windows_crashes
+   ,STRING,datetime,,"Timestamp (log format) of the crash"
+   ,STRING,module,,"Path of the crashed module within the process"
+   ,STRING,path,,"Path of the executable file for the crashed process"
+   ,INT64,pid,,"Process ID of the crashed process"
+   ,INT64,tid,,"Thread ID of the crashed thread"
+   ,STRING,version,,"File version info of the crashed process"
+   ,INT64,process_uptime,,"Uptime of the process in seconds"
+   ,STRING,stack_trace,,"Multiple stack frames from the stack trace"
+   ,STRING,exception_code,,"The Windows exception code"
+   ,STRING,exception_message,,"The NTSTATUS error message associated with the exception code"
+   ,STRING,exception_address,,"Address (in hex) where the exception occurred"
+   ,STRING,registers,,"The values of the system registers"
+   ,STRING,command_line,,"Command-line string passed to the crashed process"
+   ,STRING,current_directory,,"Current working directory of the crashed process"
+   ,STRING,username,,"Username of the user who ran the crashed process"
+   ,STRING,machine_name,,"Name of the machine where the crash happened"
+   ,INT,major_version,,"Windows major version of the machine"
+   ,INT,minor_version,,"Windows minor version of the machine"
+   ,INT,build_number,,"Windows build number of the crashing machine"
+   ,STRING,type,,"Type of crash log"
+   ,STRING,crash_path,,"Path of the log file"
+TATTR,
+------------------------------
+TABLE,windows_events
+   ,INT64,time,,"Timestamp the event was received"
+   ,STRING,datetime,,"System time at which the event occurred"
+   ,STRING,source,,"Source or channel of the event"
+   ,STRING,provider_name,,"Provider name of the event"
+   ,STRING,provider_guid,,"Provider guid of the event"
+   ,INT,eventid,,"Event ID of the event"
+   ,INT,task,,"Task value associated with the event"
+   ,INT,level,,"The severity level associated with the event"
+   ,INT64,keywords,,"A bitmask of the keywords defined in the event"
+   ,STRING,data,,"Data associated with the event"
+   ,STRING,eid,HIDDEN,"Event ID"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,wmi_bios_info
+   ,STRING,name,,"Name of the Bios setting"
+   ,STRING,value,,"Value of the Bios setting"
+TATTR,
+------------------------------
+TABLE,wmi_cli_event_consumers
+   ,STRING,name,,"Unique name of a consumer."
+   ,STRING,command_line_template,,"Standard string template that specifies the process to be started. This property can be NULL, and the ExecutablePath property is used as the command line."
+   ,STRING,executable_path,,"Module to execute. The string can specify the full path and file name of the module to execute, or it can specify a partial name. If a partial name is specified, the current drive and current directory are assumed."
+   ,STRING,class,,"The name of the class."
+   ,STRING,relative_path,,"Relative path to the class or instance."
+TATTR,
+------------------------------
+TABLE,wmi_event_filters
+   ,STRING,name,,"Unique identifier of an event filter."
+   ,STRING,query,,"Windows Management Instrumentation Query Language (WQL) event query that specifies the set of events for consumer notification, and the specific conditions for notification."
+   ,STRING,query_language,,"Query language that the query is written in."
+   ,STRING,class,,"The name of the class."
+   ,STRING,relative_path,,"Relative path to the class or instance."
+TATTR,
+------------------------------
+TABLE,wmi_filter_consumer_binding
+   ,STRING,consumer,,"Reference to an instance of __EventConsumer that represents the object path to a logical consumer, the recipient of an event."
+   ,STRING,filter,,"Reference to an instance of __EventFilter that represents the object path to an event filter which is a query that specifies the type of event to be received."
+   ,STRING,class,,"The name of the class."
+   ,STRING,relative_path,,"Relative path to the class or instance."
+TATTR,
+------------------------------
+TABLE,wmi_script_event_consumers
+   ,STRING,name,,"Unique identifier for the event consumer. "
+   ,STRING,scripting_engine,,"Name of the scripting engine to use, for example, 'VBScript'. This property cannot be NULL."
+   ,STRING,script_file_name,,"Name of the file from which the script text is read, intended as an alternative to specifying the text of the script in the ScriptText property."
+   ,STRING,script_text,,"Text of the script that is expressed in a language known to the scripting engine. This property must be NULL if the ScriptFileName property is not NULL."
+   ,STRING,class,,"The name of the class."
+   ,STRING,relative_path,,"Relative path to the class or instance."
+TATTR,
+------------------------------
+TABLE,xprotect_entries
+   ,STRING,name,,"Description of XProtected malware"
+   ,STRING,launch_type,,"Launch services content type"
+   ,STRING,identity,,"XProtect identity (SHA1) of content"
+   ,STRING,filename,,"Use this file name to match"
+   ,STRING,filetype,,"Use this file type to match"
+   ,INT,optional,,"Match any of the identities/patterns for this XProtect name"
+   ,INT,uses_pattern,,"Uses a match pattern instead of identity"
+TATTR,CACHEABLE,
+------------------------------
+TABLE,xprotect_meta
+   ,STRING,identifier,,"Browser plugin or extension identifier"
+   ,STRING,type,,"Either plugin or extension"
+   ,STRING,developer_id,,"Developer identity (SHA1) of extension"
+   ,STRING,min_version,,"The minimum allowed plugin version."
+TATTR,CACHEABLE,
+------------------------------
+TABLE,xprotect_reports
+   ,STRING,name,,"Description of XProtected malware"
+   ,STRING,user_action,,"Action taken by user after prompted"
+   ,STRING,time,,"Quarantine alert time"
+TATTR,
+------------------------------
+TABLE,yara
+   ,STRING,path,INDEX | REQUIRED,"The path scanned"
+   ,STRING,matches,INDEX,"List of YARA matches"
+   ,INT,count,,"Number of YARA matches"
+   ,STRING,sig_group,INDEX | ADDITIONAL,"Signature group used"
+   ,STRING,sigfile,INDEX | ADDITIONAL,"Signature file used"
+   ,STRING,adhoc_rules,INDEX | ADDITIONAL,"YARA rules definition"
+   ,STRING,strings,,"Matching strings"
+   ,STRING,tags,,"Matching tags"
+TATTR,
+------------------------------
+TABLE,yara_events
+   ,STRING,target_path,,"The path scanned"
+   ,STRING,category,,"The category of the file"
+   ,STRING,action,,"Change action (UPDATE, REMOVE, etc)"
+   ,INT64,transaction_id,,"ID used during bulk update"
+   ,STRING,matches,,"List of YARA matches"
+   ,INT,count,,"Number of YARA matches"
+   ,STRING,strings,,"Matching strings"
+   ,STRING,tags,,"Matching tags"
+   ,INT64,time,,"Time of the scan"
+   ,STRING,eid,HIDDEN,"Event ID"
+TATTR,EVENT_BASED,
+------------------------------
+TABLE,yum_sources
+   ,STRING,name,,"Repository name"
+   ,STRING,baseurl,,"Repository base URL"
+   ,STRING,enabled,,"Whether the repository is used"
+   ,STRING,gpgcheck,,"Whether packages are GPG checked"
+   ,STRING,gpgkey,,"URL to GPG key"
+TATTR,
