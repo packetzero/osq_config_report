@@ -131,6 +131,25 @@ function renderProfileStats(profile_stats)
     s += "<a href='./q/" + name + ".htm'>" + name + "</a><BR>";
   }
   jQuery('div.DivQueries').append(s);
+
+  s='<table class="greyGridTable">';
+  s+='<tr><th>Num</th><th>Table</th></tr>';
+  for (var name in profile_stats['tables']) {
+    var num = profile_stats['tables'][name];
+    s += "<tr><td>" + num + "</td><td>" + name + "</td></tr>";
+  }
+  s += "</table>";
+  jQuery('div.DivTables').append(s);
+
+  s='<table class="greyGridTable">';
+  s+='<tr><th>Num</th><th>Table</th></tr>';
+  for (var name in profile_stats['joins']) {
+    var num = profile_stats['joins'][name];
+    s += "<tr><td>" + num + "</td><td>" + name + "</td></tr>";
+  }
+  s += "</table>";
+  jQuery('div.DivJoins').append(s);
+
 }
 
 function renderConfigSources(config_files)

@@ -4,6 +4,17 @@ body {
 }
 .DivQueries {
   font-size: 0.9em;
+  display:inline-block;
+}
+.DivTables {
+  font-size: 0.9em;
+  display:inline-block;
+  vertical-align: top;
+}
+.DivJoins {
+  font-size: 0.9em;
+  display:inline-block;
+  vertical-align: top;
 }
 
 a:any-link {
@@ -13,4 +24,33 @@ a:any-link {
 a:hover {
   color:blue;
   text-decoration: underline;
+}
+
+table.greyGridTable {
+  border: 2px solid #FFFFFF;
+  renamed-width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.greyGridTable td, table.greyGridTable th {
+  border: 1px solid #FFFFFF;
+  padding: 3px 4px;
+}
+table.greyGridTable tbody td {
+  font-size: 0.9em;
+}
+table.greyGridTable tr:nth-child(even) {
+  background: #EBEBEB;
+}
+table.greyGridTable th {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  background-color: #CCC;
+  xxborder-left: 2px solid #999;
+  border-bottom: 1px solid #666;
+}
+table.greyGridTable thead th:first-child {
+  border-left: none;
 }
