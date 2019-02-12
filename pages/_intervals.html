@@ -1,0 +1,48 @@
+<html>
+<head>
+  <title>Interval Stats</title>
+  <script src="https://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+  <script src="./stats.js" type="text/javascript"></script>
+
+  <script src="./interval_summary.js" type="text/javascript"></script>
+
+  <script type='text/javascript'>
+
+    jQuery(document).ready(function() {
+      calcAndRender();
+    });
+
+  </script>
+  <link href="./intervalstyle.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <h3>Interval Stats</h3>
+
+  <div class='ConfigSources'></div>
+
+  <div id='ichart'></div>
+
+  <div class='DivControls'>
+    <!--
+      checkboxes and radio buttons to control which data to show
+      platform:
+       [ ] Windows [O] Any
+      FROM tables:
+       [X] xx_events (3)
+       [X] processes (45)
+       [X] listening_ports (1)
+       [X]
+      JOIN tables:
+       [X] processes (12)
+    -->
+  </div>
+
+  <div class='DivTables'></div>
+  <div class='DivJoins'></div>
+  <div class='DivQueries'></div>
+
+</body>
+</html>

@@ -4,18 +4,22 @@ require 'json'
 #require 'ostruct'
 require 'digest'
 #require 'open3'
+require 'fileutils'
 
 class Checker
-  attr_accessor :queries, :packs, :options, :errors, :warnings, :details, :interval_stats
+  attr_accessor :queries, :packs, :options, :errors, :warnings, :details, :interval_stats, :stat_profile, :config_files
 
   def initialize()
     @queries = []
+    @config_files = []
     @packs = {}
     @options = {}
     @errors = []
     @warnings = []
     @details = {}
     @interval_stats = {}
+    @stat_profile = { names:[], tables: {}, joins: {}, platforms:[], events_tables: {} }
+
   end
 
   #-------------------------------------------------------------
@@ -87,6 +91,8 @@ class Checker
   def run_report_single_query name, obj, sql
     # TODO: is this from config  or pack (which?)
 
+    interval = obj['interval'] rescue _default_interval;
+
     #@details[name] = { name: name, sql_raw: sql }
     STDERR.puts "analyzing #{name}"
 
@@ -100,14 +106,19 @@ class Checker
 
     if (result.nil? or result['sql_raw'].nil?)
       STDERR.puts "ERROR analyzing query '#{name}'"
-      exit 3
+      #exit 3
+      result = { 'table' => '?' , 'joins' => {} }
+      result['name'] = name
+      result['interval'] = interval
+      result['platform'] = obj['platform']
+      @details[name] = result
+
       return
     end
 
     # fill in details
 
     result['name'] = name
-    interval = obj['interval'] rescue _default_interval;
     result['interval'] = interval
     result['platform'] = obj['platform']
     @details[name] = result
@@ -116,11 +127,26 @@ class Checker
     #exit 3
   end
 
+  def track_ref_count(count_map, strval)
+    if count_map[strval].nil?
+      count_map[strval] = 1
+    else
+      count_map[strval] += 1
+    end
+  end
+
+  def add_unique(a, strval)
+    unless a.include?(strval)
+      a.push strval
+    end
+  end
+
   #-------------------------------------------------------------
   # build interval stats
   #-------------------------------------------------------------
   def build_interval_stats
     @interval_stats = {}
+
     @details.each do |name, obj|
       ival = obj['interval'].to_i
       #puts "#{name} #{ival}"
@@ -128,13 +154,28 @@ class Checker
         @interval_stats[ival] = []
       end
       stat = { name: obj['name'] , table: obj['table'], joins: [], platform: obj['platform']}
+
       obj['joins'].each do |talias, fields|
         stat[:joins].push fields['table_name']
+        track_ref_count @stat_profile[:joins], fields['table_name']
       end
       #puts "[#{ival}] = #{JSON.generate(stat)}"
       @interval_stats[ival].push stat
+
+      # stat_profile tables
+
+      if obj['table'].include?('_events')
+        track_ref_count @stat_profile[:events_tables], obj['table']
+      else
+        track_ref_count @stat_profile[:tables], obj['table']
+      end
+
+      @stat_profile[:names].push obj['name']
+      add_unique @stat_profile[:platforms], obj['platform'] if obj['platform']
+
     end
   end
+
 
 
   #-------------------------------------------------------------
@@ -206,6 +247,8 @@ end
 
 checker = Checker.new
 
+`mkdir -p ./out/c/`
+
 ARGV.each do |filepath|
 
   File.open(filepath) do |f|
@@ -214,6 +257,10 @@ ARGV.each do |filepath|
       checker.load_flags f.readlines
       next
     end
+
+    filename = File.basename filepath
+    checker.config_files.push filename
+    FileUtils.cp(filepath, "./out/c/#{filename}")
 
     obj = JSON.parse(f.read)
 
@@ -225,20 +272,66 @@ ARGV.each do |filepath|
     checker.load_sched(obj['schedule'])
     checker.load_packs(obj['packs'])
 
-#    obj.each do |key,value|
-#      checker.load_sched value if key == "queries" # pack file
-#      checker.load_sched value if key == "schedule"
-#      checker.load_packs value if key == "packs"
-#      checker.load_options value if key == "options"
-#      #puts "key:#{key}"
-#    end
-
-    #puts JSON.generate(obj)
-#    puts JSON.generate checker.details
-    checker.build_interval_stats
-    puts JSON.generate checker.interval_stats
-#    puts "num queries:#{checker.details.count}"
   end
 end
+
+
+
+  checker.build_interval_stats
+
+  checker.stat_profile[:names].sort!
+
+  File.open('out/stats.js','w') do |f|
+    f.puts "var interval_stats=#{JSON.generate checker.interval_stats};"
+    f.puts "var stats_profile=#{JSON.generate checker.stat_profile};"
+    f.puts "var config_sources=#{JSON.generate checker.config_files};"
+
+  end
+
+  # dump out a file for each query - pretty printed details
+
+  #Dir.mkdir('./q/');
+  `mkdir -p ./out/q/`
+
+  checker.details.each do |name, detail|
+    File.open("out/q/#{name}.htm",'w') do |f|
+      f.puts "<html><head><title>Query : #{name}</title>"
+      f.puts "  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>"
+      f.puts "  <script src='../querydetail.js' type='text/javascript'></script>"
+      f.puts "<link href=\"../sqlstyle.css\" rel=\"stylesheet\" type=\"text/css\" />"
+      f.puts "</head><body>"
+
+      f.puts "<div><b>Name</b>:#{name}<BR><b>Interval</b>:#{detail['interval']}<BR></div>"
+
+      unless detail['columns'].nil?
+        f.puts "<table class='greyGridTable' style='margin:10px'><tr><th>Column Label</th><th>Source</th><th>Type</th><th>Notes</th></tr>"
+        detail['columns'].each do |col|
+          source_name = ""
+          unless col['source_column'].nil?
+            source_name = col['source_table'] + "." + col['source_column']
+          end
+          f.puts "<tr><td>#{col['label']}</td><td>#{source_name}</td><td>#{col['type']}</td><td>#{col['notes']}</td></tr>"
+        end
+        f.puts "</table>"
+      end
+
+      f.puts "<hr>"
+
+      unless detail['sql_htm'].nil?
+        f.puts "<div class=\"stmt\">#{detail['sql_htm']}</div>"
+      end
+
+      f.puts "<hr>"
+
+      f.puts "<div class='stmt'>#{detail['sql_raw']}</div>"
+
+      f.puts "</div></html>"
+    end
+
+    # TODO: copy if not exists
+    #FileUtils.cp('./pages/_interval_summary.js', './out/interval_summary.js')
+    #FileUtils.cp('./pages/_intervals.html', './out/intervals.html')
+
+  end
 
 #checker.report

@@ -1,0 +1,44 @@
+    div.stmt {
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+    div.keyword {
+      display: inline-block;
+      font-weight: bold;
+      color: #004499;
+      clear: none;
+    }
+    div.function {
+      display: inline-block;
+      font-style: italic;
+      color: #909;
+      clear: none;
+    }
+    div.tableref {
+      display: inline-block;
+      font-weight: bold;
+      color: #663333;
+      clear: none;
+    }
+    div.op {
+      display: inline-block;
+      font-weight: bold;
+      color: #000;
+      clear: none;
+    }
+    div.field {
+      display: inline-block;
+      font-weight: bold;
+      color: #000;
+      clear: none;
+    }
+    div.op_as {
+      display: inline-block;
+      color: #666;
+      clear: none;
+    }
+    div.stringval {
+      display: inline-block;
+      color: #060;
+      clear: none;
+    }
