@@ -123,33 +123,39 @@ function getAssignedSeries(rec)
   //if ()
 }
 
+function compare_num_desc(a,b) {
+  return b.num - a.num;
+}
+
 function renderProfileStats(profile_stats)
 {
   var s='';
-  for (var i=0; i < profile_stats['names'].length; i++) {//name in profile_stats['names']) {
+  for (var i=0; i < profile_stats['names'].length; i++) {
     var name = profile_stats['names'][i];
     s += "<a href='./q/" + name + ".htm'>" + name + "</a><BR>";
   }
   jQuery('div.DivQueries').append(s);
 
+  // build sorted array of queries and joins per table
+  var data = [];
+  for (var table_name in table_queries) {
+    var item = table_queries[table_name];
+    data.push({name:table_name, num: item['queries'].length, joins: item['joins'].length});
+  }
+  data.sort(compare_num_desc);
+
+  // display of queries and joins per table
   s='<table class="greyGridTable">';
-  s+='<tr><th>Num</th><th>Table</th></tr>';
-  for (var name in profile_stats['tables']) {
-    var num = profile_stats['tables'][name];
-    s += "<tr><td>" + num + "</td><td>" + name + "</td></tr>";
+  s+='<tr><th>Queries</th><th>Joins</th><th>Table</th></tr>';
+  for (var i=0;i < data.length; i++) {
+//  for (var table_name in table_queries) {
+//    var item = table_queries[table_name];
+    var item = data[i];
+    s += "<tr><td>" + item.num + "</td><td>" + item.joins + "</td><td><a href='./usage/table_usage_" + item.name + ".htm'>" + item.name + "</a></td></tr>";
+    //s += "<tr><td>" + item['queries'].length + "</td><td>" + item['joins'].length + "</td><td><a href='./usage/table_usage_" + table_name + ".htm'>" + table_name + "</a></td></tr>";
   }
   s += "</table>";
   jQuery('div.DivTables').append(s);
-
-  s='<table class="greyGridTable">';
-  s+='<tr><th>Num</th><th>Table</th></tr>';
-  for (var name in profile_stats['joins']) {
-    var num = profile_stats['joins'][name];
-    s += "<tr><td>" + num + "</td><td>" + name + "</td></tr>";
-  }
-  s += "</table>";
-  jQuery('div.DivJoins').append(s);
-
 }
 
 function renderConfigSources(config_files)
@@ -307,7 +313,14 @@ function renderIntervalChart(element, datas) {
         name: data.name,
         color: seriesColors[i],
         data: data.points,
-        dataLabels: { enabled: true, color:'#888', inside: true, format: '{point.numQueries}'}
+        dataLabels: { enabled: true, color:'#888', inside: true, format: '{point.numQueries}'},
+        events: {
+          click: function(evt) {
+            var url = './usage/queries_for_' + evt.point.interval + '.htm';
+            console.log(url);
+            window.location = url;
+          }
+        }
       });
   }
 
