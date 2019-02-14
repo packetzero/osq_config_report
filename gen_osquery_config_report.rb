@@ -8,7 +8,8 @@ require 'fileutils'
 
 class Checker
   attr_accessor :queries, :packs, :options, :errors, :warnings, :details
-  attr_accessor :interval_stats, :stat_profile, :config_files, :table_queries, :platforms
+  attr_accessor :interval_stats, :interval_stats_events
+  attr_accessor :stat_profile, :config_files, :table_queries, :platforms
 
   def initialize()
     @queries = []
@@ -21,6 +22,7 @@ class Checker
     @platforms = {} # 'platform_name' => num_queries
     @table_queries = {} # 'table_name' => { queries:[ query list ], joins: [ query list] }
     @interval_stats = {}
+    @interval_stats_events = {}
     @stat_profile = { names:[], tables: {}, joins: {}, platforms:[], events_tables: {} }
 
   end
@@ -144,18 +146,25 @@ class Checker
     end
   end
 
+  def push_map dest, key, value
+    if dest[key].nil?
+      dest[key] = []
+    end
+    dest[key].push value
+
+  end
+
   #-------------------------------------------------------------
   # build interval stats
   #-------------------------------------------------------------
   def build_interval_stats
     @interval_stats = {}
+    @interval_stats_events = {}
 
     @details.each do |name, obj|
-      ival = obj['interval'].to_i
       #puts "#{name} #{ival}"
-      if @interval_stats[ival].nil?
-        @interval_stats[ival] = []
-      end
+      ival = obj['interval'].to_i
+
       stat = { name: obj['name'] , table: obj['table'], joins: [], platform: obj['platform']}
 
       # update platforms stats
@@ -179,8 +188,9 @@ class Checker
         @table_queries[obj['table']][:joins].push obj['name']
       end
       #puts "[#{ival}] = #{JSON.generate(stat)}"
-      @interval_stats[ival].push stat
 
+      push_map @interval_stats, ival, stat
+      push_map @interval_stats_events, ival, stat if name.include?('_events') && name != 'osquery_events'
 
       # stat_profile tables
 
@@ -313,6 +323,7 @@ end
 
   File.open('out/stats.js','w') do |f|
     f.puts "var interval_stats=#{JSON.generate checker.interval_stats};"
+    f.puts "var interval_stats_events=#{JSON.generate checker.interval_stats_events};"
     f.puts "var stats_profile=#{JSON.generate checker.stat_profile};"
     f.puts "var table_queries=#{JSON.generate checker.table_queries};"
     f.puts "var config_sources=#{JSON.generate checker.table_queries};"

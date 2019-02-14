@@ -38,6 +38,15 @@ var dataValues = {
   packs: [],
 };
 
+// chart params
+
+var tEnd = 60*60;
+var numTicks = 60;
+
+// break into ticks
+
+var tickSeconds = Math.round(tEnd / numTicks);
+
 //------------------------------------------------------
 // Increment intval for key strval, or create = 1
 // obj = {
@@ -148,11 +157,14 @@ function renderProfileStats(profile_stats)
   s='<table class="greyGridTable">';
   s+='<tr><th>Queries</th><th>Joins</th><th>Table</th></tr>';
   for (var i=0;i < data.length; i++) {
-//  for (var table_name in table_queries) {
-//    var item = table_queries[table_name];
     var item = data[i];
-    s += "<tr><td>" + item.num + "</td><td>" + item.joins + "</td><td><a href='./usage/table_usage_" + item.name + ".htm'>" + item.name + "</a></td></tr>";
-    //s += "<tr><td>" + item['queries'].length + "</td><td>" + item['joins'].length + "</td><td><a href='./usage/table_usage_" + table_name + ".htm'>" + table_name + "</a></td></tr>";
+    s += "<tr><td>" + item.num + "</td><td>" + item.joins;
+    s += "</td><td><a href='./usage/table_usage_";
+    s += item.name + ".htm'";
+    if (item.name.indexOf('_events') > 0 && item.name != 'osquery_events') {
+      s += " class='EventTable' ";
+    }
+    s += ">" + item.name + "</a></td></tr>";
   }
   s += "</table>";
   jQuery('div.DivTables').append(s);
@@ -168,6 +180,50 @@ function renderConfigSources(config_files)
   jQuery('div.ConfigSources').append(s);
 }
 
+function buildSeries(stats, numTicks, tickSeconds, colorPrefix='rgba(99, 132, 191,')
+{
+  var points = [];
+
+    var j = 0;
+    for (var key in stats) {
+      var ival = parseInt(key);
+      j++;
+
+      var numIntervalTicks = Math.min(Math.floor(tEnd / ival), numTicks);
+      var numIntervals = Math.max(1, Math.round((tickSeconds + 0.0) / ival));
+
+      //console.log({ival:ival, numIntervalTicks: numIntervalTicks, numIntervals: numIntervals});
+
+      var step = 0;
+      if (numIntervalTicks > 0) { step = (0.0 + numTicks) / numIntervalTicks; }
+      var numQueriesForInterval = stats[key].length;
+
+      for (var i=0; i <= numIntervalTicks; i++) {
+        var radius = 5 + Math.round(numQueriesForInterval / 5);
+        var alpha = '0.' + (6 + Math.round(numIntervals / 2));
+        var color = colorPrefix + alpha + ')';
+
+        var point = { x: Math.round(i * tickSeconds * step), y: j * 3 ,
+          numIntervals: numIntervals,
+          interval: ival,
+          intervalStr: timeFmt(ival),
+          numQueries: numQueriesForInterval,
+          marker: { radius : radius, fillColor: color }
+        };
+
+        if (numIntervalTicks == 0) {
+          // points outside the window should be gray at t=0
+          point.marker.fillColor = 'rgba(128,128,128,0.5)';
+          points.push(point);
+          break;
+        }
+
+        points.push(point);
+      }
+    }
+    return points;
+}
+
 //------------------------------------------------------
 //
 //------------------------------------------------------
@@ -176,61 +232,12 @@ function calcAndRender() {
   renderConfigSources(config_sources); // stats.js
   renderProfileStats(stats_profile); // stats.js
 
-  var schedulePoints = [];
-  var packPoints = [];
-
-  // chart params
-
-  var tEnd = 60*60;
-  var numTicks = 60;
-
-  // break into ticks
-
-  var tickSeconds = Math.round(tEnd / numTicks);
   console.log({tickSeconds: tickSeconds});
 
-  // initialize
-
-  var j = 0;
-  for (var key in interval_stats) {
-    var ival = parseInt(key);
-    j++;
-
-    var numIntervalTicks = Math.min(Math.floor(tEnd / ival), numTicks);
-    var numIntervals = Math.max(1, Math.round((tickSeconds + 0.0) / ival));
-
-    //console.log({ival:ival, numIntervalTicks: numIntervalTicks, numIntervals: numIntervals});
-
-    var step = 0;
-    if (numIntervalTicks > 0) { step = (0.0 + numTicks) / numIntervalTicks; }
-    var numQueriesForInterval = interval_stats[key].length;
-
-    for (var i=0; i <= numIntervalTicks; i++) {
-      var radius = 5 + Math.round(numQueriesForInterval / 5);
-      var alpha = '0.' + (6 + Math.round(numIntervals / 2));
-      var color = 'rgba(99, 132, 191,' + alpha + ')';
-
-      var point = { x: Math.round(i * tickSeconds * step), y: j * 3 ,
-        numIntervals: numIntervals,
-        interval: ival,
-        intervalStr: timeFmt(ival),
-        numQueries: numQueriesForInterval,
-        marker: { radius : radius, fillColor: color }
-      };
-
-      if (numIntervalTicks == 0) {
-        // points outside the window should be gray at t=0
-        point.marker.fillColor = 'rgba(128,128,128,0.5)';
-        schedulePoints.push(point);
-        break;
-      }
-
-      schedulePoints.push(point);
-    }
-  }
-
-  var datas = [];
-  datas.push({ name:"Schedule Table Queries", points: schedulePoints});
+  var datas = [
+    { name:"Schedule Table Queries", points: buildSeries(interval_stats, numTicks, tickSeconds)}
+    ,{ name:"Schedule Events Queries", points: buildSeries(interval_stats_events, numTicks, tickSeconds, 'rgba(153, 0, 0,')}
+  ];
 
   renderIntervalChart('ichart', datas);
 }
