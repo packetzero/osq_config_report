@@ -275,6 +275,15 @@ class Checker
   end
 end
 
+def copy_unless_exists(name)
+  src = "./pages/_#{name}"
+  dest = "./out/#{name}"
+
+  return if File.exists?(dest)
+
+  FileUtils.cp(src, dest)
+end
+
 checker = Checker.new
 
 `mkdir -p ./out/c/`
@@ -326,7 +335,7 @@ end
     f.puts "var interval_stats_events=#{JSON.generate checker.interval_stats_events};"
     f.puts "var stats_profile=#{JSON.generate checker.stat_profile};"
     f.puts "var table_queries=#{JSON.generate checker.table_queries};"
-    f.puts "var config_sources=#{JSON.generate checker.table_queries};"
+    f.puts "var config_sources=#{JSON.generate checker.config_files};"
     f.puts "var platforms=#{JSON.generate checker.platforms};"
   end
 
@@ -340,7 +349,7 @@ end
       f.puts "<html><head><title>Query : #{name}</title>"
       f.puts "  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>"
       f.puts "  <script src='../querydetail.js' type='text/javascript'></script>"
-      f.puts "<link href=\"../sqlstyle.css\" rel=\"stylesheet\" type=\"text/css\" />"
+      f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
       f.puts "</head><body>"
 
       f.puts "<div><b>Name</b>:#{name}<BR><b>Interval</b>:#{detail['interval']}<BR></div>"
@@ -374,17 +383,18 @@ end
     end
 
     # TODO: copy if not exists
-    #FileUtils.cp('./pages/_interval_summary.js', './out/interval_summary.js')
-    #FileUtils.cp('./pages/_intervals.html', './out/intervals.html')
+    copy_unless_exists('interval_summary.js')
+    copy_unless_exists('intervals.html')
+    copy_unless_exists('style.css')
 
     # queries per interval
     checker.interval_stats.each do |interval, items|
       File.open("out/usage/queries_for_#{interval}.htm",'w') do |f|
         f.puts "<html><head><title>Queries for Interval #{interval}</title>"
-        f.puts "<link href=\"../intervalstyle.css\" rel=\"stylesheet\" type=\"text/css\" />"
+        f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
         f.puts "</head><body>"
 
-        f.puts "<div><b>Interval</b>:#{detail['interval']}<BR></div>"
+        f.puts "<div><b>Interval</b>:#{interval}<BR></div>"
 
         names = []
 
@@ -404,7 +414,7 @@ end
     checker.table_queries.each do |table_name, obj|
       File.open("out/usage/table_usage_#{table_name}.htm",'w') do |f|
         f.puts "<html><head><title>Table Usage: #{table_name}</title>"
-        f.puts "<link href=\"../intervalstyle.css\" rel=\"stylesheet\" type=\"text/css\" />"
+        f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
         f.puts "</head><body>"
 
         f.puts "<div><b>Table</b>:#{table_name}<BR></div>"
