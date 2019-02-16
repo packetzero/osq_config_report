@@ -1,6 +1,7 @@
 
 ------------------------------
 TABLE,account_policy_data
+DESC,Additional OS X user account data from the AccountPolicy section of OpenDirectory.
    ,INT64,uid,,"User ID"
    ,DOUBLE,creation_time,,"When the account was first created"
    ,INT64,failed_login_count,,"The number of times the user failed to login with the correct password. Resets after a correct password is entered"
@@ -9,12 +10,14 @@ TABLE,account_policy_data
 TATTR,
 ------------------------------
 TABLE,acpi_tables
+DESC,Firmware ACPI functional table common metadata and content.
    ,STRING,name,,"ACPI table name"
    ,INT,size,,"Size of compiled table data"
    ,STRING,md5,,"MD5 hash of table content"
 TATTR,
 ------------------------------
 TABLE,ad_config
+DESC,OS X Active Directory configuration.
    ,STRING,name,,"The OS X-specific configuration name"
    ,STRING,domain,,"Active Directory trust domain"
    ,STRING,option,,"Canonical name of option"
@@ -22,6 +25,7 @@ TABLE,ad_config
 TATTR,
 ------------------------------
 TABLE,alf
+DESC,OS X application layer firewall (ALF) service details.
    ,INT,allow_signed_enabled,,"1 If allow signed mode is enabled else 0"
    ,INT,firewall_unload,,"1 If firewall unloading enabled else 0"
    ,INT,global_state,,"1 If the firewall is enabled with exceptions, 2 if the firewall is configured to block all incoming connections, else 0"
@@ -32,21 +36,25 @@ TABLE,alf
 TATTR,
 ------------------------------
 TABLE,alf_exceptions
+DESC,OS X application layer firewall (ALF) service exceptions.
    ,STRING,path,,"Path to the executable that is excepted"
    ,INT,state,,"Firewall exception state"
 TATTR,
 ------------------------------
 TABLE,alf_explicit_auths
+DESC,ALF services explicitly allowed to perform networking.
    ,STRING,process,,"Process name explicitly allowed"
 TATTR,
 ------------------------------
 TABLE,alf_services
+DESC,OS X application layer firewall (Firewall) services.
    ,STRING,service,,"Firewalled service name"
    ,STRING,process,,"Process name"
    ,INT,state,,"Firewall service state"
 TATTR,
 ------------------------------
 TABLE,app_schemes
+DESC,OS X application schemes and handlers (e.g., http, file, mailto).
    ,STRING,scheme,,"Name of the scheme/protocol"
    ,STRING,handler,,"Application label for the handler"
    ,INT,enabled,,"1 if this handler is the OS default, else 0"
@@ -55,6 +63,7 @@ TABLE,app_schemes
 TATTR,
 ------------------------------
 TABLE,appcompat_shims
+DESC,Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format. See http://files.brucon.org/2015/Tomczak_and_Ballenthin_Shims_for_the_Win.pdf for more details.
    ,STRING,executable,,"Name of the executable that is being shimmed. This is pulled from the registry."
    ,STRING,path,,"This is the path to the SDB database."
    ,STRING,description,,"Description of the SDB."
@@ -64,6 +73,7 @@ TABLE,appcompat_shims
 TATTR,
 ------------------------------
 TABLE,apps
+DESC,OS X applications installed in known search paths (e.g., /Applications).
    ,STRING,name,,"Name of the Name.app folder"
    ,STRING,path,,"Absolute and full Name.app path"
    ,STRING,bundle_executable,,"Info properties CFBundleExecutable label"
@@ -97,6 +107,7 @@ TABLE,apt_sources
 TATTR,
 ------------------------------
 TABLE,arp_cache
+DESC,Address resolution cache, both static and dynamic (from ARP, NDP).
    ,STRING,address,,"IPv4 address target"
    ,STRING,mac,,"MAC address of broadcasted address"
    ,STRING,interface,,"Interface of the network for the MAC"
@@ -104,6 +115,7 @@ TABLE,arp_cache
 TATTR,
 ------------------------------
 TABLE,asl
+DESC,Queries the Apple System Log data structure for system events.
    ,INT,time,,"Unix timestamp.  Set automatically"
    ,INT,time_nano_sec,,"Nanosecond time."
    ,STRING,host,,"Sender's address (set by the server)."
@@ -120,6 +132,7 @@ TABLE,asl
 TATTR,
 ------------------------------
 TABLE,augeas
+DESC,Configuration files parsed by augeas.
 TALIAS,configurations
    ,STRING,node,INDEX,"The node path of the configuration item"
    ,STRING,value,,"The value of the configuration item"
@@ -128,6 +141,7 @@ TALIAS,configurations
 TATTR,
 ------------------------------
 TABLE,authenticode
+DESC,File (executable, bundle, installer, disk) code signing status.
    ,STRING,path,REQUIRED,"Must provide a path or directory"
    ,STRING,original_program_name,,"The original program name that the publisher has signed"
    ,STRING,serial_number,,"The certificate serial number"
@@ -137,6 +151,7 @@ TABLE,authenticode
 TATTR,
 ------------------------------
 TABLE,authorization_mechanisms
+DESC,OS X Authorization mechanisms database.
    ,STRING,label,INDEX,"Label of the authorization right"
    ,STRING,plugin,,"Authorization plugin name"
    ,STRING,mechanism,,"Name of the mechanism that will be called"
@@ -145,6 +160,7 @@ TABLE,authorization_mechanisms
 TATTR,
 ------------------------------
 TABLE,authorizations
+DESC,OS X Authorization rights database.
    ,STRING,label,INDEX,"Item name, usually in reverse domain format"
    ,STRING,modified,,"Label top-level key"
    ,STRING,allow_root,,"Label top-level key"
@@ -160,6 +176,7 @@ TABLE,authorizations
 TATTR,
 ------------------------------
 TABLE,authorized_keys
+DESC,A line-delimited authorized_keys table.
    ,INT64,uid,ADDITIONAL,"The local owner of authorized_keys file"
    ,STRING,algorithm,,"algorithim of key"
    ,STRING,key,INDEX,"parsed authorized keys line"
@@ -167,12 +184,14 @@ TABLE,authorized_keys
 TATTR,USER_BASED,
 ------------------------------
 TABLE,autoexec
+DESC,Aggregate of executables that will automatically execute on the target machine. This is an amalgamation of other tables like services, scheduled_tasks, startup_items and more.
    ,STRING,path,INDEX,"Path to the executable"
    ,STRING,name,,"Name of the program"
    ,STRING,source,,"Source table of the autoexec item"
 TATTR,
 ------------------------------
 TABLE,battery
+DESC,Provides information about the internal battery of a Macbook.
    ,STRING,manufacturer,,"The battery manufacturer's name"
    ,INT,manufacture_date,,"The date the battery was manufactured UNIX Epoch"
    ,STRING,model,,"The battery's model number"
@@ -194,6 +213,7 @@ TABLE,battery
 TATTR,
 ------------------------------
 TABLE,bitlocker_info
+DESC,Retrieve bitlocker status of the machine.
    ,STRING,device_id,,"ID of the encrypted drive."
    ,STRING,drive_letter,,"Drive letter of the encrypted drive."
    ,STRING,persistent_volume_id,,"Persistent ID of the drive."
@@ -203,6 +223,7 @@ TABLE,bitlocker_info
 TATTR,
 ------------------------------
 TABLE,block_devices
+DESC,Block (buffered access) device file nodes: disks, ramdisks, and DMG containers.
    ,STRING,name,,"Block device name"
    ,STRING,parent,,"Block device parent name"
    ,STRING,vendor,,"Block device vendor string"
@@ -215,6 +236,7 @@ TABLE,block_devices
 TATTR,
 ------------------------------
 TABLE,browser_plugins
+DESC,All C/NPAPI browser plugin details for all users.
    ,INT64,uid,ADDITIONAL,"The local user that owns the plugin"
    ,STRING,name,,"Plugin display name"
    ,STRING,identifier,INDEX,"Plugin identifier"
@@ -228,6 +250,7 @@ TABLE,browser_plugins
 TATTR,USER_BASED,
 ------------------------------
 TABLE,carbon_black_info
+DESC,Returns info about a Carbon Black sensor install.
 TALIAS,cb_info
    ,INT,sensor_id,,"Sensor ID of the Carbon Black sensor"
    ,STRING,config_name,,"Sensor group"
@@ -253,6 +276,7 @@ TALIAS,cb_info
 TATTR,
 ------------------------------
 TABLE,carves
+DESC,Forensic Carves.
    ,INT64,time,,"Time at which the carve was kicked off"
    ,STRING,sha256,,"A SHA256 sum of the carved archive"
    ,INT,size,,"Size of the carved archive"
@@ -263,6 +287,7 @@ TABLE,carves
 TATTR,USER_BASED,
 ------------------------------
 TABLE,certificates
+DESC,Certificate Authorities installed in Keychains/ca-bundles.
    ,STRING,common_name,,"Certificate CommonName"
    ,STRING,subject,,"Certificate distinguished name"
    ,STRING,issuer,,"Certificate issuer distinguished name"
@@ -282,6 +307,7 @@ TABLE,certificates
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,chocolatey_packages
+DESC,Chocolatey packages installed in a system.
    ,STRING,name,,"Package display name"
    ,STRING,version,,"Package-supplied version"
    ,STRING,summary,,"Package-supplied summary"
@@ -291,6 +317,7 @@ TABLE,chocolatey_packages
 TATTR,
 ------------------------------
 TABLE,chrome_extensions
+DESC,Chrome browser extensions.
    ,INT64,uid,ADDITIONAL,"The local user that owns the extension"
    ,STRING,name,,"Extension display name"
    ,STRING,identifier,INDEX,"Extension identifier"
@@ -305,6 +332,7 @@ TABLE,chrome_extensions
 TATTR,USER_BASED,
 ------------------------------
 TABLE,cpu_info
+DESC,Retrieve cpu hardware info of the machine.
    ,STRING,device_id,,"The DeviceID of the CPU."
    ,STRING,model,,"The model of the CPU."
    ,STRING,manufacturer,,"The manufacturer of the CPU."
@@ -320,6 +348,7 @@ TABLE,cpu_info
 TATTR,
 ------------------------------
 TABLE,cpu_time
+DESC,Displays information from /proc/stat file about the time the cpu cores spent in different parts of the system.
    ,INT,core,,"Name of the cpu (core)"
    ,INT64,user,,"Time spent in user mode"
    ,INT64,nice,,"Time spent in user mode with low priority (nice)"
@@ -334,6 +363,7 @@ TABLE,cpu_time
 TATTR,
 ------------------------------
 TABLE,cpuid
+DESC,Useful CPU features from the cpuid ASM call.
    ,STRING,feature,,"Present feature flags"
    ,STRING,value,,"Bit value or string"
    ,STRING,output_register,,"Register used to for feature value"
@@ -342,6 +372,7 @@ TABLE,cpuid
 TATTR,
 ------------------------------
 TABLE,crashes
+DESC,Application, System, and Mobile App crash logs.
    ,STRING,type,,"Type of crash log"
    ,INT64,pid,INDEX,"Process (or thread) ID of the crashed process"
    ,STRING,path,INDEX,"Path to the crashed process"
@@ -361,6 +392,7 @@ TABLE,crashes
 TATTR,USER_BASED,
 ------------------------------
 TABLE,crontab
+DESC,Line parsed values from system and user cron/tab.
    ,STRING,event,,"The job @event name (rare)"
    ,STRING,minute,,"The exact minute for the job"
    ,STRING,hour,,"The hour of the day for the job"
@@ -372,12 +404,14 @@ TABLE,crontab
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,cups_destinations
+DESC,Returns all configured printers.
    ,STRING,name,,"Name of the printer"
    ,STRING,option_name,,"Option name"
    ,STRING,option_value,,"Option value"
 TATTR,
 ------------------------------
 TABLE,cups_jobs
+DESC,Returns all completed print jobs from cups.
    ,STRING,title,,"Title of the printed job"
    ,STRING,destination,,"The printer the job was sent to"
    ,STRING,user,,"The user who printed the job"
@@ -389,6 +423,7 @@ TABLE,cups_jobs
 TATTR,
 ------------------------------
 TABLE,curl
+DESC,Perform an http request and return stats about it.
    ,STRING,url,INDEX | REQUIRED,"The url for the request"
    ,STRING,method,,"The HTTP method for the request"
    ,STRING,user_agent,,"The user-agent string to use for the request"
@@ -399,6 +434,7 @@ TABLE,curl
 TATTR,
 ------------------------------
 TABLE,curl_certificate
+DESC,Inspect TLS certificates by connecting to input hostnames.
    ,STRING,hostname,REQUIRED,"Hostname (domain[:port]) to CURL"
    ,STRING,common_name,,"Common name of company issued to"
    ,STRING,organization,,"Organization issued to"
@@ -414,6 +450,7 @@ TABLE,curl_certificate
 TATTR,
 ------------------------------
 TABLE,deb_packages
+DESC,The installed DEB package database.
    ,STRING,name,,"Package name"
    ,STRING,version,,"Package version"
    ,STRING,source,,"Package source"
@@ -423,6 +460,7 @@ TABLE,deb_packages
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,device_file
+DESC,Similar to the file table, but use TSK and allow block address access.
    ,STRING,device,INDEX | REQUIRED,"Absolute file path to device node"
    ,STRING,partition,INDEX | REQUIRED,"A partition number"
    ,STRING,path,ADDITIONAL,"A logical path within the device node"
@@ -441,12 +479,14 @@ TABLE,device_file
 TATTR,
 ------------------------------
 TABLE,device_firmware
+DESC,A best-effort list of discovered firmware versions.
    ,STRING,type,,"Type of device"
    ,STRING,device,INDEX,"The device name"
    ,STRING,version,,"Firmware version"
 TATTR,
 ------------------------------
 TABLE,device_hash
+DESC,Similar to the hash table, but use TSK and allow block address access.
    ,STRING,device,REQUIRED,"Absolute file path to device node"
    ,STRING,partition,REQUIRED,"A partition number"
    ,INT64,inode,REQUIRED,"Filesystem inode number"
@@ -456,6 +496,7 @@ TABLE,device_hash
 TATTR,
 ------------------------------
 TABLE,device_partitions
+DESC,Use TSK to enumerate details about partitions on a disk device.
    ,STRING,device,REQUIRED,"Absolute file path to device node"
    ,INT,partition,,"A partition number or description"
    ,STRING,label,,""
@@ -468,6 +509,7 @@ TABLE,device_partitions
 TATTR,
 ------------------------------
 TABLE,disk_encryption
+DESC,Disk encryption status and information.
    ,STRING,name,,"Disk name"
    ,STRING,uuid,,"Disk Universally Unique Identifier"
    ,INT,encrypted,,"1 If encrypted: true (disk is encrypted), else 0"
@@ -478,6 +520,7 @@ TABLE,disk_encryption
 TATTR,
 ------------------------------
 TABLE,disk_events
+DESC,Track DMG disk image events (appearance/disappearance) when opened.
    ,STRING,action,,"Appear or disappear"
    ,STRING,path,,"Path of the DMG file accessed"
    ,STRING,name,,"Disk event name"
@@ -498,6 +541,7 @@ CALIAS,device,bsd_name
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,disk_info
+DESC,Retrieve basic information about the physical disks of a system.
    ,INT,partitions,,"Number of detected partitions on disk."
    ,INT,disk_index,,"Physical drive number of the disk."
    ,STRING,type,,"The interface type of the disk."
@@ -512,6 +556,7 @@ TABLE,disk_info
 TATTR,
 ------------------------------
 TABLE,dns_resolvers
+DESC,Resolvers used by this host.
    ,INT,id,,"Address type index or order"
    ,STRING,type,,"Address type: sortlist, nameserver, search"
    ,STRING,address,,"Resolver IP/IPv6 address"
@@ -520,12 +565,14 @@ TABLE,dns_resolvers
 TATTR,
 ------------------------------
 TABLE,docker_container_labels
+DESC,Docker container labels.
    ,STRING,id,INDEX,"Container ID"
    ,STRING,key,,"Label key"
    ,STRING,value,,"Optional label value"
 TATTR,
 ------------------------------
 TABLE,docker_container_mounts
+DESC,Docker container mounts.
    ,STRING,id,INDEX,"Container ID"
    ,STRING,type,,"Type of mount (bind, volume)"
    ,STRING,name,,"Optional mount name"
@@ -538,6 +585,7 @@ TABLE,docker_container_mounts
 TATTR,
 ------------------------------
 TABLE,docker_container_networks
+DESC,Docker container networks.
    ,STRING,id,INDEX,"Container ID"
    ,STRING,name,,"Network name"
    ,STRING,network_id,,"Network ID"
@@ -552,6 +600,7 @@ TABLE,docker_container_networks
 TATTR,
 ------------------------------
 TABLE,docker_container_ports
+DESC,Docker container ports.
    ,STRING,id,INDEX,"Container ID"
    ,STRING,type,,"Protocol (tcp, udp)"
    ,INT,port,,"Port inside the container"
@@ -560,6 +609,7 @@ TABLE,docker_container_ports
 TATTR,
 ------------------------------
 TABLE,docker_container_processes
+DESC,Docker container processes.
    ,STRING,id,INDEX | REQUIRED,"Container ID"
    ,INT64,pid,,"Process ID"
    ,STRING,name,,"The process path or shorthand argv[0]"
@@ -587,6 +637,7 @@ CALIAS,total_size,phys_footprint
 TATTR,
 ------------------------------
 TABLE,docker_container_stats
+DESC,Docker container statistics. Queries on this table take at least one second.
    ,STRING,id,INDEX | REQUIRED,"Container ID"
    ,STRING,name,,"Container name"
    ,INT,pids,,"Number of processes"
@@ -614,6 +665,7 @@ TABLE,docker_container_stats
 TATTR,
 ------------------------------
 TABLE,docker_containers
+DESC,Docker containers information.
    ,STRING,id,INDEX,"Container ID"
    ,STRING,name,,"Container name"
    ,STRING,image,,"Docker image (name) used to launch this container"
@@ -641,12 +693,14 @@ TABLE,docker_containers
 TATTR,
 ------------------------------
 TABLE,docker_image_labels
+DESC,Docker image labels.
    ,STRING,id,INDEX,"Image ID"
    ,STRING,key,,"Label key"
    ,STRING,value,,"Optional label value"
 TATTR,
 ------------------------------
 TABLE,docker_images
+DESC,Docker images information.
    ,STRING,id,,"Image ID"
    ,INT64,created,,"Time of creation as UNIX time"
    ,INT64,size_bytes,,"Size of image in bytes"
@@ -654,6 +708,7 @@ TABLE,docker_images
 TATTR,
 ------------------------------
 TABLE,docker_info
+DESC,Docker system information.
    ,STRING,id,,"Docker system ID"
    ,INT,containers,,"Total number of containers"
    ,INT,containers_running,,"Number of containers currently running"
@@ -689,12 +744,14 @@ TABLE,docker_info
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,docker_network_labels
+DESC,Docker network labels.
    ,STRING,id,INDEX,"Network ID"
    ,STRING,key,,"Label key"
    ,STRING,value,,"Optional label value"
 TATTR,
 ------------------------------
 TABLE,docker_networks
+DESC,Docker networks information.
    ,STRING,id,INDEX,"Network ID"
    ,STRING,name,,"Network name"
    ,STRING,driver,,"Network driver"
@@ -705,6 +762,7 @@ TABLE,docker_networks
 TATTR,
 ------------------------------
 TABLE,docker_version
+DESC,Docker version information.
    ,STRING,version,,"Docker version"
    ,STRING,api_version,,"API version"
    ,STRING,min_api_version,,"Minimum API version supported"
@@ -717,12 +775,14 @@ TABLE,docker_version
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,docker_volume_labels
+DESC,Docker volume labels.
    ,STRING,name,INDEX,"Volume name"
    ,STRING,key,,"Label key"
    ,STRING,value,,"Optional label value"
 TATTR,
 ------------------------------
 TABLE,docker_volumes
+DESC,Docker volumes information.
    ,STRING,name,INDEX,"Volume name"
    ,STRING,driver,,"Volume driver"
    ,STRING,mount_point,,"Mount point"
@@ -730,6 +790,7 @@ TABLE,docker_volumes
 TATTR,
 ------------------------------
 TABLE,drivers
+DESC,Details for in-use Windows device drivers. This does not display installed but unused drivers.
    ,STRING,device_id,INDEX,"Device ID"
    ,STRING,device_name,,"Device name"
    ,STRING,image,,"Path to driver image file"
@@ -747,6 +808,7 @@ TABLE,drivers
 TATTR,
 ------------------------------
 TABLE,ec2_instance_metadata
+DESC,EC2 instance metadata.
    ,STRING,instance_id,INDEX,"EC2 instance ID"
    ,STRING,instance_type,,"EC2 instance type"
    ,STRING,architecture,,"Hardware architecture of this EC2 instance"
@@ -764,12 +826,14 @@ TABLE,ec2_instance_metadata
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,ec2_instance_tags
+DESC,EC2 instance tag key value pairs.
    ,STRING,instance_id,,"EC2 instance ID"
    ,STRING,key,,"Tag key"
    ,STRING,value,,"Tag value"
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,elf_dynamic
+DESC,ELF dynamic section information.
    ,INT,tag,,"Tag ID"
    ,INT,value,,"Tag value"
    ,INT,class,,"Class (32 or 64)"
@@ -777,6 +841,7 @@ TABLE,elf_dynamic
 TATTR,
 ------------------------------
 TABLE,elf_info
+DESC,ELF file information.
    ,STRING,class,,"Class type, 32 or 64bit"
    ,STRING,abi,,"Section type"
    ,INT,abi_version,,"Section virtual address in memory"
@@ -789,6 +854,7 @@ TABLE,elf_info
 TATTR,
 ------------------------------
 TABLE,elf_sections
+DESC,ELF section information.
    ,STRING,name,,"Section name"
    ,INT,type,,"Section type"
    ,INT,vaddr,,"Section virtual address in memory"
@@ -801,6 +867,7 @@ TABLE,elf_sections
 TATTR,
 ------------------------------
 TABLE,elf_segments
+DESC,ELF segment information.
    ,STRING,name,,"Segment type/name"
    ,INT,offset,,"Segment offset in file"
    ,INT,vaddr,,"Segment virtual address in memory"
@@ -812,6 +879,7 @@ TABLE,elf_segments
 TATTR,
 ------------------------------
 TABLE,elf_symbols
+DESC,ELF symbol list.
    ,STRING,name,,"Symbol name"
    ,INT,addr,,"Symbol address (value)"
    ,INT,size,,"Size of object"
@@ -823,12 +891,14 @@ TABLE,elf_symbols
 TATTR,
 ------------------------------
 TABLE,etc_hosts
+DESC,Line-parsed /etc/hosts.
 TALIAS,hosts
    ,STRING,address,,"IP address mapping"
    ,STRING,hostnames,,"Raw hosts mapping"
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,etc_protocols
+DESC,Line-parsed /etc/protocols.
    ,STRING,name,,"Protocol name"
    ,INT,number,,"Protocol number"
    ,STRING,alias,,"Protocol alias"
@@ -836,6 +906,7 @@ TABLE,etc_protocols
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,etc_services
+DESC,Line-parsed /etc/services.
    ,STRING,name,,"Service name"
    ,INT,port,,"Service port number"
    ,STRING,protocol,,"Transport protocol (TCP/UDP)"
@@ -844,6 +915,7 @@ TABLE,etc_services
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,event_taps
+DESC,Returns information about installed event taps.
    ,INT,enabled,,"Is the Event Tap enabled"
    ,INT,event_tap_id,INDEX,"Unique ID for the Tap"
    ,STRING,event_tapped,,"The mask that identifies the set of events to be observed."
@@ -852,6 +924,7 @@ TABLE,event_taps
 TATTR,
 ------------------------------
 TABLE,example
+DESC,This is an example table spec.
    ,STRING,name,,"Description for name column"
    ,INT,points,,"This is a signed SQLite int column"
    ,INT64,size,,"This is a signed SQLite bigint column"
@@ -861,6 +934,7 @@ TABLE,example
 TATTR,EVENT_BASED,KERNEL_REQUIRED,UTILITY,
 ------------------------------
 TABLE,extended_attributes
+DESC,Returns the extended attributes for files (similar to Windows ADS).
    ,STRING,path,REQUIRED,"Absolute file path"
    ,STRING,directory,REQUIRED,"Directory of file(s)"
    ,STRING,key,,"Name of the value generated from the extended attribute"
@@ -869,6 +943,7 @@ TABLE,extended_attributes
 TATTR,
 ------------------------------
 TABLE,fan_speed_sensors
+DESC,Fan speeds.
    ,STRING,fan,,"Fan number"
    ,STRING,name,,"Fan name"
    ,INT,actual,,"Actual speed"
@@ -878,6 +953,7 @@ TABLE,fan_speed_sensors
 TATTR,
 ------------------------------
 TABLE,fbsd_kmods
+DESC,Loaded FreeBSD kernel modules.
    ,STRING,name,,"Module name"
    ,INT,size,,"Size of module content"
    ,INT,refs,,"Module reverse dependencies"
@@ -885,6 +961,7 @@ TABLE,fbsd_kmods
 TATTR,
 ------------------------------
 TABLE,file
+DESC,Interactive filesystem attributes and metadata.
    ,STRING,path,INDEX | REQUIRED,"Absolute file path"
    ,STRING,directory,REQUIRED,"Directory of file(s)"
    ,STRING,filename,,"Name portion of file path"
@@ -908,6 +985,7 @@ TABLE,file
 TATTR,UTILITY,
 ------------------------------
 TABLE,file_events
+DESC,Track time/action changes to files specified in configuration data.
    ,STRING,target_path,,"The path associated with the event"
    ,STRING,category,,"The category of the file defined in the config"
    ,STRING,action,,"Change action (UPDATE, REMOVE, etc)"
@@ -929,6 +1007,7 @@ TABLE,file_events
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,firefox_addons
+DESC,Firefox browser extensions, webapps, and addons.
    ,INT64,uid,ADDITIONAL,"The local user that owns the addon"
    ,STRING,name,,"Addon display name"
    ,STRING,identifier,INDEX,"Addon identifier"
@@ -947,6 +1026,7 @@ TABLE,firefox_addons
 TATTR,USER_BASED,
 ------------------------------
 TABLE,gatekeeper
+DESC,OS X Gatekeeper Details.
    ,INT,assessments_enabled,,"1 If a Gatekeeper is enabled else 0"
    ,INT,dev_id_enabled,,"1 If a Gatekeeper allows execution from identified developers else 0"
    ,STRING,version,,"Version of Gatekeeper's gke.bundle"
@@ -954,6 +1034,7 @@ TABLE,gatekeeper
 TATTR,
 ------------------------------
 TABLE,gatekeeper_approved_apps
+DESC,Gatekeeper apps a user has allowed to run.
    ,STRING,path,,"Path of executable allowed to run"
    ,STRING,requirement,,"Code signing requirement language"
    ,DOUBLE,ctime,,"Last change time"
@@ -961,6 +1042,7 @@ TABLE,gatekeeper_approved_apps
 TATTR,
 ------------------------------
 TABLE,groups
+DESC,Local system groups.
    ,INT64,gid,INDEX,"Unsigned int64 group ID"
    ,INT64,gid_signed,,"A signed int64 version of gid"
    ,STRING,groupname,,"Canonical local group name"
@@ -969,6 +1051,7 @@ TABLE,groups
 TATTR,
 ------------------------------
 TABLE,hardware_events
+DESC,Hardware (PCI/USB/HID) events from UDEV or IOKit.
    ,STRING,action,,"Remove, insert, change properties, etc"
    ,STRING,path,,"Local device path assigned (optional)"
    ,STRING,type,,"Type of hardware and hardware event"
@@ -984,6 +1067,7 @@ TABLE,hardware_events
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,hash
+DESC,Filesystem hash data.
    ,STRING,path,INDEX | REQUIRED,"Must provide a path or directory"
    ,STRING,directory,REQUIRED,"Must provide a path or directory"
    ,STRING,md5,,"MD5 hash of provided filesystem data"
@@ -993,12 +1077,14 @@ TABLE,hash
 TATTR,
 ------------------------------
 TABLE,homebrew_packages
+DESC,The installed homebrew package database.
    ,STRING,name,,"Package name"
    ,STRING,path,,"Package install path"
    ,STRING,version,,"Current 'linked' version"
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,ie_extensions
+DESC,Internet Explorer browser extensions.
    ,STRING,name,,"Extension display name"
    ,STRING,registry_path,INDEX,"Extension identifier"
    ,STRING,version,,"Version of the executable"
@@ -1006,10 +1092,12 @@ TABLE,ie_extensions
 TATTR,
 ------------------------------
 TABLE,intel_me_info
+DESC,Intel ME/CSE Info.
    ,STRING,version,,"Intel ME version"
 TATTR,
 ------------------------------
 TABLE,interface_addresses
+DESC,Network interfaces and relevant metadata.
    ,STRING,interface,,"Interface name"
    ,STRING,address,,"Specific address for interface"
    ,STRING,mask,,"Interface netmask"
@@ -1020,6 +1108,7 @@ TABLE,interface_addresses
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,interface_details
+DESC,Detailed information and stats of network interfaces.
    ,STRING,interface,,"Interface name"
    ,STRING,mac,,"MAC of interface (optional)"
    ,INT,type,,"Interface type (includes virtual)"
@@ -1058,6 +1147,7 @@ TABLE,interface_details
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,interface_ipv6
+DESC,IPv6 configuration and stats of network interfaces.
    ,STRING,interface,,"Interface name"
    ,INT,hop_limit,,"Current Hop Limit"
    ,INT,forwarding_enabled,,"Enable IP forwarding"
@@ -1066,6 +1156,7 @@ TABLE,interface_ipv6
 TATTR,
 ------------------------------
 TABLE,iokit_devicetree
+DESC,The IOKit registry matching the DeviceTree plane.
    ,STRING,name,,"Device node name"
    ,STRING,class,,"Best matching device class (most-specific category)"
    ,INT64,id,,"IOKit internal registry ID"
@@ -1078,6 +1169,7 @@ TABLE,iokit_devicetree
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,iokit_registry
+DESC,The full IOKit registry without selecting a plane.
    ,STRING,name,,"Default name of the node"
    ,STRING,class,,"Best matching device class (most-specific category)"
    ,INT64,id,,"IOKit internal registry ID"
@@ -1088,6 +1180,7 @@ TABLE,iokit_registry
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,iptables
+DESC,Linux IP packet filtering and NAT tool.
    ,STRING,filter_name,,"Packet matching filter table name."
    ,STRING,chain,,"Size of module content."
    ,STRING,policy,,"Policy that applies for this rule."
@@ -1109,6 +1202,7 @@ TABLE,iptables
 TATTR,
 ------------------------------
 TABLE,kernel_extensions
+DESC,OS X's kernel extensions, both loaded and within the load search path.
    ,INT,idx,INDEX,"Extension load tag or index"
    ,INT,refs,,"Reference count"
    ,INT64,size,,"Bytes of wired memory used by extension"
@@ -1119,6 +1213,7 @@ TABLE,kernel_extensions
 TATTR,
 ------------------------------
 TABLE,kernel_info
+DESC,Basic active kernel information.
    ,STRING,version,,"Kernel version"
    ,STRING,arguments,,"Kernel arguments"
    ,STRING,path,,"Kernel path"
@@ -1126,11 +1221,13 @@ TABLE,kernel_info
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,kernel_integrity
+DESC,Various Linux kernel integrity checked attributes.
    ,INT,sycall_addr_modified,,"0 or 1, for whether a syscall table pointer is modified"
    ,STRING,text_segment_hash,,"Hash value for the kernel's .text memory segment"
 TATTR,KERNEL_REQUIRED,
 ------------------------------
 TABLE,kernel_modules
+DESC,Linux kernel modules both loaded and within the load search path.
    ,STRING,name,,"Module name"
    ,STRING,size,,"Size of module content"
    ,STRING,used_by,,"Module reverse dependencies"
@@ -1139,6 +1236,7 @@ TABLE,kernel_modules
 TATTR,
 ------------------------------
 TABLE,kernel_panics
+DESC,System kernel panic logs.
    ,STRING,path,,"Location of log file"
    ,STRING,time,,"Formatted time of the event"
    ,STRING,registers,,"A space delimited line of register:value pairs"
@@ -1155,6 +1253,7 @@ TABLE,kernel_panics
 TATTR,
 ------------------------------
 TABLE,keychain_acls
+DESC,Applications that have ACL entries in the keychain.
    ,STRING,keychain_path,,"The path of the keychain"
    ,STRING,authorizations,,"A space delimited set of authorization attributes"
    ,STRING,path,,"The path of the authorized application"
@@ -1163,6 +1262,7 @@ TABLE,keychain_acls
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,keychain_items
+DESC,Generic details about keychain items.
    ,STRING,label,,"Generic item name"
    ,STRING,description,,"Optional item description"
    ,STRING,comment,,"Optional keychain comment"
@@ -1173,12 +1273,14 @@ TABLE,keychain_items
 TATTR,
 ------------------------------
 TABLE,known_hosts
+DESC,A line-delimited known_hosts table.
    ,INT64,uid,ADDITIONAL,"The local user that owns the known_hosts file"
    ,STRING,key,INDEX,"parsed authorized keys line"
    ,STRING,key_file,INDEX,"Path to known_hosts file"
 TATTR,USER_BASED,
 ------------------------------
 TABLE,kva_speculative_info
+DESC,Display kernel virtual address and speculative execution information for the system.
    ,INT,kva_shadow_enabled,,"Kernel Virtual Address shadowing is enabled."
    ,INT,kva_shadow_user_global,,"User pages are marked as global."
    ,INT,kva_shadow_pcid,,"Kernel VA PCID flushing optimization is enabled."
@@ -1193,6 +1295,7 @@ TABLE,kva_speculative_info
 TATTR,
 ------------------------------
 TABLE,last
+DESC,System logins and logouts.
    ,STRING,username,,"Entry username"
    ,STRING,tty,,"Entry terminal"
    ,INT,pid,,"Process (or thread) ID"
@@ -1202,6 +1305,7 @@ TABLE,last
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,launchd
+DESC,LaunchAgents and LaunchDaemons from default search paths.
    ,STRING,path,INDEX,"Path to daemon or agent plist"
    ,STRING,name,,"File name of plist (used by launchd)"
    ,STRING,label,,"Daemon or agent service name"
@@ -1226,6 +1330,7 @@ TABLE,launchd
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,launchd_overrides
+DESC,Override keys, per user, for LaunchDaemons and Agents.
    ,STRING,label,,"Daemon or agent service name"
    ,STRING,key,,"Name of the override key"
    ,STRING,value,,"Overriden value"
@@ -1234,6 +1339,7 @@ TABLE,launchd_overrides
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,listening_ports
+DESC,Processes with listening (bound) network sockets/ports.
    ,INT,pid,,"Process (or thread) ID"
    ,INT,port,,"Transport layer port"
    ,INT,protocol,,"Transport protocol (TCP/UDP)"
@@ -1246,6 +1352,7 @@ TABLE,listening_ports
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,lldp_neighbors
+DESC,LLDP neighbors of interfaces.
    ,STRING,interface,,"Interface name"
    ,INT,rid,,"Neighbor chassis index"
    ,STRING,chassis_id_type,,"Neighbor chassis ID type"
@@ -1318,11 +1425,13 @@ TABLE,lldp_neighbors
 TATTR,
 ------------------------------
 TABLE,load_average
+DESC,Displays information about the system wide load averages.
    ,STRING,period,,"Period over which the average is calculated."
    ,STRING,average,,"Load average over the specified period."
 TATTR,
 ------------------------------
 TABLE,logged_in_users
+DESC,Users with an active shell on the system.
    ,STRING,type,,"Login type"
    ,STRING,user,,"User login name"
    ,STRING,tty,,"Device name"
@@ -1332,6 +1441,7 @@ TABLE,logged_in_users
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,logical_drives
+DESC,Details for logical drives on the system. A logical drive generally represents a single partition.
    ,STRING,device_id,,"The drive id, usually the drive name, e.g., 'C:'."
    ,STRING,type,,"The type of disk drive this logical drive represents."
    ,INT64,free_space,,"The amount of free space, in bytes, of the drive."
@@ -1341,6 +1451,7 @@ TABLE,logical_drives
 TATTR,
 ------------------------------
 TABLE,logon_sessions
+DESC,Windows Logon Session.
    ,INT,logon_id,INDEX,"A locally unique identifier (LUID) that identifies a logon session."
    ,STRING,user,,"The account name of the security principal that owns the logon session."
    ,STRING,logon_domain,,"The name of the domain used to authenticate the owner of the logon session."
@@ -1359,6 +1470,7 @@ TABLE,logon_sessions
 TATTR,
 ------------------------------
 TABLE,magic
+DESC,Magic number recognition library table.
    ,STRING,path,REQUIRED,"Absolute path to target file"
    ,STRING,data,,"Magic number data from libmagic"
    ,STRING,mime_type,,"MIME type data from libmagic"
@@ -1366,6 +1478,7 @@ TABLE,magic
 TATTR,
 ------------------------------
 TABLE,managed_policies
+DESC,The managed configuration policies from AD, MDM, MCX, etc.
    ,STRING,domain,,"System or manager-chosen domain key"
    ,STRING,uuid,,"Optional UUID assigned to policy set"
    ,STRING,name,,"Policy key name"
@@ -1375,6 +1488,7 @@ TABLE,managed_policies
 TATTR,
 ------------------------------
 TABLE,md_devices
+DESC,Software RAID array settings.
    ,STRING,device_name,,"md device name"
    ,STRING,status,,"Current state of the array"
    ,INT,raid_level,,"Current raid level of the array"
@@ -1409,6 +1523,7 @@ TABLE,md_devices
 TATTR,
 ------------------------------
 TABLE,md_drives
+DESC,Drive devices used for Software RAID.
    ,STRING,md_device_name,,"md device name"
    ,STRING,drive_name,,"Drive device name"
    ,INT,slot,,"Slot position of disk"
@@ -1416,15 +1531,18 @@ TABLE,md_drives
 TATTR,
 ------------------------------
 TABLE,md_personalities
+DESC,Software RAID setting supported by the kernel.
    ,STRING,name,,"Name of personality supported by kernel"
 TATTR,
 ------------------------------
 TABLE,mdfind
+DESC,Run searches against the spotlight database.
    ,STRING,path,,"Path of the file returned from spotlight"
    ,STRING,query,,"The query that was run to find the file"
 TATTR,
 ------------------------------
 TABLE,memory_array_mapped_addresses
+DESC,Data associated for address mapping of physical memory arrays.
    ,STRING,handle,,"Handle, or instance number, associated with the structure"
    ,STRING,memory_array_handle,,"Handle of the memory array associated with this structure"
    ,STRING,starting_address,,"Physical stating address, in kilobytes, of a range of memory mapped to physical memory array"
@@ -1433,6 +1551,7 @@ TABLE,memory_array_mapped_addresses
 TATTR,
 ------------------------------
 TABLE,memory_arrays
+DESC,Data associated with collection of memory devices that operate to form a memory address.
    ,STRING,handle,,"Handle, or instance number, associated with the array"
    ,STRING,location,,"Physical location of the memory array"
    ,STRING,use,,"Function for which the array is used"
@@ -1443,6 +1562,7 @@ TABLE,memory_arrays
 TATTR,
 ------------------------------
 TABLE,memory_device_mapped_addresses
+DESC,Data associated for address mapping of physical memory devices.
    ,STRING,handle,,"Handle, or instance number, associated with the structure"
    ,STRING,memory_device_handle,,"Handle of the memory device structure associated with this structure"
    ,STRING,memory_array_mapped_address_handle,,"Handle of the memory array mapped address to which this device range is mapped to"
@@ -1454,6 +1574,7 @@ TABLE,memory_device_mapped_addresses
 TATTR,
 ------------------------------
 TABLE,memory_devices
+DESC,Physical memory device (type 17) information retrieved from SMBIOS.
    ,STRING,handle,,"Handle, or instance number, associated with the structure in SMBIOS"
    ,STRING,array_handle,,"The memory array that the device is attached to"
    ,STRING,form_factor,,"Implementation form factor for this memory device"
@@ -1477,6 +1598,7 @@ TABLE,memory_devices
 TATTR,
 ------------------------------
 TABLE,memory_error_info
+DESC,Data associated with errors of a physical memory array.
    ,STRING,handle,,"Handle, or instance number, associated with the structure"
    ,STRING,error_type,,"type of error associated with current error status for array or device"
    ,STRING,error_granularity,,"Granularity to which the error can be resolved"
@@ -1488,6 +1610,7 @@ TABLE,memory_error_info
 TATTR,
 ------------------------------
 TABLE,memory_info
+DESC,Main memory information in bytes.
    ,INT64,memory_total,,"Total amount of physical RAM, in bytes"
    ,INT64,memory_free,,"The amount of physical RAM, in bytes, left unused by the system"
    ,INT64,buffers,,"The amount of physical RAM, in bytes, used for file buffers"
@@ -1500,12 +1623,14 @@ TABLE,memory_info
 TATTR,
 ------------------------------
 TABLE,memory_map
+DESC,OS memory region map.
    ,STRING,name,,"Region name"
    ,STRING,start,,"Start address of memory region"
    ,STRING,end,,"End address of memory region"
 TATTR,
 ------------------------------
 TABLE,mounts
+DESC,System mounted devices and filesystems (not process specific).
    ,STRING,device,,"Mounted device"
    ,STRING,device_alias,,"Mounted device alias"
    ,STRING,path,,"Mounted device path"
@@ -1520,6 +1645,7 @@ TABLE,mounts
 TATTR,
 ------------------------------
 TABLE,msr
+DESC,Various pieces of data stored in the model specific register per processor. NOTE: the msr kernel module must be enabled, and osquery must be run as root.
    ,INT64,processor_number,,"The processor number as reported in /proc/cpuinfo"
    ,INT64,turbo_disabled,,"Whether the turbo feature is disabled."
    ,INT64,turbo_ratio_limit,,"The turbo feature ratio limit."
@@ -1533,12 +1659,14 @@ TABLE,msr
 TATTR,
 ------------------------------
 TABLE,nfs_shares
+DESC,NFS shares exported by the host.
    ,STRING,share,,"Filesystem path to the share"
    ,STRING,options,,"Options string set on the export share"
    ,INT,readonly,,"1 if the share is exported readonly else 0"
 TATTR,
 ------------------------------
 TABLE,npm_packages
+DESC,Lists all npm packages in a directory or globally installed in a system.
    ,STRING,name,,"Package display name"
    ,STRING,version,,"Package supplied version"
    ,STRING,description,,"Package supplied description"
@@ -1549,6 +1677,7 @@ TABLE,npm_packages
 TATTR,
 ------------------------------
 TABLE,ntdomains
+DESC,Display basic NT domain information of a Windows machine.
    ,STRING,name,,"The label by which the object is known."
    ,STRING,client_site_name,,"The name of the site where the domain controller is configured."
    ,STRING,dc_site_name,,"The name of the site where the domain controller is located."
@@ -1560,6 +1689,7 @@ TABLE,ntdomains
 TATTR,
 ------------------------------
 TABLE,ntfs_acl_permissions
+DESC,Retrieve NTFS ACL permission information for files and directories.
    ,STRING,path,,"Path to the file or directory."
    ,STRING,type,,"Type of access mode for the access control entry."
    ,STRING,principal,,"User or group to which the ACE applies."
@@ -1568,18 +1698,21 @@ TABLE,ntfs_acl_permissions
 TATTR,
 ------------------------------
 TABLE,nvram
+DESC,Apple NVRAM variable listing.
    ,STRING,name,,"Variable name"
    ,STRING,type,,"Data type (CFData, CFString, etc)"
    ,STRING,value,,"Raw variable data"
 TATTR,
 ------------------------------
 TABLE,oem_strings
+DESC,OEM defined strings retrieved from SMBIOS.
    ,STRING,handle,,"Handle, or instance number, associated with the Type 11 structure"
    ,INT,number,,"The string index of the structure"
    ,STRING,value,,"The value of the OEM string"
 TATTR,
 ------------------------------
 TABLE,opera_extensions
+DESC,Opera browser extensions.
    ,INT64,uid,ADDITIONAL,"The local user that owns the extension"
    ,STRING,name,,"Extension display name"
    ,STRING,identifier,INDEX,"Extension identifier"
@@ -1593,6 +1726,7 @@ TABLE,opera_extensions
 TATTR,USER_BASED,
 ------------------------------
 TABLE,os_version
+DESC,A single row containing the operating system name and version.
    ,STRING,name,,"Distribution or product name"
    ,STRING,version,,"Pretty, suitable for presentation, OS version"
    ,INT,major,,"Major release version"
@@ -1606,6 +1740,7 @@ TABLE,os_version
 TATTR,
 ------------------------------
 TABLE,osquery_events
+DESC,Information about the event publishers and subscribers.
    ,STRING,name,,"Event publisher or subscriber name"
    ,STRING,publisher,,"Name of the associated publisher"
    ,STRING,type,,"Either publisher or subscriber"
@@ -1616,6 +1751,7 @@ TABLE,osquery_events
 TATTR,UTILITY,
 ------------------------------
 TABLE,osquery_extensions
+DESC,List of active osquery extensions.
    ,INT64,uuid,,"The transient ID assigned for communication"
    ,STRING,name,,"Extension's name"
    ,STRING,version,,"Extenion's version"
@@ -1625,6 +1761,7 @@ TABLE,osquery_extensions
 TATTR,UTILITY,
 ------------------------------
 TABLE,osquery_flags
+DESC,Configurable flags that modify osquery's behavior.
    ,STRING,name,,"Flag name"
    ,STRING,type,,"Flag type"
    ,STRING,description,,"Flag description"
@@ -1634,6 +1771,7 @@ TABLE,osquery_flags
 TATTR,UTILITY,
 ------------------------------
 TABLE,osquery_info
+DESC,Top level information about the running version of osquery.
    ,INT,pid,,"Process (or thread/handle) ID"
    ,STRING,uuid,,"Unique ID provided by the system"
    ,STRING,instance_id,,"Unique, long-lived ID per instance of osquery"
@@ -1648,6 +1786,7 @@ TABLE,osquery_info
 TATTR,UTILITY,
 ------------------------------
 TABLE,osquery_packs
+DESC,Information about the current query packs that are loaded in osquery.
    ,STRING,name,,"The given name for this query pack"
    ,STRING,platform,,"Platforms this query is supported on"
    ,STRING,version,,"Minimum osquery version that this query will run on"
@@ -1658,6 +1797,7 @@ TABLE,osquery_packs
 TATTR,UTILITY,
 ------------------------------
 TABLE,osquery_registry
+DESC,List the osquery registry plugins.
    ,STRING,registry,,"Name of the osquery registry"
    ,STRING,name,,"Name of the plugin item"
    ,INT,owner_uuid,,"Extension route UUID (0 for core)"
@@ -1666,6 +1806,7 @@ TABLE,osquery_registry
 TATTR,UTILITY,
 ------------------------------
 TABLE,osquery_schedule
+DESC,Information about the current queries that are scheduled in osquery.
    ,STRING,name,,"The given name for this query"
    ,STRING,query,,"The exact query to run"
    ,INT,interval,,"The interval in seconds to run this query, not an exact interval"
@@ -1680,6 +1821,7 @@ TABLE,osquery_schedule
 TATTR,UTILITY,
 ------------------------------
 TABLE,package_bom
+DESC,OS X package bill of materials (BOM) file list.
    ,STRING,filepath,,"Package file or directory"
    ,INT,uid,,"Expected user of file or directory"
    ,INT,gid,,"Expected group of file or directory"
@@ -1690,6 +1832,7 @@ TABLE,package_bom
 TATTR,
 ------------------------------
 TABLE,package_install_history
+DESC,OS X package install history.
    ,STRING,package_id,,"Label packageIdentifiers"
    ,INT,time,,"Label date as UNIX timestamp"
    ,STRING,name,,"Package display name"
@@ -1699,6 +1842,7 @@ TABLE,package_install_history
 TATTR,
 ------------------------------
 TABLE,package_receipts
+DESC,OS X package receipt details.
 TALIAS,packages
    ,STRING,package_id,INDEX,"Package domain identifier"
    ,STRING,package_filename,INDEX | HIDDEN,"Filename of original .pkg file"
@@ -1710,6 +1854,7 @@ TALIAS,packages
 TATTR,
 ------------------------------
 TABLE,patches
+DESC,Lists all the patches applied. Note: This does not include patches applied via MSI or downloaded from Windows Update (e.g. Service Packs).
    ,STRING,csname,,"The name of the host the patch is installed on."
    ,STRING,hotfix_id,,"The KB ID of the patch."
    ,STRING,caption,,"Short description of the patch."
@@ -1721,6 +1866,7 @@ TABLE,patches
 TATTR,
 ------------------------------
 TABLE,pci_devices
+DESC,PCI devices active on the host system.
    ,STRING,pci_slot,,"PCI Device used slot"
    ,STRING,pci_class,,"PCI Device class"
    ,STRING,driver,,"PCI Device used driver"
@@ -1738,6 +1884,7 @@ TABLE,pci_devices
 TATTR,
 ------------------------------
 TABLE,physical_disk_performance
+DESC,Provides provides raw data from performance counters that monitor hard or fixed disk drives on the system.
    ,STRING,name,,"Name of the physical disk"
    ,INT64,avg_disk_bytes_per_read,,"Average number of bytes transferred from the disk during read operations"
    ,INT64,avg_disk_bytes_per_write,,"Average number of bytes transferred to the disk during write operations"
@@ -1753,6 +1900,7 @@ TABLE,physical_disk_performance
 TATTR,
 ------------------------------
 TABLE,pipes
+DESC,Named and Anonymous pipes.
    ,INT64,pid,INDEX,"Process ID of the process to which the pipe belongs"
    ,STRING,name,,"Name of the pipe"
    ,INT,instances,,"Number of instances of the named pipe"
@@ -1761,6 +1909,7 @@ TABLE,pipes
 TATTR,
 ------------------------------
 TABLE,pkg_packages
+DESC,pkgng packages that are currently installed on the host system.
    ,STRING,name,,"Package name"
    ,STRING,version,,"Package version"
    ,INT64,flatsize,,"Package size in bytes"
@@ -1768,6 +1917,7 @@ TABLE,pkg_packages
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,platform_info
+DESC,Information about EFI/UEFI/ROM and platform/boot.
    ,STRING,vendor,,"Platform code vendor"
    ,STRING,version,,"Platform code version"
    ,STRING,date,,"Self-reported platform code update date"
@@ -1779,6 +1929,7 @@ TABLE,platform_info
 TATTR,
 ------------------------------
 TABLE,plist
+DESC,Read and parse a plist file.
    ,STRING,key,,"Preference top-level key"
    ,STRING,subkey,,"Intemediate key path, includes lists/dicts"
    ,STRING,value,,"String value of most CF types"
@@ -1786,6 +1937,7 @@ TABLE,plist
 TATTR,
 ------------------------------
 TABLE,portage_keywords
+DESC,A summary about portage configurations like keywords, mask and unmask.
    ,STRING,package,,"Package name"
    ,STRING,version,,"The version which are affected by the use flags, empty means all"
    ,STRING,keyword,,"The keyword applied to the package"
@@ -1794,6 +1946,7 @@ TABLE,portage_keywords
 TATTR,
 ------------------------------
 TABLE,portage_packages
+DESC,List of currently installed packages.
    ,STRING,package,,"Package name"
    ,STRING,version,,"The version which are affected by the use flags, empty means all"
    ,STRING,slot,,"The slot used by package"
@@ -1805,12 +1958,14 @@ TABLE,portage_packages
 TATTR,
 ------------------------------
 TABLE,portage_use
+DESC,List of enabled portage USE values for specific package.
    ,STRING,package,,"Package name"
    ,STRING,version,,"The version of the installed package"
    ,STRING,use,,"USE flag which has been enabled for package"
 TATTR,
 ------------------------------
 TABLE,power_sensors
+DESC,Machine power (currents, voltages, wattages, etc) sensors.
    ,STRING,key,INDEX,"The SMC key on OS X"
    ,STRING,category,,"The sensor category: currents, voltage, wattage"
    ,STRING,name,,"Name of power source"
@@ -1818,6 +1973,7 @@ TABLE,power_sensors
 TATTR,
 ------------------------------
 TABLE,powershell_events
+DESC,Powershell script blocks reconstructed to their full script content, this table requires script block logging to be enabled.
    ,INT64,time,,"Timestamp the event was received by the osquery event publisher"
    ,STRING,datetime,,"System time at which the Powershell script event occurred"
    ,STRING,script_block_id,,"The unique GUID of the powershell script to which this block belongs"
@@ -1829,6 +1985,7 @@ TABLE,powershell_events
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,preferences
+DESC,OS X defaults and managed preferences.
    ,STRING,domain,INDEX,"Application ID usually in com.name.product format"
    ,STRING,key,INDEX,"Preference top-level key"
    ,STRING,subkey,INDEX,"Intemediate key path, includes lists/dicts"
@@ -1839,12 +1996,14 @@ TABLE,preferences
 TATTR,USER_BASED,
 ------------------------------
 TABLE,process_envs
+DESC,A key/value table of environment variables for each process.
    ,INT,pid,INDEX,"Process (or thread) ID"
    ,STRING,key,,"Environment variable name"
    ,STRING,value,,"Environment variable value"
 TATTR,
 ------------------------------
 TABLE,process_events
+DESC,Track time/action process executions.
    ,INT64,pid,,"Process (or thread) ID"
    ,STRING,path,,"Path of executed file"
    ,STRING,mode,,"File mode permissions"
@@ -1881,6 +2040,7 @@ CALIAS,btime,create_time
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,process_file_events
+DESC,A File Integrity Monitor implementation using the audit service.
    ,STRING,operation,,"Operation type"
    ,INT64,pid,,"Process ID"
    ,INT64,ppid,,"Parent process ID"
@@ -1899,6 +2059,7 @@ TABLE,process_file_events
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,process_memory_map
+DESC,Process memory mapped files and pseudo device/regions.
    ,INT,pid,INDEX,"Process (or thread) ID"
    ,STRING,start,,"Virtual start address (hex)"
    ,STRING,end,,"Virtual end address (hex)"
@@ -1911,6 +2072,7 @@ TABLE,process_memory_map
 TATTR,
 ------------------------------
 TABLE,process_namespaces
+DESC,Linux namespaces for processes running on the host system.
    ,INT,pid,INDEX,"Process (or thread) ID"
    ,STRING,cgroup_namespace,,"cgroup namespace inode"
    ,STRING,ipc_namespace,,"ipc namespace inode"
@@ -1922,12 +2084,14 @@ TABLE,process_namespaces
 TATTR,
 ------------------------------
 TABLE,process_open_files
+DESC,File descriptors for each process.
    ,INT64,pid,INDEX,"Process (or thread) ID"
    ,INT64,fd,,"Process-specific file descriptor number"
    ,STRING,path,,"Filesystem path of descriptor"
 TATTR,
 ------------------------------
 TABLE,process_open_sockets
+DESC,Processes which have open network sockets on the system.
    ,INT,pid,INDEX,"Process (or thread) ID"
    ,INT64,fd,,"Socket file descriptor number"
    ,INT64,socket,,"Socket handle or inode number"
@@ -1943,6 +2107,7 @@ TABLE,process_open_sockets
 TATTR,
 ------------------------------
 TABLE,processes
+DESC,All running processes on the host system.
    ,INT64,pid,INDEX,"Process (or thread) ID"
    ,STRING,name,,"The process path or shorthand argv[0]"
    ,STRING,path,,"Path to executed binary"
@@ -1981,6 +2146,7 @@ CALIAS,total_size,phys_footprint
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,programs
+DESC,Represents products as they are installed by Windows Installer. A product generally correlates to one installation package on Windows. Some fields may be blank as Windows installation details are left to the discretion of the product author.
 TALIAS,programs_and_features
    ,STRING,name,,"Commonly used product name."
    ,STRING,version,,"Product version information."
@@ -1994,6 +2160,7 @@ TALIAS,programs_and_features
 TATTR,
 ------------------------------
 TABLE,prometheus_metrics
+DESC,Network interfaces and relevant metadata.
    ,STRING,target_name,,"Address of prometheus target"
    ,STRING,metric_name,,"Name of collected Prometheus metric"
    ,DOUBLE,metric_value,,"Value of collected Prometheus metric"
@@ -2001,6 +2168,7 @@ TABLE,prometheus_metrics
 TATTR,
 ------------------------------
 TABLE,python_packages
+DESC,Python packages installed in a system.
    ,STRING,name,,"Package display name"
    ,STRING,version,,"Package-supplied version"
    ,STRING,summary,,"Package-supplied summary"
@@ -2011,6 +2179,7 @@ TABLE,python_packages
 TATTR,
 ------------------------------
 TABLE,quicklook_cache
+DESC,Files and thumbnails within OS X's Quicklook Cache.
    ,STRING,path,,"Path of file"
    ,INT,rowid,,"Quicklook file rowid key"
    ,STRING,fs_id,,"Quicklook file fs_id key"
@@ -2026,6 +2195,7 @@ TABLE,quicklook_cache
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,registry
+DESC,All of the Windows registry hives.
    ,STRING,key,ADDITIONAL,"Name of the key to search for"
    ,STRING,path,INDEX,"Full path to the value"
    ,STRING,name,,"Name of the registry value entry"
@@ -2035,6 +2205,7 @@ TABLE,registry
 TATTR,
 ------------------------------
 TABLE,routes
+DESC,The active route table for the host system.
    ,STRING,destination,,"Destination IP address"
    ,INT,netmask,,"Netmask length"
    ,STRING,gateway,,"Route gateway"
@@ -2048,6 +2219,7 @@ TABLE,routes
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,rpm_package_files
+DESC,RPM packages that are currently installed on the host system.
    ,STRING,package,INDEX,"RPM package name"
    ,STRING,path,,"Path name"
    ,STRING,username,,"File default username from info DB"
@@ -2058,6 +2230,7 @@ TABLE,rpm_package_files
 TATTR,
 ------------------------------
 TABLE,rpm_packages
+DESC,RPM packages that are currently installed on the host system.
    ,STRING,name,,"RPM package name"
    ,STRING,version,,"Package version"
    ,STRING,release,,"Package release"
@@ -2068,6 +2241,7 @@ TABLE,rpm_packages
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,safari_extensions
+DESC,Safari browser extension details for all users.
    ,INT64,uid,ADDITIONAL,"The local user that owns the extension"
    ,STRING,name,,"Extension display name"
    ,STRING,identifier,INDEX,"Extension identifier"
@@ -2081,6 +2255,7 @@ TABLE,safari_extensions
 TATTR,USER_BASED,
 ------------------------------
 TABLE,sandboxes
+DESC,OS X application sandboxes container details.
    ,STRING,label,,"UTI-format bundle or label ID"
    ,STRING,user,,"Sandbox owner"
    ,INT,enabled,,"Application sandboxings enabled on container"
@@ -2090,6 +2265,7 @@ TABLE,sandboxes
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,scheduled_tasks
+DESC,Lists all of the tasks in the Windows task scheduler.
    ,STRING,name,,"Name of the scheduled task"
    ,STRING,action,,"Actions executed by the scheduled task"
    ,STRING,path,,"Path to the executable to be run"
@@ -2103,6 +2279,7 @@ TABLE,scheduled_tasks
 TATTR,
 ------------------------------
 TABLE,selinux_events
+DESC,Track SELinux events.
    ,STRING,type,,"Event type"
    ,STRING,message,,"Message"
    ,INT64,time,,"Time of execution in UNIX time"
@@ -2111,6 +2288,7 @@ TABLE,selinux_events
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,services
+DESC,Lists all installed Windows services and their relevant data.
    ,STRING,name,,"Service name"
    ,STRING,service_type,,"Service Type: OWN_PROCESS, SHARE_PROCESS and maybe Interactive (can interact with the desktop)"
    ,STRING,display_name,,"Service Display name"
@@ -2126,6 +2304,7 @@ TABLE,services
 TATTR,
 ------------------------------
 TABLE,shadow
+DESC,Local system users encrypted passwords and related information. Please note, that you usually need superuser rights to access `/etc/shadow`.
    ,STRING,password_status,,"Password status"
    ,STRING,hash_alg,,"Password hashing algorithm"
    ,INT64,last_change,,"Date of last password change (starting from UNIX epoch date)"
@@ -2139,11 +2318,13 @@ TABLE,shadow
 TATTR,
 ------------------------------
 TABLE,shared_folders
+DESC,Folders available to others via SMB or AFP.
    ,STRING,name,,"The shared name of the folder as it appears to other users"
    ,STRING,path,,"Absolute path of shared folder on the local system"
 TATTR,
 ------------------------------
 TABLE,shared_memory
+DESC,OS shared memory regions.
    ,INT,shmid,,"Shared memory segment ID"
    ,INT64,owner_uid,,"User ID of owning process"
    ,INT64,creator_uid,,"User ID of creator process"
@@ -2160,6 +2341,7 @@ TABLE,shared_memory
 TATTR,
 ------------------------------
 TABLE,shared_resources
+DESC,Displays shared resources on a computer system running Windows. This may be a disk drive, printer, interprocess communication, or other sharable device.
    ,STRING,description,,"A textual description of the object"
    ,STRING,install_date,,"Indicates when the object was installed. Lack of a value does not indicate that the object is not installed."
    ,STRING,status,,"String that indicates the current status of the object."
@@ -2171,6 +2353,7 @@ TABLE,shared_resources
 TATTR,
 ------------------------------
 TABLE,sharing_preferences
+DESC,OS X Sharing preferences.
    ,INT,screen_sharing,,"1 If screen sharing is enabled else 0"
    ,INT,file_sharing,,"1 If file sharing is enabled else 0"
    ,INT,printer_sharing,,"1 If printer sharing is enabled else 0"
@@ -2184,6 +2367,7 @@ TABLE,sharing_preferences
 TATTR,
 ------------------------------
 TABLE,shell_history
+DESC,A line-delimited (command) table of per-user .*_history data.
    ,INT64,uid,ADDITIONAL,"Shell history owner"
    ,INT,time,,"Entry timestamp. It could be absent, default value is 0."
    ,STRING,command,,"Unparsed date/line/command history line"
@@ -2191,6 +2375,7 @@ TABLE,shell_history
 TATTR,USER_BASED,
 ------------------------------
 TABLE,signature
+DESC,File (executable, bundle, installer, disk) code signing status.
    ,STRING,path,REQUIRED,"Must provide a path or directory"
    ,INT,hash_resources,,"Set to 1 to also hash resources, or 0 otherwise. Default is 1"
    ,STRING,arch,,"If applicable, the arch of the signed code"
@@ -2202,12 +2387,14 @@ TABLE,signature
 TATTR,
 ------------------------------
 TABLE,sip_config
+DESC,Apple's System Integrity Protection (rootless) status.
    ,STRING,config_flag,,"The System Integrity Protection config flag"
    ,INT,enabled,,"1 if this configuration is enabled, otherwise 0"
    ,INT,enabled_nvram,,"1 if this configuration is enabled, otherwise 0"
 TATTR,
 ------------------------------
 TABLE,smart_drive_info
+DESC,Drive information read by SMART controller utilizing autodetect.
    ,STRING,device_name,INDEX,"Name of block device"
    ,INT,disk_id,,"Physical slot number of device, only exists when hardware storage controller exists"
    ,STRING,driver_type,,"The explicit device type used to retrieve the SMART information"
@@ -2234,6 +2421,7 @@ TABLE,smart_drive_info
 TATTR,
 ------------------------------
 TABLE,smbios_tables
+DESC,BIOS (DMI) structure common details and content.
    ,INT,number,,"Table entry number"
    ,INT,type,,"Table entry type"
    ,STRING,description,,"Table entry description"
@@ -2244,6 +2432,7 @@ TABLE,smbios_tables
 TATTR,
 ------------------------------
 TABLE,smc_keys
+DESC,Apple's system management controller keys.
    ,STRING,key,INDEX | ADDITIONAL,"4-character key"
    ,STRING,type,,"SMC-reported type literal type"
    ,INT,size,,"Reported size of data in bytes"
@@ -2252,6 +2441,7 @@ TABLE,smc_keys
 TATTR,
 ------------------------------
 TABLE,socket_events
+DESC,Track network socket opens and closes.
    ,STRING,action,,"The socket action (bind, listen, close)"
    ,INT64,pid,,"Process (or thread) ID"
    ,STRING,path,,"Path of executed file"
@@ -2271,6 +2461,7 @@ TABLE,socket_events
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,ssh_configs
+DESC,A table of parsed ssh_configs.
    ,INT64,uid,ADDITIONAL,"The local owner of the ssh_config file"
    ,STRING,block,,"The host or match block"
    ,STRING,option,INDEX,"The option and value"
@@ -2278,6 +2469,7 @@ TABLE,ssh_configs
 TATTR,USER_BASED,
 ------------------------------
 TABLE,startup_items
+DESC,Applications and binaries set as user/login startup items.
    ,STRING,name,,"Name of startup item"
    ,STRING,path,,"Path of startup item"
    ,STRING,args,,"Arguments provided to startup executable"
@@ -2288,11 +2480,13 @@ TABLE,startup_items
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,sudoers
+DESC,Rules for running commands as other users via sudo.
    ,STRING,header,,"Symbol for given rule"
    ,STRING,rule_details,,"Rule definition"
 TATTR,
 ------------------------------
 TABLE,suid_bin
+DESC,suid binaries in common locations.
    ,STRING,path,,"Binary path"
    ,STRING,username,,"Binary owner username"
    ,STRING,groupname,,"Binary owner group"
@@ -2300,6 +2494,7 @@ TABLE,suid_bin
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,syslog_events
+DESC,
 TALIAS,syslog
    ,INT64,time,,"Current unix epoch time"
    ,STRING,datetime,,"Time known to syslog"
@@ -2312,6 +2507,7 @@ TALIAS,syslog
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,system_controls
+DESC,sysctl names, values, and settings information.
    ,STRING,name,INDEX,"Full sysctl MIB name"
    ,STRING,oid,ADDITIONAL,"Control MIB"
    ,STRING,subsystem,,"Subsystem ID, control type"
@@ -2322,6 +2518,7 @@ TABLE,system_controls
 TATTR,
 ------------------------------
 TABLE,system_info
+DESC,System information for identification.
    ,STRING,hostname,,"Network hostname including domain"
    ,STRING,uuid,,"Unique ID provided by the system"
    ,STRING,cpu_type,,"CPU type"
@@ -2340,6 +2537,7 @@ TABLE,system_info
 TATTR,
 ------------------------------
 TABLE,temperature_sensors
+DESC,Machine's temperature sensors.
    ,STRING,key,INDEX,"The SMC key on OS X"
    ,STRING,name,,"Name of temperature source"
    ,DOUBLE,celsius,,"Temperature in Celsius"
@@ -2347,6 +2545,7 @@ TABLE,temperature_sensors
 TATTR,
 ------------------------------
 TABLE,time
+DESC,Track current date and time in the system.
    ,STRING,weekday,,"Current weekday in the system"
    ,INT,year,,"Current year in the system"
    ,INT,month,,"Current month in the system"
@@ -2367,11 +2566,13 @@ CALIAS,datetime,date_time
 TATTR,UTILITY,
 ------------------------------
 TABLE,time_machine_backups
+DESC,Backups to drives using TimeMachine.
    ,STRING,destination_id,,"Time Machine destination ID"
    ,INT,backup_date,,"Backup Date"
 TATTR,
 ------------------------------
 TABLE,time_machine_destinations
+DESC,Locations backed up to using Time Machine.
    ,STRING,alias,,"Human readable name of drive"
    ,STRING,destination_id,,"Time Machine destination ID"
    ,INT,consistency_scan_date,,"Consistency scan date"
@@ -2382,12 +2583,14 @@ TABLE,time_machine_destinations
 TATTR,
 ------------------------------
 TABLE,ulimit_info
+DESC,System resource usage limits.
    ,STRING,type,,"System resource to be limited"
    ,STRING,soft_limit,,"Current limit value"
    ,STRING,hard_limit,,"Maximum limit value"
 TATTR,
 ------------------------------
 TABLE,uptime
+DESC,Track time passed since last boot.
    ,INT,days,,"Days of uptime"
    ,INT,hours,,"Hours of uptime"
    ,INT,minutes,,"Minutes of uptime"
@@ -2396,6 +2599,7 @@ TABLE,uptime
 TATTR,
 ------------------------------
 TABLE,usb_devices
+DESC,USB devices that are actively plugged into the host system.
    ,INT,usb_address,,"USB Device used address"
    ,INT,usb_port,,"USB Device used port"
    ,STRING,vendor,,"USB Device vendor string"
@@ -2411,6 +2615,7 @@ TABLE,usb_devices
 TATTR,
 ------------------------------
 TABLE,user_events
+DESC,Track user events from the audit framework.
    ,INT64,uid,,"User ID"
    ,INT64,auid,,"Audit User ID"
    ,INT64,pid,,"Process (or thread) ID"
@@ -2425,21 +2630,25 @@ TABLE,user_events
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,user_groups
+DESC,Local system user group relationships.
    ,INT64,uid,INDEX,"User ID"
    ,INT64,gid,INDEX,"Group ID"
 TATTR,
 ------------------------------
 TABLE,user_interaction_events
+DESC,Track user interaction events from macOS' event tapping framework.
    ,INT64,time,,"Time"
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,user_ssh_keys
+DESC,Returns the private keys in the users ~/.ssh directory and whether or not they are encrypted.
    ,INT64,uid,ADDITIONAL,"The local user that owns the key file"
    ,STRING,path,INDEX,"Path to key file"
    ,INT,encrypted,,"1 if key is encrypted, 0 otherwise"
 TATTR,USER_BASED,
 ------------------------------
 TABLE,users
+DESC,Local user accounts (including domain accounts that have logged on locally (Windows)).
    ,INT64,uid,INDEX,"User ID"
    ,INT64,gid,,"Group ID (unsigned)"
    ,INT64,uid_signed,,"User ID as int64 signed (Apple)"
@@ -2453,6 +2662,7 @@ TABLE,users
 TATTR,
 ------------------------------
 TABLE,video_info
+DESC,Retrieve video card information of the machine.
    ,INT,color_depth,,"The amount of bits per pixel to represent color."
    ,STRING,driver,,"The driver of the device."
    ,STRING,driver_date,,"The date listed on the installed driver."
@@ -2464,6 +2674,7 @@ TABLE,video_info
 TATTR,
 ------------------------------
 TABLE,virtual_memory_info
+DESC,Darwin Virtual Memory statistics.
    ,INT64,free,,"Total number of free pages."
    ,INT64,active,,"Total number of active pages."
    ,INT64,inactive,,"Total number of inactive pages."
@@ -2489,6 +2700,7 @@ TABLE,virtual_memory_info
 TATTR,
 ------------------------------
 TABLE,wifi_networks
+DESC,OS X known/remembered Wi-Fi networks list.
    ,STRING,ssid,,"SSID octets of the network"
    ,STRING,network_name,,"Name of the network"
    ,STRING,security_type,,"Type of security on this network"
@@ -2504,6 +2716,7 @@ TABLE,wifi_networks
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,wifi_survey
+DESC,Scan for nearby WiFi networks.
    ,STRING,interface,,"Name of the interface"
    ,STRING,ssid,,"SSID octets of the network"
    ,STRING,bssid,,"The current basic service set identifier"
@@ -2517,6 +2730,7 @@ TABLE,wifi_survey
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,wifi_status
+DESC,OS X current WiFi status.
    ,STRING,interface,,"Name of the interface"
    ,STRING,ssid,,"SSID octets of the network"
    ,STRING,bssid,,"The current basic service set identifier"
@@ -2533,12 +2747,14 @@ TABLE,wifi_status
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,winbaseobj
+DESC,Lists named Windows objects in the default object directories, across all terminal services sessions.
    ,INT,session_id,INDEX,"Terminal Services Session Id"
    ,STRING,object_name,INDEX,"Object Name"
    ,STRING,object_type,,"Object Type"
 TATTR,
 ------------------------------
 TABLE,windows_crashes
+DESC,Extracted information from Windows crash logs (Minidumps).
    ,STRING,datetime,,"Timestamp (log format) of the crash"
    ,STRING,module,,"Path of the crashed module within the process"
    ,STRING,path,,"Path of the executable file for the crashed process"
@@ -2563,6 +2779,7 @@ TABLE,windows_crashes
 TATTR,
 ------------------------------
 TABLE,windows_events
+DESC,Windows Event logs.
    ,INT64,time,,"Timestamp the event was received"
    ,STRING,datetime,,"System time at which the event occurred"
    ,STRING,source,,"Source or channel of the event"
@@ -2577,11 +2794,13 @@ TABLE,windows_events
 TATTR,EVENT_BASED,
 ------------------------------
 TABLE,wmi_bios_info
+DESC,Lists important information from the system bios.
    ,STRING,name,,"Name of the Bios setting"
    ,STRING,value,,"Value of the Bios setting"
 TATTR,
 ------------------------------
 TABLE,wmi_cli_event_consumers
+DESC,WMI CommandLineEventConsumer, which can be used for persistance on Windows. See https://www.blackhat.com/docs/us-15/materials/us-15-Graeber-Abusing-Windows-Management-Instrumentation-WMI-To-Build-A-Persistent%20Asynchronous-And-Fileless-Backdoor-wp.pdf for more details.
    ,STRING,name,,"Unique name of a consumer."
    ,STRING,command_line_template,,"Standard string template that specifies the process to be started. This property can be NULL, and the ExecutablePath property is used as the command line."
    ,STRING,executable_path,,"Module to execute. The string can specify the full path and file name of the module to execute, or it can specify a partial name. If a partial name is specified, the current drive and current directory are assumed."
@@ -2590,6 +2809,7 @@ TABLE,wmi_cli_event_consumers
 TATTR,
 ------------------------------
 TABLE,wmi_event_filters
+DESC,Lists WMI event filters.
    ,STRING,name,,"Unique identifier of an event filter."
    ,STRING,query,,"Windows Management Instrumentation Query Language (WQL) event query that specifies the set of events for consumer notification, and the specific conditions for notification."
    ,STRING,query_language,,"Query language that the query is written in."
@@ -2598,6 +2818,7 @@ TABLE,wmi_event_filters
 TATTR,
 ------------------------------
 TABLE,wmi_filter_consumer_binding
+DESC,Lists the relationship between event consumers and filters.
    ,STRING,consumer,,"Reference to an instance of __EventConsumer that represents the object path to a logical consumer, the recipient of an event."
    ,STRING,filter,,"Reference to an instance of __EventFilter that represents the object path to an event filter which is a query that specifies the type of event to be received."
    ,STRING,class,,"The name of the class."
@@ -2605,6 +2826,7 @@ TABLE,wmi_filter_consumer_binding
 TATTR,
 ------------------------------
 TABLE,wmi_script_event_consumers
+DESC,WMI ActiveScriptEventConsumer, which can be used for persistance on Windows. See https://www.blackhat.com/docs/us-15/materials/us-15-Graeber-Abusing-Windows-Management-Instrumentation-WMI-To-Build-A-Persistent%20Asynchronous-And-Fileless-Backdoor-wp.pdf for more details.
    ,STRING,name,,"Unique identifier for the event consumer. "
    ,STRING,scripting_engine,,"Name of the scripting engine to use, for example, 'VBScript'. This property cannot be NULL."
    ,STRING,script_file_name,,"Name of the file from which the script text is read, intended as an alternative to specifying the text of the script in the ScriptText property."
@@ -2614,6 +2836,7 @@ TABLE,wmi_script_event_consumers
 TATTR,
 ------------------------------
 TABLE,xprotect_entries
+DESC,Database of the machine's XProtect signatures.
    ,STRING,name,,"Description of XProtected malware"
    ,STRING,launch_type,,"Launch services content type"
    ,STRING,identity,,"XProtect identity (SHA1) of content"
@@ -2624,6 +2847,7 @@ TABLE,xprotect_entries
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,xprotect_meta
+DESC,Database of the machine's XProtect browser-related signatures.
    ,STRING,identifier,,"Browser plugin or extension identifier"
    ,STRING,type,,"Either plugin or extension"
    ,STRING,developer_id,,"Developer identity (SHA1) of extension"
@@ -2631,12 +2855,14 @@ TABLE,xprotect_meta
 TATTR,CACHEABLE,
 ------------------------------
 TABLE,xprotect_reports
+DESC,Database of XProtect matches (if user generated/sent an XProtect report).
    ,STRING,name,,"Description of XProtected malware"
    ,STRING,user_action,,"Action taken by user after prompted"
    ,STRING,time,,"Quarantine alert time"
 TATTR,
 ------------------------------
 TABLE,yara
+DESC,Track YARA matches for files or PIDs.
    ,STRING,path,INDEX | REQUIRED,"The path scanned"
    ,STRING,matches,INDEX,"List of YARA matches"
    ,INT,count,,"Number of YARA matches"
@@ -2648,6 +2874,7 @@ TABLE,yara
 TATTR,
 ------------------------------
 TABLE,yara_events
+DESC,Track YARA matches for files specified in configuration data.
    ,STRING,target_path,,"The path scanned"
    ,STRING,category,,"The category of the file"
    ,STRING,action,,"Change action (UPDATE, REMOVE, etc)"

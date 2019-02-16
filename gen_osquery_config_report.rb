@@ -1,10 +1,9 @@
 #!/usr/bin/ruby
 
 require 'json'
-#require 'ostruct'
 require 'digest'
-#require 'open3'
 require 'fileutils'
+require 'date'
 
 class Checker
   attr_accessor :queries, :packs, :options, :errors, :warnings, :details
@@ -275,23 +274,141 @@ class Checker
   end
 end
 
-def copy_unless_exists(name)
+def copy_unless_exists(name, destdir)
   src = "./pages/_#{name}"
-  dest = "./out/#{name}"
+  dest = "./out/#{destdir}/#{name}"
 
   return if File.exists?(dest)
 
   FileUtils.cp(src, dest)
 end
 
-checker = Checker.new
+def write_stats_js checker, destdir
+  File.open("./out/#{destdir}/stats.js",'w') do |f|
+    f.puts "var interval_stats=#{JSON.generate checker.interval_stats};"
+    f.puts "var interval_stats_events=#{JSON.generate checker.interval_stats_events};"
+    f.puts "var stats_profile=#{JSON.generate checker.stat_profile};"
+    f.puts "var table_queries=#{JSON.generate checker.table_queries};"
+    f.puts "var config_sources=#{JSON.generate checker.config_files};" # remove: only one per dir now
+    f.puts "var platforms=#{JSON.generate checker.platforms};"
+  end
+end
 
-`mkdir -p ./out/c/`
-`mkdir -p ./out/usage/` # queries_for_<interval>.htm and table_usage_<table_name>.htm
+def write_stats_cache checker, destdir
+  `mkdir ./cache` unless Dir.exists?('./cache')
+  File.open("./cache/#{destdir}_data.json",'w') do |f|
+    obj = { interval_stats: checker.interval_stats,
+      interval_stats_events: checker.interval_stats_events,
+      stat_profile: checker.stat_profile,
+      table_queries: checker.table_queries,
+      platforms: checker.platforms, details: checker.details }
+    f.puts JSON.generate obj
+  end
+end
 
+def read_stats_cache checker, destdir
+  data = JSON.parse("./cache/#{destdir}/_data.json")
+  return true if data.nil? || data.details.nil? || data.details.empty?
+
+  checker.details = data.details
+  checker.interval_stats = data.interval_stats
+  checker.interval_stats_events = data.interval_stats_events
+  checker.stat_profile = data.stat_profile
+  checker.table_queries = data.table_queries
+  checker.platforms = data.platforms
+
+  return false
+end
+
+def write_query_detail name, detail, destdir
+  File.open("./out/#{destdir}/q/#{name}.htm",'w') do |f|
+    f.puts "<html><head><title>Query : #{name}</title>"
+    f.puts "  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>"
+    f.puts "  <script src='../querydetail.js' type='text/javascript'></script>"
+    f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
+    f.puts "</head><body>"
+
+    f.puts "<div><b>Name</b>:#{name}<BR><b>Interval</b>:#{detail['interval']}<BR></div>"
+
+    unless detail['columns'].nil?
+      f.puts "<h4>Columns:</h4>"
+
+      f.puts "<table class='greyGridTable' style='margin:10px'><tr><th>Column Label</th><th>Source</th><th>Type</th><th>Notes</th></tr>"
+      detail['columns'].each do |col|
+        source_name = ""
+        unless col['source_column'].nil?
+          source_name = col['source_table'] + "." + col['source_column']
+        end
+        f.puts "<tr><td><B>#{col['label']}</B></td><td>#{source_name}</td><td>#{col['type']}</td><td>#{col['notes']}</td></tr>"
+      end
+      f.puts "</table>"
+    end
+
+
+    unless detail['sql_htm'].nil?
+      f.puts "<h4>SQL:</h4>"
+      f.puts "<div class=\"stmt\" style='display:inline-block;padding:5px;border:1px solid #AAA'>#{detail['sql_htm']}</div>"
+    else
+      f.puts "<HR>"
+    end
+
+    f.puts "<h4>Raw SQL:</h4>"
+    f.puts "<div class='stmt'>#{detail['sql_raw']}</div>"
+
+    f.puts "</div></html>"
+  end
+end
+
+def write_queries_per_interval interval_stats, destdir
+  # queries per interval
+  interval_stats.each do |interval, items|
+    File.open("out/#{destdir}/usage/queries_for_#{interval}.htm",'w') do |f|
+      f.puts "<html><head><title>Queries for Interval #{interval}</title>"
+      f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
+      f.puts "</head><body>"
+
+      f.puts "<div><b>Interval</b>:#{interval}<BR></div>"
+
+      names = []
+
+      items.each do |item|
+        names.push item[:name]
+      end
+      names.sort!
+      names.each do |name|
+        f.puts "<div><a href='../q/#{name}.htm'>#{name}</a></div>"
+      end
+      f.puts "</body></html>"
+    end
+  end
+end
+
+def write_queries_per_table table_queries, destdir
+  # table_name => { queries: [], joins: []}
+  table_queries.each do |table_name, obj|
+    File.open("out/#{destdir}/usage/table_usage_#{table_name}.htm",'w') do |f|
+      f.puts "<html><head><title>Table Usage: #{table_name}</title>"
+      f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
+      f.puts "</head><body>"
+
+      f.puts "<div><b>Table</b>:#{table_name}<BR></div>"
+
+      obj[:queries].each do |query_name|
+        f.puts "<div><a href='../q/#{query_name}.htm'>#{query_name}</a></div>"
+      end
+      f.puts "</body></html>"
+    end
+  end
+end
+
+flag_use_cached_stats = false
+dirs = []
 ARGV.each do |filepath|
 
   File.open(filepath) do |f|
+
+    checker = Checker.new
+    destdir="placeholder"
 
     if filepath.end_with?('.flags')
       checker.load_flags f.readlines
@@ -308,124 +425,73 @@ ARGV.each do |filepath|
     # write out config file in JSON pretty format
 
     filename = File.basename filepath
+    destdir = filename.gsub ".*",""
+    dirs.push destdir
+
+    `mkdir -p ./out/#{destdir}/c/`
+    `mkdir -p ./out/#{destdir}/usage/` # queries_for_<interval>.htm and table_usage_<table_name>.htm
+
     checker.config_files.push filename
-    File.open("out/c/#{filename}",'w') do |f|
-      f.puts JSON.pretty_generate obj
+
+    if flag_use_cached_stats
+      if read_stats_cache checker, destdir
+        STDERR.puts "ERROR loading stats cache for #{destdir}"
+        exit 3
+      end
+    else
+      File.open("out/#{destdir}/c/#{filename}",'w') do |f|
+        f.puts JSON.pretty_generate obj
+      end
+
+      checker.load_options(obj['options'])
+
+      _default_interval = @options['interval'] rescue 3600
+
+      checker.load_sched(obj['queries'])
+      checker.load_sched(obj['schedule'])
+      checker.load_packs(obj['packs'])
+
+      checker.build_interval_stats
+      checker.stat_profile[:names].sort!
+
+      # details, interval_stats, table_queries, stat_profile
+      write_stats_cache checker, destdir
     end
 
-    checker.load_options(obj['options'])
+    write_stats_js checker, destdir
 
-    _default_interval = @options['interval'] rescue 3600
+    # dump out a file for each query - pretty printed details
 
-    checker.load_sched(obj['queries'])
-    checker.load_sched(obj['schedule'])
-    checker.load_packs(obj['packs'])
+    `mkdir -p "./out/#{destdir}/q/"`
 
+    checker.details.each do |name, detail|
+      write_query_detail name, detail, destdir
+    end
+
+    # copy files - if_exists allows for using symlinks in development
+
+    copy_unless_exists('interval_summary.js', destdir)
+    copy_unless_exists('index.html', destdir)
+    copy_unless_exists('style.css', destdir)
+    copy_unless_exists('querydetail.js', destdir)
+
+    write_queries_per_interval checker.interval_stats, destdir
+    write_queries_per_table checker.table_queries, destdir
+
+  end # end file
+end # each file
+
+# write index.html with links to each config file processed
+
+File.open("./out/index.html",'w') do |f|
+  f.puts "<html><style type='text/css'>"
+  f.puts "body{font-size:12pt;} a:any-link { color:black; text-decoration: none; }"
+  f.puts "a:hover {      color:blue;      text-decoration: underline;    }"
+  f.puts "</style><body>"
+  f.puts "Date: #{Time.now.strftime("%Y-%m-%d %H:%M:%S")}"
+  f.puts "<ul>"
+  dirs.each do |destdir|
+    f.puts "<li><a href='#{destdir}/index.html'>#{destdir}</a>"
   end
+  f.puts "</ul></body></html>"
 end
-
-
-
-  checker.build_interval_stats
-
-  checker.stat_profile[:names].sort!
-
-  File.open('out/stats.js','w') do |f|
-    f.puts "var interval_stats=#{JSON.generate checker.interval_stats};"
-    f.puts "var interval_stats_events=#{JSON.generate checker.interval_stats_events};"
-    f.puts "var stats_profile=#{JSON.generate checker.stat_profile};"
-    f.puts "var table_queries=#{JSON.generate checker.table_queries};"
-    f.puts "var config_sources=#{JSON.generate checker.config_files};"
-    f.puts "var platforms=#{JSON.generate checker.platforms};"
-  end
-
-  # dump out a file for each query - pretty printed details
-
-  #Dir.mkdir('./q/');
-  `mkdir -p ./out/q/`
-
-  checker.details.each do |name, detail|
-    File.open("out/q/#{name}.htm",'w') do |f|
-      f.puts "<html><head><title>Query : #{name}</title>"
-      f.puts "  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>"
-      f.puts "  <script src='../querydetail.js' type='text/javascript'></script>"
-      f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
-      f.puts "</head><body>"
-
-      f.puts "<div><b>Name</b>:#{name}<BR><b>Interval</b>:#{detail['interval']}<BR></div>"
-
-      unless detail['columns'].nil?
-        f.puts "<h4>Columns:</h4>"
-
-        f.puts "<table class='greyGridTable' style='margin:10px'><tr><th>Column Label</th><th>Source</th><th>Type</th><th>Notes</th></tr>"
-        detail['columns'].each do |col|
-          source_name = ""
-          unless col['source_column'].nil?
-            source_name = col['source_table'] + "." + col['source_column']
-          end
-          f.puts "<tr><td><B>#{col['label']}</B></td><td>#{source_name}</td><td>#{col['type']}</td><td>#{col['notes']}</td></tr>"
-        end
-        f.puts "</table>"
-      end
-
-
-      unless detail['sql_htm'].nil?
-        f.puts "<h4>SQL:</h4>"
-        f.puts "<div class=\"stmt\" style='display:inline-block;padding:5px;border:1px solid #AAA'>#{detail['sql_htm']}</div>"
-      else
-        f.puts "<HR>"
-      end
-
-      f.puts "<h4>Raw SQL:</h4>"
-      f.puts "<div class='stmt'>#{detail['sql_raw']}</div>"
-
-      f.puts "</div></html>"
-    end
-
-    # TODO: copy if not exists
-    copy_unless_exists('interval_summary.js')
-    copy_unless_exists('intervals.html')
-    copy_unless_exists('style.css')
-
-    # queries per interval
-    checker.interval_stats.each do |interval, items|
-      File.open("out/usage/queries_for_#{interval}.htm",'w') do |f|
-        f.puts "<html><head><title>Queries for Interval #{interval}</title>"
-        f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
-        f.puts "</head><body>"
-
-        f.puts "<div><b>Interval</b>:#{interval}<BR></div>"
-
-        names = []
-
-        items.each do |item|
-          names.push item[:name]
-        end
-        names.sort!
-        names.each do |name|
-          f.puts "<div><a href='../q/#{name}.htm'>#{name}</a></div>"
-        end
-        f.puts "</body></html>"
-      end
-    end
-
-    # queries per table
-    # table_name => { queries: [], joins: []}
-    checker.table_queries.each do |table_name, obj|
-      File.open("out/usage/table_usage_#{table_name}.htm",'w') do |f|
-        f.puts "<html><head><title>Table Usage: #{table_name}</title>"
-        f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
-        f.puts "</head><body>"
-
-        f.puts "<div><b>Table</b>:#{table_name}<BR></div>"
-
-        obj[:queries].each do |query_name|
-          f.puts "<div><a href='../q/#{query_name}.htm'>#{query_name}</a></div>"
-        end
-        f.puts "</body></html>"
-      end
-    end
-
-  end
-
-#checker.report

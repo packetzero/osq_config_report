@@ -57,7 +57,9 @@ table.greyGridTable th {
 table.greyGridTable thead th:first-child {
   border-left: none;
 }
-
+div {
+  text-align:left;
+}
 div.stmt {
   font-family: monospace;
   font-size: 0.9em;
@@ -77,8 +79,15 @@ div.function {
 div.tableref {
   display: inline-block;
   font-weight: bold;
-  color: #663333;
+  color: royalblue;
   clear: none;
+  xxborder-radius: 3px;
+  xxborder:1px dotted #000099;
+  background-color: #FFF;
+  padding-left:3px;
+  padding-right:3px;
+  margin-left:2px;
+  margin-right:2px;
 }
 div.op {
   display: inline-block;
