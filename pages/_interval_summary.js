@@ -136,12 +136,17 @@ function compare_num_desc(a,b) {
   return b.num - a.num;
 }
 
+function query_name_to_filename(name)
+{
+  return name.replace('/','_');
+}
+
 function renderProfileStats(profile_stats)
 {
   var s='';
   for (var i=0; i < profile_stats['names'].length; i++) {
     var name = profile_stats['names'][i];
-    s += "<a href='./q/" + name + ".htm'>" + name + "</a><BR>";
+    s += "<a href='./q/" + query_name_to_filename(name) + ".htm'>" + name + "</a><BR>";
   }
   jQuery('div.DivQueries').append(s);
 

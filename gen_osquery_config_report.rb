@@ -320,8 +320,17 @@ def read_stats_cache checker, destdir
   return false
 end
 
+#-------------------------------------------------------------------
+# remove any path separators from query name
+#-------------------------------------------------------------------
+def query_name_to_filename(query_name)
+  return query_name.chomp().gsub('/','_').gsub("\\",'_')
+end
+
+#-------------------------------------------------------------------
+#-------------------------------------------------------------------
 def write_query_detail name, detail, destdir
-  File.open("./out/#{destdir}/q/#{name}.htm",'w') do |f|
+  File.open("./out/#{destdir}/q/#{query_name_to_filename name}.htm",'w') do |f|
     f.puts "<html><head><title>Query : #{name}</title>"
     f.puts "  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>"
     f.puts "  <script src='../querydetail.js' type='text/javascript'></script>"
@@ -376,7 +385,7 @@ def write_queries_per_interval interval_stats, destdir
       end
       names.sort!
       names.each do |name|
-        f.puts "<div><a href='../q/#{name}.htm'>#{name}</a></div>"
+        f.puts "<div><a href='../q/#{query_name_to_filename name}.htm'>#{name}</a></div>"
       end
       f.puts "</body></html>"
     end
@@ -394,11 +403,24 @@ def write_queries_per_table table_queries, destdir
       f.puts "<div><b>Table</b>:#{table_name}<BR></div>"
 
       obj[:queries].each do |query_name|
-        f.puts "<div><a href='../q/#{query_name}.htm'>#{query_name}</a></div>"
+        f.puts "<div><a href='../q/#{query_name_to_filename query_name}.htm'>#{query_name}</a></div>"
       end
       f.puts "</body></html>"
     end
   end
+end
+
+# Some of the pack conf files have invalid JSON
+# with line-continuation backslash line-endings.
+# This function will remove the backslashes and
+# join the two lines.
+# Example input we are targetting:
+#
+#      "query" : "select * from launchd where \
+#        name = 'com.apple.machook_damon.plist' OR \
+#        name = 'com.apple.periodic-dd-mm-yy.plist';",
+def remove_line_continuations(raw_json)
+  return raw_json.gsub("\\\n", "")
 end
 
 flag_use_cached_stats = false
@@ -415,7 +437,7 @@ ARGV.each do |filepath|
       next
     end
 
-    obj = JSON.parse(f.read)
+    obj = JSON.parse(remove_line_continuations f.read)
     if obj.nil?
       STDERR.puts "ERROR reading file:#{filepath}"
       next
