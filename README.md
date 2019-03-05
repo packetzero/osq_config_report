@@ -6,19 +6,19 @@ Generates static HTML report about config queries.
 - See how many queries are run at which intervals
 - See which tables are used
 - Click to see details of each query
-- Prettysql view of each query
+- Prettysql view of each query, along with [data/schema](./data/schema_3.3.1.csv) linkage for fields and tables
 
 ## Advisory:
 
-Uses prettysql, which currently has the following known issues:
- - does not support full SQL such as 'case', 'union'.
- - can't determine field table is field is a subquery
+Uses prettysql, which depends on [simplesql](https://github.com/packetzero/simplesql), which currently has the following known issues:
+ - does not support some SQL syntax, such as 'case', 'union'.
+ - can't determine field's table is field is a subquery
  - Gets some indentation wrong, such as FROM,WHERE for embedded SELECT
 
 ## Dependencies
 
 - ruby
-- [prettysql](https://github.com/packetzero/prettysql) compiled binary in ./bin/
+- [prettysql](https://github.com/packetzero/prettysql) compiled binary
 
 
 ## Example Detail Page
@@ -29,10 +29,18 @@ This example shows an error in simplesql formatting, where the embedded SELECT F
 
 ![](doc/ssExampleIntervalChart.png)
 
+## Docker
+
+It's easiest to run in a docker container.  The docker file will download and compile dependencies, run gen_osq_config_report.sh of each file in the directory, and serve them up in a web browser on port 8000.
+```
+./run_in_docker.sh /path/to/osquery/config/files
+```
+The output files are now in ./out directory.  To view files, open browser to http://localhost:8000/ .
+
 ## Usage
 
 ```
-ruby gen_osquery_config_report.rb ~/osquery/packs/*
+ruby gen_osq_config_report.rb ~/osquery/packs/*
 ```
 
 You will see output of each file and query processed:

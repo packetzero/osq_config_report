@@ -2,3 +2,4 @@
 /bin
 /dist
 /cache
+.DS_Store
