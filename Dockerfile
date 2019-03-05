@@ -17,7 +17,7 @@ RUN git clone https://github.com/packetzero/prettysql.git \
 
 # copy this repo files into /src
 # specify -v on command-line to override
-COPY ./* /src
+COPY ./* /src/
 VOLUME /src
 
 # user config files in /osq_configs
@@ -25,6 +25,6 @@ VOLUME /src
 RUN mkdir -p /osq_configs
 VOLUME /osq_configs
 
-ENTRYPOINT ["/src/docker_entrypoint.sh"]
-
 EXPOSE 8000
+
+ENTRYPOINT ["/bin/bash", "/src/docker_entrypoint.sh"]
