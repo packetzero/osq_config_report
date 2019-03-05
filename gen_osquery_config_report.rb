@@ -100,7 +100,7 @@ class Checker
     #@details[name] = { name: name, sql_raw: sql }
     STDERR.puts "analyzing #{name}"
 
-    cmd="./bin/sqlfmt -s ./data/schema_3.3.1.csv -j \"#{sql}\""
+    cmd="./bin/prettysql -s ./data/schema_3.3.1.csv -j \"#{sql}\""
     ##puts "CMD:#{cmd}"
     tmp=`#{cmd}` ### `./bin/sqlfmt -s ./data/schema_3.3.1.csv -j "#{sql}"`
     ##puts "tmp:#{tmp}"
