@@ -115,6 +115,7 @@ class Checker
       result['name'] = name
       result['interval'] = interval
       result['platform'] = obj['platform']
+      result['sql_raw'] = sql
       @details[name] = result
 
       return
@@ -329,7 +330,7 @@ end
 
 #-------------------------------------------------------------------
 #-------------------------------------------------------------------
-def write_query_detail name, detail, destdir
+def write_query_detail name, detail, destdir, config_file_name
   File.open("./out/#{destdir}/q/#{query_name_to_filename name}.htm",'w') do |f|
     f.puts "<html><head><title>Query : #{name}</title>"
     f.puts "  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>"
@@ -337,7 +338,7 @@ def write_query_detail name, detail, destdir
     f.puts "<link href=\"../style.css\" rel=\"stylesheet\" type=\"text/css\" />"
     f.puts "</head><body>"
 
-    f.puts "<div><b>Name</b>:#{name}<BR><b>Interval</b>:#{detail['interval']}<BR></div>"
+    f.puts "<div><b>Name</b>:#{name}<BR><b>Config</b>:#{config_file_name}<BR><b>Interval</b>:#{detail['interval']}<BR></div>"
 
     unless detail['columns'].nil?
       f.puts "<h4>Columns:</h4>"
@@ -487,7 +488,7 @@ ARGV.each do |filepath|
     `mkdir -p "./out/#{destdir}/q/"`
 
     checker.details.each do |name, detail|
-      write_query_detail name, detail, destdir
+      write_query_detail name, detail, destdir, filename
     end
 
     # copy files - if_exists allows for using symlinks in development
