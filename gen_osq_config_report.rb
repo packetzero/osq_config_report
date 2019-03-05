@@ -24,6 +24,9 @@ class Checker
     @interval_stats_events = {}
     @stat_profile = { names:[], tables: {}, joins: {}, platforms:[], events_tables: {} }
 
+    @prettycmd = "/usr/local/bin/prettysql"
+    @prettycmd = "./bin/prettysql" if File.exists? "./bin/prettysql"
+
   end
 
   #-------------------------------------------------------------
@@ -100,7 +103,7 @@ class Checker
     #@details[name] = { name: name, sql_raw: sql }
     STDERR.puts "analyzing #{name}"
 
-    cmd="./bin/prettysql -s ./data/schema_3.3.1.csv -j \"#{sql}\""
+    cmd="#{@prettycmd} -s ./data/schema_3.3.1.csv -j \"#{sql}\""
     ##puts "CMD:#{cmd}"
     tmp=`#{cmd}` ### `./bin/sqlfmt -s ./data/schema_3.3.1.csv -j "#{sql}"`
     ##puts "tmp:#{tmp}"
